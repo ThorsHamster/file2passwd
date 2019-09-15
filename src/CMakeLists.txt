@@ -1,7 +1,10 @@
 
-list(APPEND my_SOURCES
+list(APPEND SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/main.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/main.h
 )
 
-add_executable(file2passwd ${my_SOURCES})
+list(APPEND HEADERS
+    ${CMAKE_CURRENT_LIST_DIR}/main.hpp
+)
+
+add_executable(file2passwd ${SOURCES} ${HEADERS})
