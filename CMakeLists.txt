@@ -17,4 +17,9 @@ if(PACKAGE_TESTS)
     add_subdirectory(tests)
 endif()
 
-add_executable(main src/main.cpp src/main.h)
+add_subdirectory(src)
+
+option(CLANG_TIDY_TESTS "Test with clang-tidy" ON)
+if(CLANG_TIDY_TESTS)
+    include(clang_tidy)
+endif()
