@@ -1,24 +1,40 @@
 
 #include "file2passwd.hpp"
-#include <fstream>
+#include <sys/stat.h>
+#include <sys/mman.h>
+#include <fcntl.h>
 #include <iostream>
+#include <string.h>
+
 #include <openssl/md5.h>
 
-std::string file2passwd::get_md5_hash_from_file(const std::string file_path) {
+// Get the size of the file by its file descriptor
+unsigned long file2passwd::get_size_by_fd(int fd) {
+    struct stat statbuf;
+    if(fstat(fd, &statbuf) < 0)
+    {
+    	exit(-1);
+    }
+    return statbuf.st_size;
+}
 
-	std::ifstream File;
-	File.open(file_path);
+std::string file2passwd::get_md5_hash_from_file(const char* file_path) {
 
-	if (!File) {
-	    std::cout << "Unable to open File.";
-	    exit(1);
-	}
-	File.close();
+	unsigned char result[MD5_DIGEST_LENGTH];
+	int file_descript;
+	unsigned long file_size;
+	unsigned char* file_buffer;
 
-	std::cout << "Able to open File.";
+	file_descript = open(file_path, O_RDONLY);
+	if(file_descript < 0) exit(-1);
 
-	return file_path;
-	//unsigned char * tmp_hash;
-	//tmp_hash = MD5((const unsigned char*)filename, filename.length(), NULL);
-	//return tmp_hash;
+	file_size = get_size_by_fd(file_descript);
+
+	file_buffer = static_cast<unsigned char*>(mmap(0, file_size, PROT_READ, MAP_SHARED, file_descript, 0));
+	MD5((unsigned char*) file_buffer, file_size, result);
+	munmap(file_buffer, file_size);
+
+	std::string result_string(result, result + sizeof result / sizeof result[0]);
+
+	return result_string;
 }
