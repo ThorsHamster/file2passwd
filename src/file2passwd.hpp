@@ -7,11 +7,12 @@
 class file2passwd {
 
 private:
-	std::string md5;
+    std::string generate_passwd_from_file(const std::string file_path, int passwd_length);
 
 
 public:
-    std::string generate_passwd_from_file (std::string filename, int passwd_length);
+    std::string get_md5_hash_from_file(const std::string file_path);
+	std::string md5_from_file;
 
 };
 
