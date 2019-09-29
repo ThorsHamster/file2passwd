@@ -8,6 +8,7 @@
 #include <string.h>
 
 #include <openssl/md5.h>
+#include "gsl/gsl-lite.hpp"
 
 // Get the size of the file by its file descriptor
 unsigned long file2passwd::get_size_by_fd(int fd) {
@@ -41,7 +42,7 @@ std::string file2passwd::get_md5_hash_from_file(const char* file_path) {
 	ss << std::hex << std::setfill('0');
 	for(int i = 0; i < MD5_DIGEST_LENGTH; i++)
 	{
-	    ss << std::setw(2) << static_cast<unsigned>(result[i]);
+	    ss << std::setw(2) << static_cast<unsigned>(gsl::at(result, i));
 	}
 	std::string result_string = ss.str();
 	md5_from_file = result_string;
