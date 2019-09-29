@@ -15,12 +15,9 @@ int main(int argc, char *argv[])
 
 	std::string result;
 	result = fpo.get_md5_hash_from_file(argv[1]);
-	std::cout << "result: " << result << " \n";
 
-	for(int i=0; i<16; i++)
-	{
-		std::cout << std::hex << static_cast<unsigned int>(static_cast<unsigned char>(result.at(i)));
-	}
+	std::cout << result << "\n";
+	std::cout << fpo.md5_from_file << "\n";
 
 	return 0;
 }

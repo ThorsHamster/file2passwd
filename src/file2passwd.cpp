@@ -4,13 +4,14 @@
 #include <sys/mman.h>
 #include <fcntl.h>
 #include <iostream>
+#include <iomanip>
 #include <string.h>
 
 #include <openssl/md5.h>
 
 // Get the size of the file by its file descriptor
 unsigned long file2passwd::get_size_by_fd(int fd) {
-    struct stat statbuf;
+    struct stat statbuf {};
     if(fstat(fd, &statbuf) < 0)
     {
     	exit(-1);
@@ -30,11 +31,20 @@ std::string file2passwd::get_md5_hash_from_file(const char* file_path) {
 
 	file_size = get_size_by_fd(file_descript);
 
+	// get md5 from file via openssl/md5
 	file_buffer = static_cast<unsigned char*>(mmap(0, file_size, PROT_READ, MAP_SHARED, file_descript, 0));
 	MD5((unsigned char*) file_buffer, file_size, result);
 	munmap(file_buffer, file_size);
 
-	std::string result_string(result, result + sizeof result / sizeof result[0]);
+	// convert unsigned char array to string
+	std::stringstream ss;
+	ss << std::hex << std::setfill('0');
+	for(int i = 0; i < MD5_DIGEST_LENGTH; i++)
+	{
+	    ss << std::setw(2) << static_cast<unsigned>(result[i]);
+	}
+	std::string result_string = ss.str();
+	md5_from_file = result_string;
 
 	return result_string;
 }
