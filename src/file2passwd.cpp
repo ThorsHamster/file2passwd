@@ -8,7 +8,7 @@
 #include <string.h>
 
 #include <openssl/md5.h>
-#include "gsl/gsl-lite.hpp"
+#include <gsl/gsl>
 
 // Get the size of the file by its file descriptor
 unsigned long file2passwd::get_size_by_fd(int fd) {
