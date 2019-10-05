@@ -7,7 +7,7 @@
 class file2passwd {
 
 private:
-	unsigned long get_size_by_fd(int fd);
+	std::string char_array_to_hex_string(unsigned char* result);
 
 public:
 	std::string md5_from_file;
