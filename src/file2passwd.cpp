@@ -9,7 +9,12 @@
 #include <openssl/md5.h>
 #include <gsl/gsl>
 
-std::streamsize file2passwd::get_file_size(std::string file_path)
+file2passwd::file2passwd(std::string argv_file_path)
+{
+	file_path = argv_file_path;
+}
+
+std::streamsize file2passwd::get_file_size(void)
 {
 	std::ifstream file;
 	file.open(file_path, std::ios_base::in);
@@ -20,7 +25,7 @@ std::streamsize file2passwd::get_file_size(std::string file_path)
 	return file_size;
 }
 
-void file2passwd::get_file_buffer(std::string file_path, std::streamsize file_size, char* file_buffer)
+void file2passwd::get_file_buffer(std::streamsize file_size, char* file_buffer)
 {
 	std::ifstream file;
 	file.open(file_path, std::ios_base::in | std::ios_base::binary);
@@ -40,13 +45,13 @@ std::string file2passwd::convert_uchar_ptr_to_hex_string(unsigned char* result)
 	return ss.str();
 }
 
-std::string file2passwd::get_md5_hash_from_file(std::string file_path)
+std::string file2passwd::get_md5_hash_from_file(void)
 {
 	unsigned char* result = new unsigned char[MD5_DIGEST_LENGTH];
 
-	std::streamsize file_size = get_file_size(file_path);
+	std::streamsize file_size = get_file_size();
 	char file_buffer[file_size];
-	get_file_buffer(file_path, file_size, file_buffer);
+	get_file_buffer(file_size, file_buffer);
 
 	MD5((unsigned char*) file_buffer, file_size, result);
 	munmap((char*)file_buffer, file_size);

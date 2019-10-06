@@ -2,6 +2,7 @@
 #include "main.hpp"
 #include "file2passwd.hpp"
 #include <iostream>
+#include <fstream>
 #include <string.h>
 #include <gsl/gsl>
 
@@ -14,11 +15,19 @@ int main(int argc, const char *argv[])
 		return 1;
 	}
 
-	file2passwd fpo;
+	std::string file_path = args[1];
+
+	std::ifstream f(file_path);
+	if (!f.good())
+		{
+			std::cout << "Not a valid File. \n";
+			return 1;
+		}
+
+	file2passwd fpo(file_path);
 
 	std::string result;
-	std::string file_path = args[1];
-	result = fpo.get_md5_hash_from_file(file_path);
+	result = fpo.get_md5_hash_from_file();
 
 	std::cout << result << "\n";
 	std::cout << fpo.md5_from_file << "\n";
