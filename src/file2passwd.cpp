@@ -20,19 +20,22 @@ std::streamsize file2passwd::get_file_size(std::string file_path)
 	return file_size;
 }
 
+void file2passwd::get_file_buffer(std::string file_path, std::streamsize file_size, char* file_buffer)
+{
+	std::ifstream file;
+	file.open(file_path, std::ios_base::in | std::ios_base::binary);
+	file.seekg( 0, std::ios_base::beg);
+	file.read(file_buffer, file_size);
+	file.close();
+}
+
 std::string file2passwd::get_md5_hash_from_file(std::string file_path)
 {
 	unsigned char result[MD5_DIGEST_LENGTH];
 
 	std::streamsize file_size = get_file_size(file_path);
-
-	std::ifstream file;
-	file.open(file_path, std::ios_base::in | std::ios_base::binary);
-	file.seekg( 0, std::ios_base::beg);
-
 	char file_buffer[file_size];
-	file.read(file_buffer, file_size);
-	file.close();
+	get_file_buffer(file_path, file_size, file_buffer);
 
 	MD5((unsigned char*) file_buffer, file_size, (unsigned char*)result);
 	munmap((char*)file_buffer, file_size);
