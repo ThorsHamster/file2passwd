@@ -17,7 +17,7 @@ int main(int argc, const char *argv[])
 	file2passwd fpo;
 
 	std::string result;
-	const char* file_path = args[1];
+	std::string file_path = args[1];
 	result = fpo.get_md5_hash_from_file(file_path);
 
 	std::cout << result << "\n";

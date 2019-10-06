@@ -9,22 +9,8 @@
 #include <openssl/md5.h>
 #include <gsl/gsl>
 
-std::string file2passwd::char_array_to_hex_string(unsigned char* result)
+std::string file2passwd::get_md5_hash_from_file(std::string file_path)
 {
-	// convert unsigned char array to string
-	std::stringstream ss;
-	ss << std::hex << std::setfill('0');
-	for(int i = 0; i < MD5_DIGEST_LENGTH; i++)
-	{
-	    ss << std::setw(2) << static_cast<unsigned>(result[i]);
-	}
-	std::string result_string = ss.str();
-	return result_string;
-}
-
-std::string file2passwd::get_md5_hash_from_file(const char* file_path)
-{
-
 	unsigned char result[MD5_DIGEST_LENGTH];
 
 	std::ifstream file;
@@ -41,7 +27,13 @@ std::string file2passwd::get_md5_hash_from_file(const char* file_path)
 	MD5((unsigned char*) file_buffer, file_size, (unsigned char*)result);
 	munmap((char*)file_buffer, file_size);
 
-	md5_from_file = char_array_to_hex_string((unsigned char*)result);
+	std::stringstream ss;
+	ss << std::hex << std::setfill('0');
+	for(int i = 0; i < MD5_DIGEST_LENGTH; i++)
+	{
+	    ss << std::setw(2) << static_cast<unsigned>(gsl::at(result, i));
+	}
+	md5_from_file = ss.str();
 
 	return md5_from_file;
 }
