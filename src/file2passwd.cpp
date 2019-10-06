@@ -9,15 +9,25 @@
 #include <openssl/md5.h>
 #include <gsl/gsl>
 
+std::streamsize file2passwd::get_file_size(std::string file_path)
+{
+	std::ifstream file;
+	file.open(file_path, std::ios_base::in);
+	file.ignore(std::numeric_limits<std::streamsize>::max());
+	std::streamsize file_size = file.gcount();
+	file.close();
+
+	return file_size;
+}
+
 std::string file2passwd::get_md5_hash_from_file(std::string file_path)
 {
 	unsigned char result[MD5_DIGEST_LENGTH];
 
+	std::streamsize file_size = get_file_size(file_path);
+
 	std::ifstream file;
 	file.open(file_path, std::ios_base::in | std::ios_base::binary);
-	file.ignore(std::numeric_limits<std::streamsize>::max());
-	std::streamsize file_size = file.gcount();
-	file.clear();   //  Since ignore will have set eof.
 	file.seekg( 0, std::ios_base::beg);
 
 	char file_buffer[file_size];

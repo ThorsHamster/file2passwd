@@ -7,7 +7,7 @@
 class file2passwd {
 
 private:
-
+	std::streamsize get_file_size(std::string file_path);
 
 public:
 	std::string md5_from_file;
