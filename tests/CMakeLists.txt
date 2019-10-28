@@ -4,6 +4,7 @@ include(AddGoogleTest)
 list(APPEND SOURCES
     ${CMAKE_SOURCE_DIR}/src/file2passwd.cpp
     ${CMAKE_SOURCE_DIR}/src/compatibility_layer.cpp
+    ${CMAKE_SOURCE_DIR}/src/utilities.cpp
 )
 
 macro(package_add_test TESTNAME)

@@ -1,4 +1,5 @@
 #include "compatibility_layer.hpp"
+#include "utilities.hpp"
 #include <sys/mman.h>
 #include <iostream>
 #include <fstream>
@@ -50,6 +51,11 @@ std::string compat_layer::convert_uchar_ptr_to_hex_string(unsigned char* result)
 
 std::string compat_layer::get_md5_hash_from_file(void)
 {
+	if(!file_exists(file_path))
+	{
+		return "";
+	}
+
 	unsigned char* result = new unsigned char[MD5_DIGEST_LENGTH]; //NOLINT(cppcoreguidelines-owning-memory)
 
 	std::streamsize file_size = get_file_size();
