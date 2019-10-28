@@ -15,6 +15,7 @@ public:
 
 	std::string get_md5_hash_from_file(void);
     std::string generate_passwd_from_file(int passwd_length);
+    uint64_t fibonacci(uint64_t number);
 
     file2passwd(std::string file_path);
 };
