@@ -5,7 +5,6 @@
 #include <string>
 
 class compat_layer {
-
 private:
 	std::string file_path;
 

@@ -6,7 +6,6 @@
 #include <string>
 
 class file2passwd {
-
 private:
 	std::string file_path;
 
