@@ -37,7 +37,6 @@ uint64_t file2passwd::fibonacci(uint64_t number)
 		f_n = f_n_1 + f_n_2;
 		f_n_2 = f_n_1;
 		f_n_1 = f_n;
-
 	}
 
 	return f_n;
