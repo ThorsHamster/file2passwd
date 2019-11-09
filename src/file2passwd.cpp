@@ -52,7 +52,6 @@ uint64_t file2passwd::fibonacci(uint64_t number)
 
 std::string file2passwd::get_fibonacci_char_vector(void)
 {
-
 	if(!file_exists(file_path))
 	{
 		return "";
