@@ -9,25 +9,25 @@
 
 int main(int argc, const char *argv[])
 {
-	auto args = gsl::multi_span<const char*>(argv, argc);
+  auto args = gsl::multi_span<const char*>(argv, argc);
 
-	if(argc != 2)
-	{
-		std::cout << "Please specify a File. \n";
-		return 1;
-	}
+  if (argc != 2)
+    {
+      std::cout << "Please specify a File. \n";
+      return 1;
+    }
 
-	std::string file_path = args[1];
+  std::string file_path = args[1];
 
-	if(!file_exists(file_path))
-	{
-			std::cout << "Not a valid File. \n";
-			return 1;
-	}
+  if (!file_exists(file_path))
+    {
+      std::cout << "Not a valid File. \n";
+      return 1;
+    }
 
-	file2passwd fpo(file_path);
+  file2passwd fpo(file_path);
 
-	fpo.get_passwd();
+  fpo.get_passwd();
 
-	return 0;
+  return 0;
 }
