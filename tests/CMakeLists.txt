@@ -9,6 +9,5 @@ macro(package_add_test TESTNAME)
     set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
 endmacro()
 
-package_add_test(file2passwd_integrationtest file2passwd_integrationtest.cpp)
 package_add_test(file2passwd_tests file2passwd_tests.cpp)
 package_add_test(utility_tests utilities_tests.cpp)
