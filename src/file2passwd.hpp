@@ -16,10 +16,13 @@ public:
   uint64_t fibonacci(uint64_t number);
   std::string get_passwd(void);
 
-  file2passwd(std::string file_path);
+  file2passwd(std::string argv_file_path) : file_path(argv_file_path), compat(argv_file_path) {}
 
 private:
   std::string file_path;
+  compat_layer compat;
+  std::string md5_from_file;
+
   void handleErrors(void);
   int encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
 	      unsigned char *iv, unsigned char *ciphertext);
