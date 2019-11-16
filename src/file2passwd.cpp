@@ -17,6 +17,9 @@ std::string file2passwd::get_md5_hash_from_file(void)
       return "";
     }
 
+  if (md5_from_file != "")
+    return md5_from_file;
+
   md5_from_file = compat.get_md5_hash_from_file();
   return md5_from_file;
 }
@@ -77,6 +80,11 @@ std::string file2passwd::get_iv(void)
 
 std::string file2passwd::get_passwd(void)
 {
+  if (!file_exists(file_path))
+    {
+      return "";
+    }
+
   /* A 256 bit key */
   unsigned char *key = (unsigned char *)reinterpret_cast<unsigned char*>(const_cast<char*>(get_key().c_str()));
 
