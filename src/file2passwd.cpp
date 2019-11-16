@@ -61,16 +61,17 @@ std::string file2passwd::get_key(void)
 {
   //return a 256 Bit representation of md5 hash
   std::string key = get_md5_hash();
-  //return key.substr(0, 32);
-  return "01234567890123456789012345678901";
+  key = "01234567890123456789012345678901";
+  return key.substr(0, 32);
 }
 
 std::string file2passwd::get_iv(void)
 {
   //return a 128 Bit representation of md5 hash
   std::string iv = get_md5_hash();
-  //return iv.substr(0, 16);
-  return "0123456789012345";
+  iv = "0123456789012345";
+  iv = iv.substr(0, 16);
+  return iv;
 }
 
 std::string file2passwd::get_passwd(void)
@@ -81,18 +82,20 @@ std::string file2passwd::get_passwd(void)
     }
 
   /* A 256 bit key */
-  unsigned char *key = (unsigned char *)reinterpret_cast<unsigned char*>(const_cast<char*>(get_key().c_str()));
+  std::string key_s = get_key();
+  char key_char[key_s.size() + 1];
+  strcpy(key_char, key_s.c_str());
+  unsigned char *key = reinterpret_cast<unsigned char*>(key_char);
 
   /* A 128 bit IV */
-  unsigned char *iv = (unsigned char *)reinterpret_cast<unsigned char*>(const_cast<char*>(get_iv().c_str()));
+  std::string iv_s = get_iv();
+  char iv_char[iv_s.size() + 1];
+  strcpy(iv_char, iv_s.c_str());
+  unsigned char *iv = reinterpret_cast<unsigned char*>(iv_char);
 
   /* Message to be encrypted */
   unsigned char *plaintext =
-      (unsigned char *)"The quick brown fox jumps over the lazy dog"; //get_fibonacci_char_vector().c_str();
-
-  std::cout << "'" << get_key().c_str() << "'" << "\n";
-  std::cout << "'" << get_iv().c_str() <<  "'" <<  "\n";
-  std::cout << "'" << get_fibonacci_char_vector().c_str() << "'" <<  "\n";
+      (unsigned char *)get_fibonacci_char_vector().c_str();
 
   /*
    * Buffer for ciphertext. Ensure the buffer is long enough for the
