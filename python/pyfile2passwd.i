@@ -3,7 +3,7 @@
 
 // Add necessary symbols to generated header
 %{
-#include "../src/file2passwd.hpp"
+#include "file2passwd.hpp"
 %}
 
-%include "../src/file2passwd.hpp"
+%include "file2passwd.hpp"

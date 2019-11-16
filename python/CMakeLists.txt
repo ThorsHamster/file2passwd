@@ -8,7 +8,7 @@ swig_add_library(pyfile2passwd
 
 target_include_directories(pyfile2passwd
 	PRIVATE
-	../include
+	../src
 	${PYTHON_INCLUDE_DIRS}
 	)
 set_property(TARGET pyfile2passwd PROPERTY SWIG_USE_TARGET_INCLUDE_DIRECTORIES ON)
