@@ -10,7 +10,7 @@
 #include <openssl/err.h>
 #include <string.h>
 
-std::string file2passwd::get_md5_hash_from_file(void)
+std::string file2passwd::get_md5_hash(void)
 {
   if (!file_exists(file_path))
     {
@@ -61,7 +61,7 @@ std::string file2passwd::get_fibonacci_char_vector(void)
 std::string file2passwd::get_key(void)
 {
   //return a 256 Bit representation of md5 hash
-  std::string key = get_md5_hash_from_file();
+  std::string key = get_md5_hash();
   //return key.substr(0, 32);
   return "01234567890123456789012345678901";
 }
@@ -69,7 +69,7 @@ std::string file2passwd::get_key(void)
 std::string file2passwd::get_iv(void)
 {
   //return a 128 Bit representation of md5 hash
-  std::string iv = get_md5_hash_from_file();
+  std::string iv = get_md5_hash();
   //return iv.substr(0, 16);
   return "0123456789012345";
 }

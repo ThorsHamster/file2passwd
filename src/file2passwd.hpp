@@ -9,7 +9,7 @@
 class file2passwd {
 public:
 
-  std::string get_md5_hash_from_file(void);
+  std::string get_md5_hash(void);
   std::string get_passwd(void);
 
   file2passwd(std::string argv_file_path) : file_path(argv_file_path), compat(argv_file_path) {}
