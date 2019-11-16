@@ -8,7 +8,6 @@
 
 class file2passwd {
 public:
-
   std::string get_md5_hash(void);
   std::string get_passwd(void);
 
