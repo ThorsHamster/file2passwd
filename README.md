@@ -9,3 +9,4 @@ Fun project, to play around with modern c++, swig, python and CMake.
 *   CMake, v3.13.4
 *   clang-tidy, v9.0.0
 *   swig, v3.0.12
+*   python, v3.7.5
