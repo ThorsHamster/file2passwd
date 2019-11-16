@@ -19,7 +19,7 @@ if(APPLE)
 		SUFFIX ".so"
 		INSTALL_RPATH	"@loader_path;@loader_path/../../${PROJECT_NAME}/.libs"
 		)
-	set_property(TARGET pyFoo APPEND PROPERTY
+	set_property(TARGET pyfile2passwd APPEND PROPERTY
 		LINK_FLAGS "-flat_namespace -undefined suppress"
 		)
 elseif(UNIX)
