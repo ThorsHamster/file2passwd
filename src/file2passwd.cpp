@@ -26,10 +26,6 @@ std::string file2passwd::get_md5_hash_from_file(void)
 
 std::string file2passwd::get_fibonacci_char_vector(void)
 {
-  if (!file_exists(file_path))
-    {
-      return "";
-    }
 
   std::ifstream ifs(file_path, std::ios::binary | std::ios::ate);
   std::ifstream::pos_type pos = ifs.tellg();
