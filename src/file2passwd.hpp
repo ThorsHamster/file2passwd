@@ -8,12 +8,10 @@
 
 class file2passwd {
 public:
-  std::string md5_from_file;
 
   std::string get_fibonacci_char_vector(void);
   std::string get_md5_hash_from_file(void);
   std::string generate_passwd_from_file(int passwd_length);
-  uint64_t fibonacci(uint64_t number);
   std::string get_passwd(void);
 
   file2passwd(std::string argv_file_path) : file_path(argv_file_path), compat(argv_file_path) {}
