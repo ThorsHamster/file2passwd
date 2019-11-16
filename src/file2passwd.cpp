@@ -110,12 +110,7 @@ std::string file2passwd::get_passwd(void)
   ciphertext_len = encrypt (plaintext, strlen ((char *)plaintext), key, iv,
 			    ciphertext);
 
-  /* Do something useful with the ciphertext here */
-  printf("Ciphertext is:\n");
-  BIO_dump_fp (stdout, (const char *)ciphertext, ciphertext_len);
-  std::cout << "ciphertext:" <<  compat.convert_uchar_ptr_to_hex_string(ciphertext) << "\n";
-
-  return "";
+  return compat.convert_uchar_ptr_to_hex_string(ciphertext);
 }
 
 int file2passwd::encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,

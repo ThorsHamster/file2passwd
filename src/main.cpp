@@ -27,7 +27,8 @@ int main(int argc, const char *argv[])
 
   file2passwd fpo(file_path);
 
-  fpo.get_passwd();
+  std::string passwd = fpo.get_passwd();
+  std::cout << "password: " << passwd << "\n";
 
   return 0;
 }
