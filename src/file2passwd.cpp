@@ -61,7 +61,6 @@ std::string file2passwd::get_key(void)
 {
   //return a 256 Bit representation of md5 hash
   std::string key = get_md5_hash();
-  key = "01234567890123456789012345678901";
   return key.substr(0, 32);
 }
 
@@ -69,7 +68,6 @@ std::string file2passwd::get_iv(void)
 {
   //return a 128 Bit representation of md5 hash
   std::string iv = get_md5_hash();
-  iv = "0123456789012345";
   iv = iv.substr(0, 16);
   return iv;
 }
