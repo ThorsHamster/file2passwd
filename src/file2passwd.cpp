@@ -14,7 +14,7 @@ std::string file2passwd::get_md5_hash(void)
 {
   if (!file_exists(file_path))
     {
-      return "";
+      return "File does not exist.";
     }
 
   if (md5_from_file != "")
@@ -76,7 +76,7 @@ std::string file2passwd::get_passwd(void)
 {
   if (!file_exists(file_path))
     {
-      return "";
+      return "File does not exist.";
     }
 
   /* A 256 bit key */
