@@ -14,5 +14,7 @@ list(APPEND f2p_HEADERS
 add_library(f2p_lib ${f2p_SOURCES} ${f2p_HEADERS})
 target_link_libraries(f2p_lib PRIVATE OpenSSL::Crypto gsl)
 
+SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fPIC")
+
 add_executable(${PROJECT_NAME} main.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE f2p_lib gsl)
