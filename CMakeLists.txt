@@ -6,39 +6,37 @@ endif()
 
 project(file2passwd VERSION 1.0
                     DESCRIPTION "Converts files to passwords."
-                    LANGUAGES CXX)
+                    LANGUAGES CXX
+)
 
 find_package(OpenSSL REQUIRED)
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
+option(GOOGLE_TESTS "Build the tests" OFF)
+option(BUILD_PYTHON "Build Python Library" OFF)
+option(CLANG_TIDY_TESTS "Test with clang-tidy" OFF)
+
+message(STATUS "Google Tests: ${GOOGLE_TESTS}")
+message(STATUS "Build Python: ${BUILD_PYTHON}")
+message(STATUS "Test with clang-tidy: ${CLANG_TIDY_TESTS}")
+
+# Guideline support library, gsl
+include(gsl)
+
+add_subdirectory(src)
+
 # google tests
-option(PACKAGE_TESTS "Build the tests" ON)
-if(PACKAGE_TESTS)
+if(GOOGLE_TESTS)
     enable_testing()
     add_subdirectory(tests)
 endif()
 
-# Guideline support library, gsl
-set(GSL_LITE_INCLUDE_DIR include)
-add_library(gsl INTERFACE)
-target_include_directories(gsl INTERFACE ${GSL_LITE_INCLUDE_DIR})
-
-add_subdirectory(src)
-
 # clang tidy
-option(CLANG_TIDY_TESTS "Test with clang-tidy" ON)
 if(CLANG_TIDY_TESTS)
     include(clang_tidy)
 endif()
 
-option(BUILD_PYTHON "Build Python Library" OFF)
-message(STATUS "Build Python: ${BUILD_PYTHON}")
-
 if(BUILD_PYTHON)
-	FIND_PACKAGE(SWIG REQUIRED)
-	INCLUDE(${SWIG_USE_FILE})
-	FIND_PACKAGE(PythonLibs)
-	INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
     add_subdirectory(python)
 endif()
