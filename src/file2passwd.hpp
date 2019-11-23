@@ -6,29 +6,9 @@
 #include <string>
 #include <vector>
 
-/*! \mainpage
- *
- * \section intro_sec Introduction
- *
- * This program is a Fun project, to play around with modern c++, swig, python and CMake. \n
- * It doesn't make too much sense, but it can be used to generate a password from a file. \n
- * This can be used either in C++ or python.
- */
-
-/**
-* @class file2passwd
-*
-* @brief Main Class for generating a Password from a File.
-*
-* Use it as follows: \n
-* file2passwd fpo("Path to File"); \n
-* std::string passwd = fpo.get_passwd();
-*/
 class file2passwd {
 public:
-  /// @brief Returns MD5 hash of file
   std::string get_md5_hash(void);
-  /// @brief Returns password generated out of file
   std::string get_passwd(void);
 
   /// @brief Construct object

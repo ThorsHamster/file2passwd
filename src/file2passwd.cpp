@@ -13,6 +13,26 @@
 /// @file
 /// @brief This file contains the file2passwd main class
 
+/*! \mainpage
+ *
+ * \section intro_sec Introduction
+ *
+ * This program is a Fun project, to play around with modern c++, swig, python and CMake. \n
+ * It doesn't make too much sense, but it can be used to generate a password from a file. \n
+ * This can be used either in C++ or python.
+ */
+
+/**
+* @class file2passwd
+*
+* @brief Main Class for generating a Password from a File.
+*
+* Use it as follows: \n
+* file2passwd fpo("Path to File"); \n
+* std::string passwd = fpo.get_passwd();
+*/
+
+/// @brief Returns MD5 hash of file
 std::string file2passwd::get_md5_hash(void)
 {
   if (!file_exists(file_path))
@@ -27,6 +47,8 @@ std::string file2passwd::get_md5_hash(void)
   return md5_from_file;
 }
 
+/// @brief Creates a vector of chars of a File.
+/// Takes char from File at position of fibonacci(number)
 std::string file2passwd::get_fibonacci_char_vector(void)
 {
   std::ifstream ifs(file_path, std::ios::binary | std::ios::ate);
@@ -60,6 +82,7 @@ std::string file2passwd::get_fibonacci_char_vector(void)
   return result;
 }
 
+/// @brief Returns key for AES encryption
 std::string file2passwd::get_key(void)
 {
   //return a 256 Bit representation of md5 hash
@@ -67,6 +90,7 @@ std::string file2passwd::get_key(void)
   return key.substr(0, 32);
 }
 
+/// @brief Returns initialization vector (iv) for AES encryption
 std::string file2passwd::get_iv(void)
 {
   //return a 128 Bit representation of md5 hash
@@ -75,6 +99,7 @@ std::string file2passwd::get_iv(void)
   return iv;
 }
 
+/// @brief Returns password generated out of file
 std::string file2passwd::get_passwd(void)
 {
   if (!file_exists(file_path))
@@ -117,6 +142,7 @@ std::string file2passwd::get_passwd(void)
   return compat.convert_uchar_ptr_to_hex_string(ciphertext);
 }
 
+/// @brief Encrypts char vector taken from File
 int file2passwd::encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
 			 unsigned char *iv, unsigned char *ciphertext)
 {
