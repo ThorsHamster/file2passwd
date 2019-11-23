@@ -10,6 +10,9 @@
 #include <openssl/err.h>
 #include <string.h>
 
+/// @file
+/// @brief This file contains the file2passwd main class
+
 std::string file2passwd::get_md5_hash(void)
 {
   if (!file_exists(file_path))

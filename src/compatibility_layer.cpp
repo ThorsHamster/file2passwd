@@ -8,6 +8,9 @@
 #include <openssl/md5.h>
 #include <gsl/gsl>
 
+/// @file
+/// @brief This file contains a internal helper Class to be C++ compliant.
+
 compat_layer::compat_layer(std::string path_to_file)
 {
   file_path = path_to_file;
