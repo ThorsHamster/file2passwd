@@ -10,3 +10,4 @@ Fun project, to play around with modern c++, swig, python and CMake.
 *   clang-tidy, v9.0.0
 *   swig, v3.0.12
 *   python, v3.7.5
+*   doxygen, v1.8.13

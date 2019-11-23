@@ -16,10 +16,12 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 option(GOOGLE_TESTS "Build the tests" OFF)
 option(BUILD_PYTHON "Build Python Library" OFF)
 option(CLANG_TIDY_TESTS "Test with clang-tidy" OFF)
+option(BUILD_DOC "Build documentation" ON)
 
 message(STATUS "Google Tests: ${GOOGLE_TESTS}")
 message(STATUS "Build Python: ${BUILD_PYTHON}")
 message(STATUS "Test with clang-tidy: ${CLANG_TIDY_TESTS}")
+message(STATUS "Generate documentation: ${BUILD_DOC}")
 
 # Guideline support library, gsl
 include(gsl)
@@ -37,6 +39,12 @@ if(CLANG_TIDY_TESTS)
     include(clang_tidy)
 endif()
 
+# build python binding
 if(BUILD_PYTHON)
     add_subdirectory(python)
+endif()
+
+# generate documentation
+if(BUILD_DOC)
+    include(doxygen)
 endif()

@@ -8,14 +8,9 @@
 #include <openssl/md5.h>
 #include <gsl/gsl>
 
-/**
- *  A class for compatibility to c.
- *  c arrays and cstyle casts ignored in clang-tidy.
- */
-
-compat_layer::compat_layer(std::string argv_file_path)
+compat_layer::compat_layer(std::string path_to_file)
 {
-  file_path = argv_file_path;
+  file_path = path_to_file;
 }
 
 std::streamsize compat_layer::get_file_size(void)
