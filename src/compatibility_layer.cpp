@@ -60,6 +60,5 @@ std::string CompatibilityLayer::get_md5_hash_from_file(void)
 
   md5_from_file = convert_uchar_ptr_to_hex_string(result);
 
-  delete result; //NOLINT(cppcoreguidelines-owning-memory)
   return md5_from_file;
 }
