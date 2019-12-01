@@ -5,7 +5,6 @@
 #include "gtest/gtest.h"
 
 namespace {
-
   TEST(file_exists, Exists) {
     EXPECT_EQ(file_exists("LICENSE"), true);
   }
@@ -41,7 +40,6 @@ namespace {
   TEST(fibonacci, Trivial_51) {
     EXPECT_EQ(fibonacci(51), 0);
   }
-
 }
 
 int main(int argc, char **argv) {
