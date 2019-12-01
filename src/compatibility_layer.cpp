@@ -11,17 +11,6 @@
 /// @file
 /// @brief This file contains a internal helper Class to be C++ compliant.
 
-
-/// @class compat_layer
-///
-/// @brief Internal helper Class to be C++ compliant.
-
-/// @brief Construct object
-///
-/// @pre The file should be existent.
-///
-/// @param path_to_file Absolute Path to File
-///
 compat_layer::compat_layer(std::string path_to_file)
 {
   file_path = path_to_file;
@@ -47,7 +36,6 @@ void compat_layer::get_file_buffer(std::streamsize file_size, char* file_buffer)
   file.close();
 }
 
-/// @brief Converts a unsigned char pointer to a hexidecimal std::string
 std::string compat_layer::convert_uchar_ptr_to_hex_string(unsigned char* result)
 {
   std::stringstream ss;
@@ -59,7 +47,6 @@ std::string compat_layer::convert_uchar_ptr_to_hex_string(unsigned char* result)
   return ss.str();
 }
 
-/// @brief Returns MD5 hash of file
 std::string compat_layer::get_md5_hash_from_file(void)
 {
   if (!file_exists(file_path))
