@@ -61,6 +61,7 @@ private:
 	      unsigned char *iv, unsigned char *ciphertext);
   std::string get_key(void);
   std::string get_iv(void);
+  std::string get_fibonacci_string(void);
 };
 
 #endif /* SRC_FILE2PASSWD_HPP_ */

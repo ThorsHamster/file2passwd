@@ -83,6 +83,12 @@ std::string File2Passwd::get_iv(void)
   return iv;
 }
 
+std::string File2Passwd::get_fibonacci_string(void)
+{
+  std::string fibonacci_string = get_fibonacci_char_vector();
+  return fibonacci_string;
+}
+
 std::string File2Passwd::get_passwd(void)
 {
   if (!file_exists(file_path))
@@ -103,8 +109,10 @@ std::string File2Passwd::get_passwd(void)
   unsigned char *iv = reinterpret_cast<unsigned char*>(iv_char);
 
   /* Message to be encrypted */
-  unsigned char *plaintext =
-      (unsigned char *)get_fibonacci_char_vector().c_str();
+  std::string fib_s = get_fibonacci_string();
+  char fib_char[fib_s.size() + 1];
+  strcpy(fib_char, fib_s.c_str());
+  unsigned char *plaintext = reinterpret_cast<unsigned char*>(fib_char);
 
   /*
    * Buffer for ciphertext. Ensure the buffer is long enough for the
@@ -116,10 +124,10 @@ std::string File2Passwd::get_passwd(void)
   /* Buffer for the decrypted text */
   unsigned char decryptedtext[128];
 
-  int decryptedtext_len, ciphertext_len;
+  int decryptedtext_len;
 
   /* Encrypt the plaintext */
-  ciphertext_len = encrypt (plaintext, strlen ((char *)plaintext), key, iv,
+  encrypt (plaintext, strlen ((char *)plaintext), key, iv,
 			    ciphertext);
 
   return compat.convert_uchar_ptr_to_hex_string(ciphertext);
