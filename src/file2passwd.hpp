@@ -16,15 +16,15 @@
  */
 
 /**
-* @class file2passwd
+* @class File2Passwd
 *
 * @brief Main Class for generating a Password from a File.
 *
 * Use it as follows: \n
-* file2passwd fpo("Path to File"); \n
+* File2Passwd fpo("Path to File"); \n
 * std::string passwd = fpo.get_passwd();
 */
-class file2passwd {
+class File2Passwd {
 public:
   /// @brief Returns MD5 hash of file
   std::string get_md5_hash(void);
@@ -37,11 +37,11 @@ public:
   ///
   /// @param path_to_file Absolute Path to File
   ///
-  file2passwd(std::string path_to_file) : file_path(path_to_file), compat(path_to_file) {}
+  File2Passwd(std::string path_to_file) : file_path(path_to_file), compat(path_to_file) {}
 
 private:
   std::string file_path;
-  compat_layer compat;
+  CompatibilityLayer compat;
   std::string md5_from_file;
 
   std::string get_fibonacci_char_vector(void);

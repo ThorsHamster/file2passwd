@@ -13,7 +13,7 @@
 /// @file
 /// @brief This file contains the file2passwd main class
 
-std::string file2passwd::get_md5_hash(void)
+std::string File2Passwd::get_md5_hash(void)
 {
   if (!file_exists(file_path))
     {
@@ -27,7 +27,7 @@ std::string file2passwd::get_md5_hash(void)
   return md5_from_file;
 }
 
-std::string file2passwd::get_fibonacci_char_vector(void)
+std::string File2Passwd::get_fibonacci_char_vector(void)
 {
   std::ifstream ifs(file_path, std::ios::binary | std::ios::ate);
   std::ifstream::pos_type pos = ifs.tellg();
@@ -60,14 +60,14 @@ std::string file2passwd::get_fibonacci_char_vector(void)
   return result;
 }
 
-std::string file2passwd::get_key(void)
+std::string File2Passwd::get_key(void)
 {
   //return a 256 Bit representation of md5 hash
   std::string key = get_md5_hash();
   return key.substr(0, 32);
 }
 
-std::string file2passwd::get_iv(void)
+std::string File2Passwd::get_iv(void)
 {
   //return a 128 Bit representation of md5 hash
   std::string iv = get_md5_hash();
@@ -75,7 +75,7 @@ std::string file2passwd::get_iv(void)
   return iv;
 }
 
-std::string file2passwd::get_passwd(void)
+std::string File2Passwd::get_passwd(void)
 {
   if (!file_exists(file_path))
     {
@@ -117,7 +117,7 @@ std::string file2passwd::get_passwd(void)
   return compat.convert_uchar_ptr_to_hex_string(ciphertext);
 }
 
-int file2passwd::encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
+int File2Passwd::encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
 			 unsigned char *iv, unsigned char *ciphertext)
 {
   EVP_CIPHER_CTX *ctx;
@@ -162,7 +162,7 @@ int file2passwd::encrypt(unsigned char *plaintext, int plaintext_len, unsigned c
   return ciphertext_len;
 }
 
-void file2passwd::handleErrors(void)
+void File2Passwd::handleErrors(void)
 {
   ERR_print_errors_fp(stderr);
   abort();

@@ -11,12 +11,12 @@
 /// @file
 /// @brief This file contains a internal helper Class to be C++ compliant.
 
-compat_layer::compat_layer(std::string path_to_file)
+CompatibilityLayer::CompatibilityLayer(std::string path_to_file)
 {
   file_path = path_to_file;
 }
 
-std::streamsize compat_layer::get_file_size(void)
+std::streamsize CompatibilityLayer::get_file_size(void)
 {
   std::ifstream file;
   file.open(file_path, std::ios_base::in);
@@ -27,7 +27,7 @@ std::streamsize compat_layer::get_file_size(void)
   return file_size;
 }
 
-void compat_layer::get_file_buffer(std::streamsize file_size, char* file_buffer)
+void CompatibilityLayer::get_file_buffer(std::streamsize file_size, char* file_buffer)
 {
   std::ifstream file;
   file.open(file_path, std::ios_base::in | std::ios_base::binary);
@@ -36,7 +36,7 @@ void compat_layer::get_file_buffer(std::streamsize file_size, char* file_buffer)
   file.close();
 }
 
-std::string compat_layer::convert_uchar_ptr_to_hex_string(unsigned char* result)
+std::string CompatibilityLayer::convert_uchar_ptr_to_hex_string(unsigned char* result)
 {
   std::stringstream ss;
   ss << std::hex << std::setfill('0');
@@ -47,7 +47,7 @@ std::string compat_layer::convert_uchar_ptr_to_hex_string(unsigned char* result)
   return ss.str();
 }
 
-std::string compat_layer::get_md5_hash_from_file(void)
+std::string CompatibilityLayer::get_md5_hash_from_file(void)
 {
   if (!file_exists(file_path))
     {

@@ -5,11 +5,11 @@
 #include <string>
 
 /**
-* @class compat_layer
+* @class CompatibilityLayer
 *
 * @brief Internal helper Class to be C++ compliant.
 */
-class compat_layer {
+class CompatibilityLayer {
 public:
   /// @brief Represents MD5 hash of file
   std::string md5_from_file;
@@ -25,7 +25,7 @@ public:
   ///
   /// @param path_to_file Absolute Path to File
   ///
-  compat_layer(std::string path_to_file);
+  CompatibilityLayer(std::string path_to_file);
 
 private:
   std::string file_path;
