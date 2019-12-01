@@ -25,7 +25,7 @@ public:
   ///
   /// @param path_to_file Absolute Path to File
   ///
-  explicit CompatibilityLayer(const std::string path_to_file) : file_path(path_to_file) {}
+  explicit CompatibilityLayer(const std::string& path_to_file) : file_path(path_to_file) {}
 
 private:
   std::string file_path;

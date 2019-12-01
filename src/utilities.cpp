@@ -11,7 +11,7 @@ bool file_exists(std::string argv_file_path)
 
 uint64_t fibonacci(uint64_t number)
 {
-  if (number <= 0 or number >= MAX_FIBONACCI_VALUE)
+  if (number == 0 or number >= MAX_FIBONACCI_VALUE)
     {
       return 0;
     }

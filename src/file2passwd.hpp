@@ -46,7 +46,7 @@ public:
   ///
   /// @param path_to_file Absolute Path to File
   ///
-  File2Passwd(std::string path_to_file) : file_path(path_to_file), compat(path_to_file) {}
+  explicit File2Passwd(const std::string& path_to_file) : file_path(path_to_file), compat(path_to_file) {}
 
 private:
   std::string file_path;
