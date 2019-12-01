@@ -11,11 +11,6 @@
 /// @file
 /// @brief This file contains a internal helper Class to be C++ compliant.
 
-CompatibilityLayer::CompatibilityLayer(std::string path_to_file)
-{
-  file_path = path_to_file;
-}
-
 std::streamsize CompatibilityLayer::get_file_size(void)
 {
   std::ifstream file;
