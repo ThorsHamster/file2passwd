@@ -12,7 +12,16 @@
  *
  * This program is a Fun project, to play around with modern c++, swig, python and CMake. \n
  * It doesn't make too much sense, but it can be used to generate a password from a file. \n
- * This can be used either in C++ or python.
+ * This can be used either in C++ or python. \n
+ *
+ *
+ * How to use it as python binding: \n
+ * ~~~~~~~~~~~~~{.py}
+ * import pyfile2passwd
+ *
+ * fpo = pyfile2passwd.File2Passwd("/path_to_file/file")
+ * print(fpo.get_passwd())
+ * ~~~~~~~~~~~~~
  */
 
 /**
