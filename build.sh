@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-cd file2passwd
 mkdir -p build && cd build
 
 # Configure
