@@ -5,8 +5,9 @@ set -euo pipefail
 mkdir -p build && cd build
 
 # Configure
-cmake ../
+cmake -DCODE_COVERAGE=ON -DBUILD_DOC=OFF ..
 # Build (for Make on Unix equivalent to `make -j $(nproc)`)
 cmake --build . -j $(nproc)
-# Test
-ctest -j $(nproc) --output-on-failure
+# Coverage
+make coverage
+cd ..

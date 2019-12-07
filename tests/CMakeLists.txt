@@ -14,3 +14,12 @@ package_add_test(utility_tests utilities_tests.cpp)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE
      DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+
+if(CODE_COVERAGE)
+  SETUP_TARGET_FOR_COVERAGE_LCOV(
+        NAME coverage                 
+        EXECUTABLE ctest -j ${n_cores} # Executable in PROJECT_BINARY_DIR
+        DEPENDENCIES
+            file2passwd_tests
+            utility_tests)
+endif(CODE_COVERAGE)
