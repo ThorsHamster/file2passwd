@@ -11,3 +11,6 @@ endmacro()
 
 package_add_test(file2passwd_tests file2passwd_tests.cpp)
 package_add_test(utility_tests utilities_tests.cpp)
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE
+     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
