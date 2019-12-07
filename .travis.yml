@@ -1,0 +1,11 @@
+notifications:
+  email: false
+
+sudo: false
+
+dist: bionic
+
+language: cpp
+
+script:
+  - ./build.sh
