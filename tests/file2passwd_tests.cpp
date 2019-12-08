@@ -33,6 +33,13 @@ namespace {
       const std::string result = fpo.get_passwd();
       EXPECT_EQ(result, expected_string);
     }
+
+  TEST(TEST_get_passwd_not_existent_File, Trivial) {
+      File2Passwd fpo("File_not_existent");
+      const std::string expected_string = "File does not exist.";
+      const std::string result = fpo.get_passwd();
+      EXPECT_EQ(result, expected_string);
+    }
 }
 
 int main(int argc, char **argv) {
