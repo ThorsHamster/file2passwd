@@ -29,7 +29,7 @@ namespace {
 
   TEST(TEST_get_passwd, Trivial) {
       File2Passwd fpo("LICENSE");
-      const std::string expected_string = "1eeb22037fbc98193fbd60f6cad7ec6c";
+      const std::string expected_string = "intented_to_fail";
       const std::string result = fpo.get_passwd();
       EXPECT_EQ(result, expected_string);
     }
