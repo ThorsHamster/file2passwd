@@ -12,6 +12,8 @@ addons:
     packages: lcov
 
 after_success:
+- make coverage
+- cd ..
 # Create lcov report
 - lcov --capture --directory . --output-file coverage.info
 - lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter system-files
