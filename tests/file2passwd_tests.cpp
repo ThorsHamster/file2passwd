@@ -27,9 +27,16 @@ namespace {
     EXPECT_EQ(result, expected_string);
   }
 
-  TEST(TEST_get_passwd, Trivial) {
+  TEST(TEST_get_passwd, File_existent) {
       File2Passwd fpo("LICENSE");
       const std::string expected_string = "1eeb22037fbc98193fbd60f6cad7ec6c";
+      const std::string result = fpo.get_passwd();
+      EXPECT_EQ(result, expected_string);
+    }
+
+  TEST(TEST_get_passwd, File_not_existent) {
+      File2Passwd fpo("File_not_existent");
+      const std::string expected_string = "File does not exist.";
       const std::string result = fpo.get_passwd();
       EXPECT_EQ(result, expected_string);
     }
