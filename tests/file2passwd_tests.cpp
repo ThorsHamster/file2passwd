@@ -40,6 +40,10 @@ namespace {
       const std::string result = fpo.get_passwd();
       EXPECT_EQ(result, expected_string);
     }
+
+  TEST(TEST_get_passwd, Failed_UnitTest) {
+      EXPECT_EQ(0, 1);
+    }
 }
 
 int main(int argc, char **argv) {
