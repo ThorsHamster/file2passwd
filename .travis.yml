@@ -11,14 +11,10 @@ addons:
   apt:
     packages: lcov
 
-after_success:
-- cd build && make coverage
-# Create lcov report
-- lcov --capture --directory . --output-file coverage.info
-- lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter system-files
-- lcov --list coverage.info # debug info
-# Uploading report to CodeCov
-- bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
-
 script:
-  - ./build.sh
+- ./build.sh
+
+after_script:
+- ./generate_coverage.sh
+- ./upload_report_ci.sh
+- ./upload_codecov.sh

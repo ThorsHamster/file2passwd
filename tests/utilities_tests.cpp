@@ -29,7 +29,7 @@ namespace {
     EXPECT_EQ(fibonacci(3), 2);
   }
 
-  TEST(fibonacci_4, Trivial_4) {
+  TEST(fibonacci, Trivial_4) {
     EXPECT_EQ(fibonacci(4), 3);
   }
 
