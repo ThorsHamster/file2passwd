@@ -15,14 +15,6 @@ script:
 - ./build.sh
 
 after_script:
-- cd build
-# Coverage
-- make coverage
-# Upload to Report.CI
-- curl -s https://report.ci/upload.py | python - --include='*.xml' --framework=gtest
-# Create lcov report
-- lcov --capture --directory . --output-file coverage.info
-- lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter system-files
-- lcov --list coverage.info # debug info
-# Uploading report to CodeCov
-- bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
+- ./generate_coverage.sh
+- ./upload_report_ci.sh
+- ./upload_codecov.sh
