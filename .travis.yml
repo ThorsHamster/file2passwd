@@ -9,7 +9,9 @@ language: cpp
 
 addons:
   apt:
-    packages: lcov
+    packages: 
+    - lcov
+    - doxygen
 
 script:
 - ./build.sh
@@ -18,3 +20,11 @@ after_script:
 - ./generate_coverage.sh
 - ./upload_report_ci.sh
 - ./upload_codecov.sh
+
+deploy:
+  - provider: pages
+    skip_cleanup: true
+    local_dir: ./build/doc_doxygen/html
+    github_token: $GITHUB_TOKEN
+    on:
+      branch: dev_publish_doxygen
