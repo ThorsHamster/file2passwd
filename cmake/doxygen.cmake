@@ -15,5 +15,5 @@ if (DOXYGEN_FOUND)
         VERBATIM
     )
 else (DOXYGEN_FOUND)
-  message("Doxygen not found.")
+    message("Doxygen not found.")
 endif (DOXYGEN_FOUND)
