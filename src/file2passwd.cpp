@@ -89,13 +89,6 @@ std::string File2Passwd::get_fibonacci_string(void)
   return fibonacci_string;
 }
 
-char* File2Passwd::string_to_char(std::string str)
-{
-  char* k_char = (char*)malloc((str.size() + 1) * sizeof(char));
-  strcpy(k_char, str.c_str());
-  return k_char;
-}
-
 std::string File2Passwd::get_passwd(void)
 {
   if (!file_exists(file_path))
@@ -104,16 +97,19 @@ std::string File2Passwd::get_passwd(void)
     }
 
   /* A 256 bit key */
-  char* key_value = string_to_char(get_key());
-  unsigned char *key = reinterpret_cast<unsigned char*>(key_value);
+  auto key_value = std::make_unique<char[]>(get_key().size());
+  strcpy(key_value.get(), get_key().c_str());
+  unsigned char *key = reinterpret_cast<unsigned char*>(key_value.get());
 
   /* A 128 bit IV */
-  char* iv_value = string_to_char(get_iv());
-  unsigned char *iv = reinterpret_cast<unsigned char*>(iv_value);
+  auto iv_value = std::make_unique<char[]>(get_iv().size());
+  strcpy(iv_value.get(), get_iv().c_str());
+  unsigned char *iv = reinterpret_cast<unsigned char*>(iv_value.get());
 
   /* Message to be encrypted */
-  char* msg_value = string_to_char(get_fibonacci_string());
-  unsigned char *plaintext = reinterpret_cast<unsigned char*>(msg_value);
+  auto msg_value = std::make_unique<char[]>(get_fibonacci_string().size());
+  strcpy(msg_value.get(), get_fibonacci_string().c_str());
+  unsigned char *plaintext = reinterpret_cast<unsigned char*>(msg_value.get());
 
   /*
    * Buffer for ciphertext. Ensure the buffer is long enough for the
@@ -130,10 +126,6 @@ std::string File2Passwd::get_passwd(void)
   /* Encrypt the plaintext */
   encrypt (plaintext, strlen ((char *)plaintext), key, iv,
 			    ciphertext);
-
-  free(key_value);
-  free(iv_value);
-  free(msg_value);
 
   return compat.convert_uchar_ptr_to_hex_string(ciphertext);
 }

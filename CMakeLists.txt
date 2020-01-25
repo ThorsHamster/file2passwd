@@ -13,7 +13,7 @@ find_package(OpenSSL REQUIRED)
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
-option(GOOGLE_TESTS "Build the tests" ON)
+option(GOOGLE_TESTS "Build the tests" OFF)
 option(BUILD_PYTHON "Build Python Library" OFF)
 option(CLANG_TIDY_TESTS "Test with clang-tidy" OFF)
 option(BUILD_DOC "Build documentation" OFF)
