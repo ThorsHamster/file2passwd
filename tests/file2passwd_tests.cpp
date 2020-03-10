@@ -27,7 +27,7 @@ namespace {
     EXPECT_EQ(result, expected_string);
   }
 
-  TEST(TEST_get_passwd, File_existent) {
+  TEST(TEST_get_passwd, complete_test) {
       File2Passwd fpo("LICENSE");
       const std::string expected_string = "1eeb22037fbc98193fbd60f6cad7ec6c";
       const std::string result = fpo.get_passwd();
