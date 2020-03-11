@@ -3,10 +3,7 @@
 #include "compatibility_layer.hpp"
 #include "utilities.hpp"
 #include "exception.hpp"
-#include <iostream>
 #include <fstream>
-#include <iomanip>
-#include <string.h>
 
 /// @file
 /// @brief This file contains the file2passwd main class
