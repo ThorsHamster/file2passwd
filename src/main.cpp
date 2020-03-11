@@ -19,12 +19,6 @@ int main(int argc, const char *argv[])
 
   std::string file_path = args[1];
 
-  if (!file_exists(file_path))
-    {
-      std::cout << "Not a valid File. \n";
-      return 1;
-    }
-
   File2Passwd fpo(file_path);
 
   std::string passwd = fpo.get_passwd();
