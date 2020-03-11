@@ -23,7 +23,9 @@ public:
   /// @param path_to_file Absolute Path to File
   ///
   explicit CompatibilityLayer(const std::string& path_to_file) : file_path(path_to_file) {}
-
+  int encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
+	      unsigned char *iv, unsigned char *ciphertext);
+        
 private:
   /// @brief Represents MD5 hash of file
   std::string md5_from_file;
@@ -31,6 +33,9 @@ private:
 
   std::streamsize get_file_size(void);
   void get_file_buffer(std::streamsize file_size, char* file_buffer);
+  
+  void handleErrors(void);
+
 };
 
 #endif /* SRC_COMPATLAYER_HPP_ */

@@ -56,9 +56,6 @@ private:
   std::string get_fibonacci_char_vector(void);
   std::string generate_passwd_from_file(int passwd_length);
 
-  void handleErrors(void);
-  int encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
-	      unsigned char *iv, unsigned char *ciphertext);
   std::string get_key(void);
   std::string get_iv(void);
   std::string get_fibonacci_string(void);
