@@ -23,6 +23,7 @@ SETUP_ALLTESTS_TARGET(
         compatibility_layer_tests
 )
 
+# necessary for unit tests, to have a specific file for testing
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE
      DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
