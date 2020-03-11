@@ -4,12 +4,11 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <string.h>
 #include <openssl/md5.h>
-#include <gsl/gsl>
 #include <openssl/conf.h>
 #include <openssl/evp.h>
 #include <openssl/err.h>
+#include <gsl/gsl>
 
 /// @file
 /// @brief This file contains a internal helper Class to be C++ compliant.
