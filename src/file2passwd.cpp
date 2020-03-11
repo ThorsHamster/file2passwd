@@ -27,7 +27,7 @@ void File2Passwd::check_for_prerequisites(void)
     }
 }
 
-std::string File2Passwd::get_fibonacci_char_vector(void)
+std::string File2Passwd::get_fibonacci_string(void)
 {
   /*
    * Opens the specified file and generates a vector with Fibonacci elements
@@ -81,12 +81,6 @@ std::string File2Passwd::get_iv(void)
   std::string iv = get_md5_hash();
   iv = iv.substr(0, 16);
   return iv;
-}
-
-std::string File2Passwd::get_fibonacci_string(void)
-{
-  std::string fibonacci_string = get_fibonacci_char_vector();
-  return fibonacci_string;
 }
 
 std::string File2Passwd::get_passwd(void)
