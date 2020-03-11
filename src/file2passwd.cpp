@@ -2,32 +2,32 @@
 #include "file2passwd.hpp"
 #include "compatibility_layer.hpp"
 #include "utilities.hpp"
-#include <iostream>
+#include "exception.hpp"
 #include <fstream>
-#include <iomanip>
-#include <openssl/conf.h>
-#include <openssl/evp.h>
-#include <openssl/err.h>
-#include <string.h>
 
 /// @file
 /// @brief This file contains the file2passwd main class
 
 std::string File2Passwd::get_md5_hash(void)
 {
-  if (!file_exists(file_path))
-    {
-      return "File does not exist.";
-    }
+  check_for_prerequisites();
 
-  if (md5_from_file != "")
-    return md5_from_file;
+  if (md5_hash_of_file != "")
+    return md5_hash_of_file;
 
-  md5_from_file = compat.get_md5_hash_from_file();
-  return md5_from_file;
+  md5_hash_of_file = compat.get_md5_hash_from_file();
+  return md5_hash_of_file;
 }
 
-std::string File2Passwd::get_fibonacci_char_vector(void)
+void File2Passwd::check_for_prerequisites(void)
+{
+  if (!file_exists(file_path))
+    {
+      throw FileDoesNotExistException();
+    }
+}
+
+std::string File2Passwd::get_fibonacci_string(void)
 {
   /*
    * Opens the specified file and generates a vector with Fibonacci elements
@@ -83,103 +83,13 @@ std::string File2Passwd::get_iv(void)
   return iv;
 }
 
-std::string File2Passwd::get_fibonacci_string(void)
-{
-  std::string fibonacci_string = get_fibonacci_char_vector();
-  return fibonacci_string;
-}
-
-std::vector<unsigned char> string_to_unsigned_char(std::string const& str)
-{
-  auto vector_uchar = std::vector<unsigned char>(str.data(), str.data() + str.length());
-  return std::move(vector_uchar);
-}
-
 std::string File2Passwd::get_passwd(void)
 {
-  if (!file_exists(file_path))
-    {
-      return "File does not exist.";
-    }
+  check_for_prerequisites();
 
-  /* A 256 bit key */
-  std::vector<unsigned char> key_uchar = string_to_unsigned_char(get_key());
-  unsigned char *key = key_uchar.data();
-
-  /* A 128 bit IV */
-  std::vector<unsigned char> uv_uchar = string_to_unsigned_char(get_iv());
-  unsigned char *iv = uv_uchar.data();
-
-  /* Message to be encrypted */
-  std::vector<unsigned char> msg_uchar = string_to_unsigned_char(get_fibonacci_string());
-  unsigned char *plaintext = msg_uchar.data();
-
-  /*
-   * Buffer for ciphertext. Ensure the buffer is long enough for the
-   * ciphertext which may be longer than the plaintext, depending on the
-   * algorithm and mode.
-   */
-  unsigned char ciphertext[128];
-
-  /* Buffer for the decrypted text */
-  unsigned char decryptedtext[128];
-
-  int decryptedtext_len;
-
-  /* Encrypt the plaintext */
-  encrypt (plaintext, strlen ((char *)plaintext), key, iv,
-			    ciphertext);
-
-  return compat.convert_uchar_ptr_to_hex_string(ciphertext);
+  std::string key = get_key();
+  std::string iv = get_iv();
+  std::string plaintext = get_fibonacci_string();
+  return compat.encrypt(key, iv, plaintext);
 }
 
-int File2Passwd::encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
-			 unsigned char *iv, unsigned char *ciphertext)
-{
-  EVP_CIPHER_CTX *ctx;
-
-  int len;
-
-  int ciphertext_len;
-
-  /* Create and initialise the context */
-  if (!(ctx = EVP_CIPHER_CTX_new()))
-    handleErrors();
-
-  /*
-   * Initialise the encryption operation. IMPORTANT - ensure you use a key
-   * and IV size appropriate for your cipher
-   * In this example we are using 256 bit AES (i.e. a 256 bit key). The
-   * IV size for *most* modes is the same as the block size. For AES this
-   * is 128 bits
-   */
-  if (1 != EVP_EncryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv))
-    handleErrors();
-
-  /*
-   * Provide the message to be encrypted, and obtain the encrypted output.
-   * EVP_EncryptUpdate can be called multiple times if necessary
-   */
-  if (1 != EVP_EncryptUpdate(ctx, ciphertext, &len, plaintext, plaintext_len))
-    handleErrors();
-  ciphertext_len = len;
-
-  /*
-   * Finalise the encryption. Further ciphertext bytes may be written at
-   * this stage.
-   */
-  if (1 != EVP_EncryptFinal_ex(ctx, ciphertext + len, &len))
-    handleErrors();
-  ciphertext_len += len;
-
-  /* Clean up */
-  EVP_CIPHER_CTX_free(ctx);
-
-  return ciphertext_len;
-}
-
-void File2Passwd::handleErrors(void)
-{
-  ERR_print_errors_fp(stderr);
-  abort();
-}
