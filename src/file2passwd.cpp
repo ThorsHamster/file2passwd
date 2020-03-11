@@ -88,44 +88,13 @@ std::string File2Passwd::get_fibonacci_string(void)
   return fibonacci_string;
 }
 
-std::vector<unsigned char> string_to_unsigned_char(std::string const& str)
-{
-  auto vector_uchar = std::vector<unsigned char>(str.data(), str.data() + str.length());
-  return std::move(vector_uchar);
-}
-
 std::string File2Passwd::get_passwd(void)
 {
   check_for_prerequisites();
 
-  /* A 256 bit key */
-  std::vector<unsigned char> key_uchar = string_to_unsigned_char(get_key());
-  unsigned char *key = key_uchar.data();
-
-  /* A 128 bit IV */
-  std::vector<unsigned char> uv_uchar = string_to_unsigned_char(get_iv());
-  unsigned char *iv = uv_uchar.data();
-
-  /* Message to be encrypted */
-  std::vector<unsigned char> msg_uchar = string_to_unsigned_char(get_fibonacci_string());
-  unsigned char *plaintext = msg_uchar.data();
-
-  /*
-   * Buffer for ciphertext. Ensure the buffer is long enough for the
-   * ciphertext which may be longer than the plaintext, depending on the
-   * algorithm and mode.
-   */
-  unsigned char ciphertext[128];
-
-  /* Buffer for the decrypted text */
-  unsigned char decryptedtext[128];
-
-  int decryptedtext_len;
-
-  /* Encrypt the plaintext */
-  compat.encrypt(plaintext, strlen ((char *)plaintext), key, iv,
-			    ciphertext);
-
-  return compat.convert_uchar_ptr_to_hex_string(ciphertext);
+  std::string key = get_key();
+  std::string iv = get_iv();
+  std::string plaintext = get_fibonacci_string();
+  return compat.encrypt(key, iv, plaintext);
 }
 

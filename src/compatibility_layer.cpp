@@ -10,7 +10,6 @@
 #include <openssl/conf.h>
 #include <openssl/evp.h>
 #include <openssl/err.h>
-#include <iomanip>
 
 /// @file
 /// @brief This file contains a internal helper Class to be C++ compliant.
@@ -67,7 +66,33 @@ std::string CompatibilityLayer::get_md5_hash_from_file(void)
   return md5_from_file;
 }
 
-int CompatibilityLayer::encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
+std::string CompatibilityLayer::encrypt(std::string key, std::string iv, std::string plaintext)
+{
+  /* A 256 bit key */
+  std::vector<unsigned char> key_uchar = string_to_unsigned_char(key);
+  unsigned char *key_ = key_uchar.data();
+
+  /* A 128 bit IV */
+  std::vector<unsigned char> uv_uchar = string_to_unsigned_char(iv);
+  unsigned char *iv_ = uv_uchar.data();
+
+  /* Message to be encrypted */
+  std::vector<unsigned char> msg_uchar = string_to_unsigned_char(plaintext);
+  unsigned char *plaintext_ = msg_uchar.data();
+    /*
+   * Buffer for ciphertext. Ensure the buffer is long enough for the
+   * ciphertext which may be longer than the plaintext, depending on the
+   * algorithm and mode.
+   */
+  unsigned char ciphertext_[128];
+
+  /* Encrypt the plaintext */
+  internal_encrypt(plaintext_, strlen ((char *)plaintext_), key_, iv_, ciphertext_);
+
+  return convert_uchar_ptr_to_hex_string(ciphertext_);
+}
+
+int CompatibilityLayer::internal_encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
 			 unsigned char *iv, unsigned char *ciphertext)
 {
   EVP_CIPHER_CTX *ctx;
@@ -116,4 +141,10 @@ void CompatibilityLayer::handleErrors(void)
 {
   ERR_print_errors_fp(stderr);
   abort();
+}
+
+std::vector<unsigned char> CompatibilityLayer::string_to_unsigned_char(std::string const& str)
+{
+  auto vector_uchar = std::vector<unsigned char>(str.data(), str.data() + str.length());
+  return std::move(vector_uchar);
 }

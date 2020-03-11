@@ -3,6 +3,7 @@
 #define SRC_COMPATLAYER_HPP_
 
 #include <string>
+#include <vector>
 
 /**
 * @class CompatibilityLayer
@@ -23,9 +24,8 @@ public:
   /// @param path_to_file Absolute Path to File
   ///
   explicit CompatibilityLayer(const std::string& path_to_file) : file_path(path_to_file) {}
-  int encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
-	      unsigned char *iv, unsigned char *ciphertext);
-        
+  std::string encrypt(std::string key, std::string iv, std::string plaintext);
+
 private:
   /// @brief Represents MD5 hash of file
   std::string md5_from_file;
@@ -35,7 +35,9 @@ private:
   void get_file_buffer(std::streamsize file_size, char* file_buffer);
   
   void handleErrors(void);
-
+  int internal_encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
+	      unsigned char *iv, unsigned char *ciphertext);
+  std::vector<unsigned char> string_to_unsigned_char(std::string const& str);
 };
 
 #endif /* SRC_COMPATLAYER_HPP_ */
