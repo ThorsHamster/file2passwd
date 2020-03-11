@@ -20,11 +20,7 @@ std::string File2Passwd::get_md5_hash(void)
       return "File does not exist.";
     }
 
-  if (md5_from_file != "")
-    return md5_from_file;
-
-  md5_from_file = compat.get_md5_hash_from_file();
-  return md5_from_file;
+  return compat.get_md5_hash_from_file();
 }
 
 std::string File2Passwd::get_fibonacci_char_vector(void)

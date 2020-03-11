@@ -51,7 +51,6 @@ public:
 private:
   std::string file_path;
   CompatibilityLayer compat;
-  std::string md5_from_file;
 
   std::string get_fibonacci_char_vector(void);
   std::string generate_passwd_from_file(int passwd_length);
