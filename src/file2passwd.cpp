@@ -15,7 +15,11 @@ std::string File2Passwd::get_md5_hash(void)
 {
   check_for_prerequisites();
 
-  return compat.get_md5_hash_from_file();
+  if (md5_hash_of_file != "")
+    return md5_hash_of_file;
+
+  md5_hash_of_file = compat.get_md5_hash_from_file();
+  return md5_hash_of_file;
 }
 
 void File2Passwd::check_for_prerequisites(void)

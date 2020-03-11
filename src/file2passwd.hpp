@@ -49,6 +49,7 @@ public:
   explicit File2Passwd(const std::string& path_to_file) : file_path(path_to_file), compat(path_to_file) {}
 
 private:
+  std::string md5_hash_of_file;
   std::string file_path;
   CompatibilityLayer compat;
 
