@@ -11,9 +11,6 @@
 */
 class CompatibilityLayer {
 public:
-  /// @brief Represents MD5 hash of file
-  std::string md5_from_file;
-
   /// @brief Returns MD5 hash of file
   std::string get_md5_hash_from_file(void);
   /// @brief Converts a unsigned char pointer to a hexidecimal std::string
@@ -28,6 +25,8 @@ public:
   explicit CompatibilityLayer(const std::string& path_to_file) : file_path(path_to_file) {}
 
 private:
+  /// @brief Represents MD5 hash of file
+  std::string md5_from_file;
   std::string file_path;
 
   std::streamsize get_file_size(void);
