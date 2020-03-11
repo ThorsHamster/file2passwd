@@ -1,5 +1,6 @@
 #include "compatibility_layer.hpp"
 #include "utilities.hpp"
+#include "exception.hpp"
 #include <sys/mman.h>
 #include <iostream>
 #include <fstream>
@@ -48,7 +49,7 @@ std::string CompatibilityLayer::get_md5_hash_from_file(void)
 {
   if (!file_exists(file_path))
     {
-      return "";
+      throw FileDoesNotExistException();
     }
 
   auto result = std::make_unique<unsigned char[]>(MD5_DIGEST_LENGTH);
