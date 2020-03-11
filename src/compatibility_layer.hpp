@@ -16,7 +16,8 @@ public:
   std::string get_md5_hash_from_file(void);
   /// @brief Converts a unsigned char pointer to a hexidecimal std::string
   std::string convert_uchar_ptr_to_hex_string(unsigned char* result);
-
+  /// @brief Encrypts plaintext with OpenSSL. Needs key value and initialization vector iv
+  std::string encrypt(std::string key, std::string iv, std::string plaintext);
   /// @brief Construct object
   ///
   /// @pre The file should be existent.
@@ -24,7 +25,6 @@ public:
   /// @param path_to_file Absolute Path to File
   ///
   explicit CompatibilityLayer(const std::string& path_to_file) : file_path(path_to_file) {}
-  std::string encrypt(std::string key, std::string iv, std::string plaintext);
 
 private:
   /// @brief Represents MD5 hash of file
