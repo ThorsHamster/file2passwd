@@ -2,6 +2,7 @@
 #include "file2passwd.hpp"
 #include "compatibility_layer.hpp"
 #include "utilities.hpp"
+#include "exception.hpp"
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -15,12 +16,17 @@
 
 std::string File2Passwd::get_md5_hash(void)
 {
-  if (!file_exists(file_path))
-    {
-      return "File does not exist.";
-    }
+  check_for_prerequisites();
 
   return compat.get_md5_hash_from_file();
+}
+
+void File2Passwd::check_for_prerequisites(void)
+{
+  if (!file_exists(file_path))
+    {
+      throw FileDoesNotExistException();
+    }
 }
 
 std::string File2Passwd::get_fibonacci_char_vector(void)
@@ -93,10 +99,7 @@ std::vector<unsigned char> string_to_unsigned_char(std::string const& str)
 
 std::string File2Passwd::get_passwd(void)
 {
-  if (!file_exists(file_path))
-    {
-      return "File does not exist.";
-    }
+  check_for_prerequisites();
 
   /* A 256 bit key */
   std::vector<unsigned char> key_uchar = string_to_unsigned_char(get_key());
