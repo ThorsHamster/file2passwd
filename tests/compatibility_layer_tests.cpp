@@ -16,9 +16,9 @@ namespace {
     CompatibilityLayer compat("LICENSE");
     // see here for ascii table: https://www.torsten-horn.de/techdocs/ascii.htm
     // 1 equals 31.. a equals 61
-    const std::string expected_string = "31323361626364000000000000000000";
+    const std::string expected_string = "30313233616263643031323361626364";
 
-    std::string test_string = "123abcd";
+    std::string test_string = "0123abcd0123abcd";
     auto test_vector = std::vector<unsigned char>(test_string.data(), test_string.data() + test_string.length());
     const std::string result = compat.convert_uchar_ptr_to_hex_string(test_vector.data());
     EXPECT_EQ(result, expected_string);
