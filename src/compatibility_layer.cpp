@@ -66,7 +66,7 @@ std::string CompatibilityLayer::convert_uchar_ptr_to_hex_string(unsigned char* r
   return ss.str();
 }
 
-std::string CompatibilityLayer::encrypt(std::string key, std::string iv, std::string plaintext)
+std::string CompatibilityLayer::encrypt(std::string key, std::string iv, std::string &plaintext)
 {
   /* A 256 bit key */
   std::vector<unsigned char> key_uchar = string_to_unsigned_char(key);
