@@ -1,3 +1,6 @@
+#ifndef SRC_EXCEPTION_HPP_
+#define SRC_EXCEPTION_HPP_
+
 #include <exception>
 
 struct FileDoesNotExistException : public std::exception
@@ -7,3 +10,5 @@ struct FileDoesNotExistException : public std::exception
     	return "File does not exist.";
     }
 };
+
+#endif /* SRC_EXCEPTION_HPP_ */
