@@ -57,8 +57,6 @@ std::string File2Passwd::get_fibonacci_string(void)
    * Opens the specified file and generates a vector with Fibonacci elements
    * as long as the Fibonacci element is smaller than the total size of the file.
    *
-   * for (int i=0; fibonacci(i)<file_size; i++)
-   *
    * Then the bytes are taken from the file at the respective positions (fibonacci(i)) and joined together.
    */
   std::ifstream ifs(file_path, std::ios::binary | std::ios::ate);
