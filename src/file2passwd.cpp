@@ -83,11 +83,11 @@ std::string File2Passwd::get_fibonacci_string(void)
   for (size_t i=0; i<MAX_FIBONACCI_VALUE; i++)
     {
       if (fibonacci_numbers[i]==0)
-	{
-	  break;
-	}
+        {
+          break;
+        }
 
-      result.append(sizeof(char),file_buffer[fibonacci_numbers[i]]);
+      result.append(sizeof(char), file_buffer[fibonacci_numbers[i]]);
     }
 
   return result;
