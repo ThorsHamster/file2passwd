@@ -8,6 +8,39 @@
 /// @file
 /// @brief This file contains the file2passwd main class
 
+std::string File2Passwd::get_passwd(void)
+{
+  check_for_prerequisites();
+
+  std::string key = get_key();
+  std::string iv = get_iv();
+  std::string plaintext = get_fibonacci_string();
+  return compat.encrypt(key, iv, plaintext);
+}
+
+void File2Passwd::check_for_prerequisites(void)
+{
+  if (!file_exists(file_path))
+    {
+      throw FileDoesNotExistException();
+    }
+}
+
+std::string File2Passwd::get_key(void)
+{
+  //return a 256 Bit representation of md5 hash
+  std::string key = get_md5_hash();
+  return key.substr(0, 32);
+}
+
+std::string File2Passwd::get_iv(void)
+{
+  //return a 128 Bit representation of md5 hash
+  std::string iv = get_md5_hash();
+  iv = iv.substr(0, 16);
+  return iv;
+}
+
 std::string File2Passwd::get_md5_hash(void)
 {
   check_for_prerequisites();
@@ -17,14 +50,6 @@ std::string File2Passwd::get_md5_hash(void)
 
   md5_hash_of_file = compat.get_md5_hash_from_file();
   return md5_hash_of_file;
-}
-
-void File2Passwd::check_for_prerequisites(void)
-{
-  if (!file_exists(file_path))
-    {
-      throw FileDoesNotExistException();
-    }
 }
 
 std::string File2Passwd::get_fibonacci_string(void)
@@ -67,29 +92,3 @@ std::string File2Passwd::get_fibonacci_string(void)
 
   return result;
 }
-
-std::string File2Passwd::get_key(void)
-{
-  //return a 256 Bit representation of md5 hash
-  std::string key = get_md5_hash();
-  return key.substr(0, 32);
-}
-
-std::string File2Passwd::get_iv(void)
-{
-  //return a 128 Bit representation of md5 hash
-  std::string iv = get_md5_hash();
-  iv = iv.substr(0, 16);
-  return iv;
-}
-
-std::string File2Passwd::get_passwd(void)
-{
-  check_for_prerequisites();
-
-  std::string key = get_key();
-  std::string iv = get_iv();
-  std::string plaintext = get_fibonacci_string();
-  return compat.encrypt(key, iv, plaintext);
-}
-
