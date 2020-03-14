@@ -35,7 +35,7 @@ private:
   void get_file_buffer(std::streamsize file_size, char* file_buffer);
   
   void handleErrors(void);
-  int internal_encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
+  int openssl_encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
 	      unsigned char *iv, unsigned char *ciphertext);
   std::vector<unsigned char> string_to_unsigned_char(std::string const& str);
 };

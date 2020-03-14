@@ -87,12 +87,12 @@ std::string CompatibilityLayer::encrypt(std::string key, std::string iv, std::st
   unsigned char ciphertext_[128];
 
   /* Encrypt the plaintext */
-  internal_encrypt(plaintext_, strlen ((char *)plaintext_), key_, iv_, ciphertext_);
+  openssl_encrypt(plaintext_, strlen ((char *)plaintext_), key_, iv_, ciphertext_);
 
   return convert_uchar_ptr_to_hex_string(ciphertext_);
 }
 
-int CompatibilityLayer::internal_encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
+int CompatibilityLayer::openssl_encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
 			 unsigned char *iv, unsigned char *ciphertext)
 {
   EVP_CIPHER_CTX *ctx;
