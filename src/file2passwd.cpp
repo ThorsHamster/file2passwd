@@ -62,14 +62,14 @@ std::string File2Passwd::get_fibonacci_string(void)
   std::ifstream ifs(file_path, std::ios::binary | std::ios::ate);
   std::ifstream::pos_type length_of_file = ifs.tellg();
   
-  auto fibonacci_numbers = get_fibonacci_vector_of_filesize(length_of_file);
+  auto fibonacci_numbers = get_fibonacci_vector_of_filelength(length_of_file);
   auto file_buffer = read_file_into_filebuffer(ifs, length_of_file);
   auto fibonacci_string = pick_chars_from_file(fibonacci_numbers, file_buffer);
 
   return fibonacci_string;
 }
 
-std::vector<uint64_t> File2Passwd::get_fibonacci_vector_of_filesize(std::ifstream::pos_type length_of_file)
+std::vector<uint64_t> File2Passwd::get_fibonacci_vector_of_filelength(std::ifstream::pos_type length_of_file)
 {
   std::vector<uint64_t> fibonacci_numbers(MAX_FIBONACCI_VALUE);
 

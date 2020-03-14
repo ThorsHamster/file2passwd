@@ -61,7 +61,7 @@ private:
   std::string get_key(void);
   std::string get_iv(void);
   std::string get_fibonacci_string(void);
-  std::vector<uint64_t> get_fibonacci_vector_of_filesize(std::ifstream::pos_type length_of_file);
+  std::vector<uint64_t> get_fibonacci_vector_of_filelength(std::ifstream::pos_type length_of_file);
   std::vector<char> read_file_into_filebuffer(std::ifstream &ifs, std::ifstream::pos_type length_of_file);
   std::string pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, std::vector<char> &file_buffer);
 };
