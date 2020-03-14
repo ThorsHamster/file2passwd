@@ -63,22 +63,12 @@ std::string File2Passwd::get_fibonacci_string(void)
    */
   std::ifstream ifs(file_path, std::ios::binary | std::ios::ate);
   std::ifstream::pos_type length_of_file = ifs.tellg();
-  std::string result;
-
+  
   auto fibonacci_numbers = get_fibonacci_vector_of_filesize(length_of_file);
   auto file_buffer = read_file_into_filebuffer(ifs, length_of_file);
+  auto fibonacci_string = pick_chars_from_file(fibonacci_numbers, file_buffer);
 
-  for (size_t i=0; i<MAX_FIBONACCI_VALUE; i++)
-    {
-      if (fibonacci_numbers[i]==0)
-      {
-        break;
-      }
-
-      result.append(sizeof(char), file_buffer[fibonacci_numbers[i]]);
-    }
-
-  return result;
+  return fibonacci_string;
 }
 
 std::vector<uint64_t> File2Passwd::get_fibonacci_vector_of_filesize(std::ifstream::pos_type length_of_file)
@@ -103,4 +93,21 @@ std::vector<char> File2Passwd::read_file_into_filebuffer(std::ifstream &ifs, std
   ifs.read(&file_buffer[0], length_of_file);
 
   return std::move(file_buffer);
+}
+
+std::string File2Passwd::pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, std::vector<char> &file_buffer)
+{
+  std::string result;
+
+  for (size_t i=0; i<MAX_FIBONACCI_VALUE; i++)
+  {
+    if (fibonacci_numbers[i]==0)
+    {
+      break;
+    }
+
+    result.append(sizeof(char), file_buffer[fibonacci_numbers[i]]);
+  }
+
+  return result;
 }
