@@ -63,29 +63,29 @@ std::string File2Passwd::get_fibonacci_string(void)
    * Then the bytes are taken from the file at the respective positions (fibonacci(i)) and joined together.
    */
   std::ifstream ifs(file_path, std::ios::binary | std::ios::ate);
-  std::ifstream::pos_type pos = ifs.tellg();
+  std::ifstream::pos_type length_of_file = ifs.tellg();
 
   std::vector<uint64_t> fibonacci_numbers(MAX_FIBONACCI_VALUE);
 
   uint64_t fib_number=0;
-  for (size_t i=1; fib_number<=pos; i++)
+  for (size_t i=1; fib_number<=length_of_file; i++)
     {
       fib_number=fibonacci(i);
-      fibonacci_numbers[i-1] = fib_number;
+      fibonacci_numbers[i-1] = fibonacci(i);
     }
 
-  std::vector<char> file_buffer(pos);
+  std::vector<char> file_buffer(length_of_file);
   std::string result;
 
   ifs.seekg(0, std::ios::beg);
-  ifs.read(&file_buffer[0], pos);
+  ifs.read(&file_buffer[0], length_of_file);
 
   for (size_t i=0; i<MAX_FIBONACCI_VALUE; i++)
     {
       if (fibonacci_numbers[i]==0)
-        {
-          break;
-        }
+      {
+        break;
+      }
 
       result.append(sizeof(char), file_buffer[fibonacci_numbers[i]]);
     }
