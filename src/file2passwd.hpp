@@ -5,6 +5,7 @@
 #include "compatibility_layer.hpp"
 #include <string>
 #include <vector>
+#include <fstream>
 
 /*! \mainpage
  *
@@ -60,6 +61,7 @@ private:
   std::string get_key(void);
   std::string get_iv(void);
   std::string get_fibonacci_string(void);
+  std::vector<uint64_t> get_fibonacci_vector_of_filesize(std::ifstream::pos_type length_of_file);
 };
 
 #endif /* SRC_FILE2PASSWD_HPP_ */

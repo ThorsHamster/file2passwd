@@ -3,7 +3,6 @@
 #include "compatibility_layer.hpp"
 #include "utilities.hpp"
 #include "exception.hpp"
-#include <fstream>
 
 /// @file
 /// @brief This file contains the file2passwd main class
@@ -65,14 +64,7 @@ std::string File2Passwd::get_fibonacci_string(void)
   std::ifstream ifs(file_path, std::ios::binary | std::ios::ate);
   std::ifstream::pos_type length_of_file = ifs.tellg();
 
-  std::vector<uint64_t> fibonacci_numbers(MAX_FIBONACCI_VALUE);
-
-  uint64_t fib_number=0;
-  for (size_t i=1; fib_number<=length_of_file; i++)
-    {
-      fib_number=fibonacci(i);
-      fibonacci_numbers[i-1] = fibonacci(i);
-    }
+  auto fibonacci_numbers = get_fibonacci_vector_of_filesize(length_of_file);
 
   std::vector<char> file_buffer(length_of_file);
   std::string result;
@@ -91,4 +83,18 @@ std::string File2Passwd::get_fibonacci_string(void)
     }
 
   return result;
+}
+
+std::vector<uint64_t> File2Passwd::get_fibonacci_vector_of_filesize(std::ifstream::pos_type length_of_file)
+{
+  std::vector<uint64_t> fibonacci_numbers(MAX_FIBONACCI_VALUE);
+
+  uint64_t fibonacci_number = 0;
+  for (size_t i=1; fibonacci_number<=length_of_file; i++)
+    {
+      fibonacci_number = fibonacci(i);
+      fibonacci_numbers[i-1] = fibonacci_number;
+    }
+
+  return fibonacci_numbers;
 }
