@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-find **/* -iname *.hpp -o -iname *.cpp | xargs clang-format -i
+find . \( -name '*.hpp' -o -name '*.cpp' \) -exec clang-format -i {} +
