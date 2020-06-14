@@ -7,7 +7,7 @@
 
 auto file_exists(std::string argv_file_path) -> bool {
   std::ifstream f(argv_file_path);
-  return (!f.good()) ? false : true;
+  return (f.good()) ? true : false;
 }
 
 auto fibonacci(uint64_t number) -> uint64_t {
