@@ -30,6 +30,8 @@ class CompatibilityLayer {
   /// @brief Represents MD5 hash of file
   std::string md5_from_file;
   std::string file_path;
+  
+  static constexpr int MAXIMUM_FILE_LENGTH = 1000000;
 
   auto get_file_size(void) -> std::streamsize;
   void get_file_buffer(std::streamsize file_size, char *file_buffer);

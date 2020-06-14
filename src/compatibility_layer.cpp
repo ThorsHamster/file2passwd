@@ -47,11 +47,13 @@ auto CompatibilityLayer::get_file_size(void) -> std::streamsize {
 }
 
 void CompatibilityLayer::get_file_buffer(std::streamsize file_size, char *file_buffer) {
-  std::ifstream file;
-  file.open(file_path, std::ios_base::in | std::ios_base::binary);
-  file.seekg(0, std::ios_base::beg);
-  file.read(file_buffer, file_size);
-  file.close();
+  if (file_size > 0 or file_size <= MAXIMUM_FILE_LENGTH) {
+    std::ifstream file;
+    file.open(file_path, std::ios_base::in | std::ios_base::binary);
+    file.seekg(0, std::ios_base::beg);
+    file.read(file_buffer, file_size);
+    file.close();
+  }
 }
 
 auto CompatibilityLayer::convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::string {
