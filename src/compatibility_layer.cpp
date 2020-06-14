@@ -17,7 +17,7 @@
 /// @file
 /// @brief This file contains a internal helper Class to be C++ compliant.
 
-std::string CompatibilityLayer::get_md5_hash_from_file(void) {
+auto CompatibilityLayer::get_md5_hash_from_file(void) -> std::string {
   if (!file_exists(file_path)) {
     throw FileDoesNotExistException();
   }
@@ -36,7 +36,7 @@ std::string CompatibilityLayer::get_md5_hash_from_file(void) {
   return md5_from_file;
 }
 
-std::streamsize CompatibilityLayer::get_file_size(void) {
+auto CompatibilityLayer::get_file_size(void) -> std::streamsize {
   std::ifstream file;
   file.open(file_path, std::ios_base::in);
   file.ignore(std::numeric_limits<std::streamsize>::max());
@@ -54,7 +54,7 @@ void CompatibilityLayer::get_file_buffer(std::streamsize file_size, char *file_b
   file.close();
 }
 
-std::string CompatibilityLayer::convert_uchar_ptr_to_hex_string(unsigned char *result) {
+auto CompatibilityLayer::convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::string {
   std::stringstream ss;
   ss << std::hex << std::setfill('0');
   for (int i = 0; i < MD5_DIGEST_LENGTH; i++) {
@@ -63,7 +63,7 @@ std::string CompatibilityLayer::convert_uchar_ptr_to_hex_string(unsigned char *r
   return ss.str();
 }
 
-std::string CompatibilityLayer::encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) {
+auto CompatibilityLayer::encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string {
   /* A 256 bit key */
   std::vector<unsigned char> key_uchar = string_to_unsigned_char(key);
   unsigned char *key_ = key_uchar.data();
@@ -88,8 +88,8 @@ std::string CompatibilityLayer::encrypt(const std::string &key, const std::strin
   return convert_uchar_ptr_to_hex_string(ciphertext_);
 }
 
-int CompatibilityLayer::openssl_encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
-                                        unsigned char *iv, unsigned char *ciphertext) {
+auto CompatibilityLayer::openssl_encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
+                                        unsigned char *iv, unsigned char *ciphertext) -> int {
   EVP_CIPHER_CTX *ctx;
 
   int len;
@@ -137,7 +137,7 @@ void CompatibilityLayer::handleErrors(void) {
   abort();
 }
 
-std::vector<unsigned char> CompatibilityLayer::string_to_unsigned_char(std::string const &str) {
+auto CompatibilityLayer::string_to_unsigned_char(std::string const &str) -> std::vector<unsigned char> {
   auto vector_uchar = std::vector<unsigned char>(str.data(), str.data() + str.length());
   return std::move(vector_uchar);
 }
