@@ -2,10 +2,11 @@
 #ifndef SRC_FILE2PASSWD_HPP_
 #define SRC_FILE2PASSWD_HPP_
 
-#include "compatibility_layer.hpp"
+#include <fstream>
 #include <string>
 #include <vector>
-#include <fstream>
+
+#include "compatibility_layer.hpp"
 
 /*! \mainpage
  *
@@ -35,7 +36,7 @@
 * std::string passwd = fpo.get_passwd();
 */
 class File2Passwd {
-public:
+ public:
   /// @brief Returns MD5 hash of file
   std::string get_md5_hash(void);
   /// @brief Returns password generated out of file
@@ -47,9 +48,9 @@ public:
   ///
   /// @param path_to_file Absolute Path to File
   ///
-  explicit File2Passwd(const std::string& path_to_file) : file_path(path_to_file), compat(path_to_file) {}
+  explicit File2Passwd(const std::string &path_to_file) : file_path(path_to_file), compat(path_to_file) {}
 
-private:
+ private:
   std::string md5_hash_of_file;
   std::string file_path;
   CompatibilityLayer compat;

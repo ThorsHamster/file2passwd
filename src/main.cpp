@@ -1,21 +1,22 @@
 
 #include "main.hpp"
+
+#include <string.h>
+
+#include <fstream>
+#include <gsl/gsl>
+#include <iostream>
+
 #include "file2passwd.hpp"
 #include "utilities.hpp"
-#include <iostream>
-#include <fstream>
-#include <string.h>
-#include <gsl/gsl>
 
-int main(int argc, const char *argv[])
-{
-  auto args = gsl::multi_span<const char*>(argv, argc);
+int main(int argc, const char *argv[]) {
+  auto args = gsl::multi_span<const char *>(argv, argc);
 
-  if (argc != 2)
-    {
-      std::cout << "Please specify a File. \n";
-      return 1;
-    }
+  if (argc != 2) {
+    std::cout << "Please specify a File. \n";
+    return 1;
+  }
 
   std::string file_path = args[1];
 
