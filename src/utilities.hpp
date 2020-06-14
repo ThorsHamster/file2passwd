@@ -15,7 +15,7 @@
      @param[in]      argv_file_path      Absolute path to File
      @return         True if file exists, False if not.
   */
-bool file_exists(std::string argv_file_path);
+auto file_exists(std::string argv_file_path) -> bool;
 
 /**  @brief Calculates fibonacci numbers
 
@@ -36,6 +36,6 @@ bool file_exists(std::string argv_file_path);
  * <TR><TD>51</TD><TD>invalid, returns 0</TD></TR>
  * </TABLE>
  */
-uint64_t fibonacci(uint64_t number);
+auto fibonacci(uint64_t number) -> uint64_t;
 
 #endif /* SRC_UTILITIES_HPP_ */

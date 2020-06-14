@@ -5,12 +5,12 @@
 #include <fstream>
 #include <iostream>
 
-bool file_exists(std::string argv_file_path) {
+auto file_exists(std::string argv_file_path) -> bool {
   std::ifstream f(argv_file_path);
   return (!f.good()) ? false : true;
 }
 
-uint64_t fibonacci(uint64_t number) {
+auto fibonacci(uint64_t number) -> uint64_t {
   if (number == 0 or number >= MAX_FIBONACCI_VALUE) {
     return 0;
   }
