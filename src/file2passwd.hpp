@@ -55,6 +55,8 @@ class File2Passwd {
   std::string file_path;
   CompatibilityLayer compat;
 
+  static constexpr int MAXIMUM_FILE_LENGTH = 1000000;
+
   void check_for_prerequisites(void);
   auto get_fibonacci_char_vector(void) -> std::string;
   auto generate_passwd_from_file(int passwd_length) -> std::string;
