@@ -38,9 +38,9 @@
 class File2Passwd {
  public:
   /// @brief Returns MD5 hash of file
-  std::string get_md5_hash(void);
+  auto get_md5_hash(void) -> std::string;
   /// @brief Returns password generated out of file
-  std::string get_passwd(void);
+  auto get_passwd(void) -> std::string;
 
   /// @brief Construct object
   ///
@@ -56,15 +56,15 @@ class File2Passwd {
   CompatibilityLayer compat;
 
   void check_for_prerequisites(void);
-  std::string get_fibonacci_char_vector(void);
-  std::string generate_passwd_from_file(int passwd_length);
+  auto get_fibonacci_char_vector(void) -> std::string;
+  auto generate_passwd_from_file(int passwd_length) -> std::string;
 
-  std::string get_key(void);
-  std::string get_iv(void);
-  std::string get_fibonacci_string(void);
-  std::vector<uint64_t> get_fibonacci_vector_of_filelength(std::ifstream::pos_type length_of_file);
-  std::vector<char> read_file_into_filebuffer(std::ifstream &ifs, std::ifstream::pos_type length_of_file);
-  std::string pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, std::vector<char> &file_buffer);
+  auto get_key(void) -> std::string;
+  auto get_iv(void) -> std::string;
+  auto get_fibonacci_string(void) -> std::string;
+  auto get_fibonacci_vector_of_filelength(std::ifstream::pos_type length_of_file) -> std::vector<uint64_t>;
+  auto read_file_into_filebuffer(std::ifstream &ifs, std::ifstream::pos_type length_of_file) -> std::vector<char>;
+  auto pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, std::vector<char> &file_buffer) -> std::string;
 };
 
 #endif /* SRC_FILE2PASSWD_HPP_ */
