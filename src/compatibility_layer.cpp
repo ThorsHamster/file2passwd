@@ -89,7 +89,7 @@ auto CompatibilityLayer::encrypt(const std::string &key, const std::string &iv, 
 }
 
 auto CompatibilityLayer::openssl_encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
-                                        unsigned char *iv, unsigned char *ciphertext) -> int {
+                                         unsigned char *iv, unsigned char *ciphertext) -> int {
   EVP_CIPHER_CTX *ctx;
 
   int len;

@@ -75,7 +75,7 @@ auto File2Passwd::get_fibonacci_vector_of_filelength(std::ifstream::pos_type len
   return fibonacci_numbers;
 }
 
-auto File2Passwd::read_file_into_filebuffer(std::ifstream &ifs, std::ifstream::pos_type length_of_file) -> std::vector<char>{
+auto File2Passwd::read_file_into_filebuffer(std::ifstream &ifs, std::ifstream::pos_type length_of_file) -> std::vector<char> {
   std::vector<char> file_buffer(length_of_file);
 
   ifs.seekg(0, std::ios::beg);
