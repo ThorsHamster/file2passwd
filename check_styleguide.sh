@@ -13,9 +13,9 @@ else
   echo "Please check following files:";
   for f in $not_correct_list; do
     echo $f
-    git diff $f
+    git --no-pager diff $f
   done
-  exit 1;
 fi
 
 git reset HEAD --hard
+exit 1;
