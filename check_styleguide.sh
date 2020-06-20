@@ -12,8 +12,8 @@ if [[ -z $not_correct_list ]]; then
 else
   echo "Please check following files:";
   for f in $not_correct_list; do
-    echo $f
-    git --no-pager diff $f
+    echo "$f"
+    git --no-pager diff "$f"
   done
 fi
 
