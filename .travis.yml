@@ -14,18 +14,21 @@ addons:
     - doxygen
     - graphviz
 
-script:
-- ./build.sh
-
-after_script:
-- ./generate_coverage.sh
-- ./upload_report_ci.sh
-- ./upload_codecov.sh
-
-deploy:
-  - provider: pages
-    skip_cleanup: true
-    local_dir: ./build/doc_doxygen/html
-    github_token: $GITHUB_TOKEN
-    on:
-      branch: master
+jobs:
+  include:
+    - stage: checks
+      allow_failures:
+        script: ./check_styleguide.sh
+    - stage: build
+      script: ./build.sh
+      after_script:
+      - ./generate_coverage.sh
+      - ./upload_report_ci.sh
+      - ./upload_codecov.sh
+      deploy:
+        - provider: pages
+          skip_cleanup: true
+          local_dir: ./build/doc_doxygen/html
+          github_token: $GITHUB_TOKEN
+          on:
+            branch: master
