@@ -18,8 +18,7 @@ addons:
 jobs:
   include:
     - stage: checks
-      allow_failures:
-        script: ./check_styleguide.sh
+      script: ./check_styleguide.sh
     - stage: build
       script: ./build.sh
       after_script:
