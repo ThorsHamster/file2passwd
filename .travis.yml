@@ -10,9 +10,10 @@ language: cpp
 addons:
   apt:
     packages:
-    - lcov
+    - clang-format
     - doxygen
     - graphviz
+    - lcov
 
 jobs:
   include:
