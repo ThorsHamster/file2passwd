@@ -9,9 +9,9 @@
 Fun project, to play around with modern c++, swig, python and CMake.
 
 ## Prerequisitions
-*   gcc, v9.2.1
-*   CMake, v3.12.4
-*   clang-tidy, v9.0.0
+*   gcc, v9.2
+*   CMake, v3.13
+*   clang-format, v9.0
 *   swig, v3.0.12
 *   python, v3.7.5
 *   doxygen, v1.8.13
