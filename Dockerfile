@@ -9,12 +9,14 @@ RUN apt-get update \
     ca-certificates=20190110 \
     clang-format=1:9.0-* \
     cmake=3.13.* \
+    curl=7.65.* \
     doxygen=1.8.* \
     git=1:2.20.* \
     graphviz=2.40.* \
     lcov=1.14-* \
     libc6-i386=2.30-* \
     libssl-dev=1.1.* \
+    python=2.7.* \
     python3=3.7.* \
     python3-dev=3.7.* \
     swig=3.0.* \
