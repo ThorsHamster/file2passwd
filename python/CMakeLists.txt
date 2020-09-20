@@ -39,7 +39,7 @@ elseif(UNIX)
 	)
 endif()
 
-target_link_libraries(pyfile2passwd
+swig_link_libraries(pyfile2passwd
 	PRIVATE
 	f2p_lib
 	${PYTHON_LIBRARIES}
