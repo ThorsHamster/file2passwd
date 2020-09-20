@@ -44,3 +44,6 @@ target_link_libraries(pyfile2passwd
 	f2p_lib
 	${PYTHON_LIBRARIES}
 )
+
+install(TARGETS pyfile2passwd DESTINATION bin)
+install(FILES ${CMAKE_BINARY_DIR}/python/${PROJECT_NAME}/pyfile2passwd/pyfile2passwd.py DESTINATION bin)
