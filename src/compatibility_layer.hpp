@@ -4,32 +4,23 @@
 
 #include <string>
 #include <vector>
+#include "compatibility_layer_interface.hpp"
 
 /**
 * @class CompatibilityLayer
 *
 * @brief Internal helper Class to be C++ compliant.
 */
-class CompatibilityLayer {
+class CompatibilityLayer : public CompatibilityLayerInterface {
  public:
-  /// @brief Returns MD5 hash of file
-  auto get_md5_hash_from_file(void) -> std::string;
-  /// @brief Converts a unsigned char pointer to a hexidecimal std::string
-  auto convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::string;
-  /// @brief Encrypts plaintext with OpenSSL. Needs key value and initialization vector iv
-  auto encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string;
-  /// @brief Construct object
-  ///
-  /// @pre The file should be existent.
-  ///
-  /// @param path_to_file Absolute Path to File
-  ///
-  explicit CompatibilityLayer(const std::string &path_to_file) : file_path(path_to_file) {}
+  explicit CompatibilityLayer(const std::string &path_to_file) : CompatibilityLayerInterface(path_to_file) {}
+
+  auto get_md5_hash_from_file(void) -> std::string override;
+  auto convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::string override;
+  auto encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string override;
 
  private:
-  /// @brief Represents MD5 hash of file
   std::string md5_from_file;
-  std::string file_path;
 
   static constexpr int MAXIMUM_FILE_LENGTH = 1000000;
 
