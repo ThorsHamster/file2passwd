@@ -4,23 +4,30 @@ include(BundleAllTests)
 
 macro(package_add_test TESTNAME)
     add_executable(${TESTNAME} ${ARGN})
-    target_include_directories(${TESTNAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src)
+    target_include_directories(${TESTNAME} 
+      PRIVATE 
+        ${CMAKE_CURRENT_SOURCE_DIR} 
+        ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/tests/mock_libraries
+    )
     target_link_libraries(${TESTNAME} f2p_lib gsl gtest gmock gtest_main)
     add_test(NAME ${TESTNAME} COMMAND ${TESTNAME} --gtest_output=xml:${TESTNAME}.xml)
     set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
 endmacro()
 
-package_add_test(system_tests system_tests.cpp)
 package_add_test(utility_tests utilities_tests.cpp)
 package_add_test(compatibility_layer_tests compatibility_layer_tests.cpp)
+package_add_test(file2passwd_tests file2passwd_tests.cpp)
+package_add_test(system_tests system_tests.cpp)
 
 SETUP_ALLTESTS_TARGET(
     NAME all_tests                 
     EXECUTABLE GTEST_COLOR=1 GTEST_REPEAT=3 GTEST_SHUFFLE=1 ctest --verbose -j ${n_cores}
     DEPENDENCIES
-        system_tests
         utility_tests
+        file2passwd_tests
         compatibility_layer_tests
+        system_tests
 )
 
 # necessary for unit tests, to have a specific file for testing
