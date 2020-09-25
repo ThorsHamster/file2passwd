@@ -16,7 +16,7 @@ package_add_test(compatibility_layer_tests compatibility_layer_tests.cpp)
 
 SETUP_ALLTESTS_TARGET(
     NAME all_tests                 
-    EXECUTABLE GTEST_COLOR=1 ctest --verbose -j ${n_cores}
+    EXECUTABLE GTEST_COLOR=1 GTEST_REPEAT=3 GTEST_SHUFFLE=1 ctest --verbose -j ${n_cores}
     DEPENDENCIES
         file2passwd_tests
         utility_tests
