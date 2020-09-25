@@ -14,7 +14,7 @@ auto File2Passwd::get_passwd(void) -> std::string {
   std::string key = get_key();
   std::string iv = get_iv();
   std::string plaintext = get_fibonacci_string();
-  return compat.encrypt(key, iv, plaintext);
+  return compat->encrypt(key, iv, plaintext);
 }
 
 void File2Passwd::check_for_prerequisites(void) {
@@ -42,7 +42,7 @@ auto File2Passwd::get_md5_hash(void) -> std::string {
   if (md5_hash_of_file != "")
     return md5_hash_of_file;
 
-  md5_hash_of_file = compat.get_md5_hash_from_file();
+  md5_hash_of_file = compat->get_md5_hash_from_file();
   return md5_hash_of_file;
 }
 
@@ -100,4 +100,8 @@ auto File2Passwd::pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, 
   }
 
   return result;
+}
+
+auto File2Passwd::inject_test_seam(std::unique_ptr<CompatibilityLayerInterface> compat_) -> void {
+  compat = std::move(compat_);
 }

@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "compatibility_layer.hpp"
 
@@ -47,12 +48,14 @@ class File2Passwd {
   ///
   /// @param path_to_file Absolute Path to File
   ///
-  explicit File2Passwd(const std::string &path_to_file) : file_path(path_to_file), compat(path_to_file) {}
+  explicit File2Passwd(const std::string &path_to_file) : file_path(path_to_file), compat(std::make_unique<CompatibilityLayer>(path_to_file)) {}
+
+  auto inject_test_seam(std::unique_ptr<CompatibilityLayerInterface> compat_) -> void;
 
  private:
   std::string md5_hash_of_file;
   std::string file_path;
-  CompatibilityLayer compat;
+  std::unique_ptr<CompatibilityLayerInterface> compat;
 
   static constexpr int MAXIMUM_FILE_LENGTH = 1000000;
 
