@@ -1,4 +1,3 @@
-
 #ifndef SRC_FILE2PASSWD_HPP_
 #define SRC_FILE2PASSWD_HPP_
 
