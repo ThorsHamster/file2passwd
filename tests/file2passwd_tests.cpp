@@ -35,10 +35,15 @@ class File2PasswdTests : public ::testing::Test {
   std::unique_ptr<File2Passwd> unit_under_test_;
 };
 
-TEST(TEST_get_md5_hash_from_file, Trivial) {
-  File2Passwd fpo("LICENSE");
-  const std::string expected_string = "5cbe034c343ead03a139a598a5d27d55";
-  const std::string result = fpo.get_md5_hash();
+TEST_F(File2PasswdTests, get_md5_hash) {
+  ON_CALL(*mock_compat_, get_md5_hash_from_file())
+        .WillByDefault(Return("md5_hash"));
+
+  ConfigureUnitUnderTest();
+
+  auto result = unit_under_test_->get_md5_hash();
+  const std::string expected_string = "md5_hash";
+
   EXPECT_EQ(result, expected_string);
 }
 }  // namespace
