@@ -19,6 +19,7 @@ class CompatibilityLayerInterface {
   /// @param path_to_file Absolute Path to File
   ///
   explicit CompatibilityLayerInterface(const std::string &path_to_file) : file_path(path_to_file) {}
+  virtual ~CompatibilityLayerInterface() = default;
 
   /// @brief Returns MD5 hash of file
   virtual auto get_md5_hash_from_file(void) -> std::string = 0;
