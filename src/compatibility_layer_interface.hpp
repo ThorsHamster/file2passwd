@@ -27,9 +27,9 @@ class CompatibilityLayerInterface {
   virtual auto convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::string = 0;
   /// @brief Encrypts plaintext with OpenSSL. Needs key value and initialization vector iv
   virtual auto encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string = 0;
-  
-  protected:
-   std::string file_path;
+
+ protected:
+  std::string file_path;
 };
 
 #endif
