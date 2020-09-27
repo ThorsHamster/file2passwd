@@ -1,0 +1,28 @@
+{
+  "cmake.sourceDirectory": "${workspaceRoot}",
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "googletest.failed",
+        "settings": {
+          "foreground": "#f00"
+        }
+      },
+      {
+        "scope": "googletest.passed",
+        "settings": {
+          "foreground": "#0f0"
+        }
+      },
+      {
+        "scope": "googletest.run",
+        "settings": {
+          "foreground": "#0f0"
+        }
+      }
+    ]
+  },
+  "cmake.buildDirectory": "${workspaceFolder}/build_${buildKit}-${buildType}",
+  "cmake.configureOnOpen": true,
+  "editor.formatOnSave": true,
+}
