@@ -1,11 +1,11 @@
 
+#include <gmock/gmock.h>
 #include <limits.h>
 #include <string.h>
-#include <gmock/gmock.h>
-#include "gtest/gtest.h"
 
 #include "exception.hpp"
 #include "file2passwd.hpp"
+#include "gtest/gtest.h"
 #include "mock_compat_layer.hpp"
 
 using ::testing::_;
@@ -21,7 +21,7 @@ class File2PasswdTests : public ::testing::Test {
         .WillByDefault(Return(""));
     ON_CALL(*mock_compat_, convert_uchar_ptr_to_hex_string(_))
         .WillByDefault(Return(""));
-    ON_CALL(*mock_compat_, encrypt(_, _ ,_))
+    ON_CALL(*mock_compat_, encrypt(_, _, _))
         .WillByDefault(Return(""));
   }
 
@@ -37,7 +37,7 @@ class File2PasswdTests : public ::testing::Test {
 
 TEST_F(File2PasswdTests, get_md5_hash) {
   ON_CALL(*mock_compat_, get_md5_hash_from_file())
-        .WillByDefault(Return("md5_hash"));
+      .WillByDefault(Return("md5_hash"));
 
   ConfigureUnitUnderTest();
 
