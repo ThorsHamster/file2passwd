@@ -2,9 +2,9 @@
 #define SRC_FILE2PASSWD_HPP_
 
 #include <fstream>
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 
 #include "compatibility_layer.hpp"
 

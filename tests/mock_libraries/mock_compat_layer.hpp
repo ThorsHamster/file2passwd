@@ -2,6 +2,7 @@
 #define MOCK_COMPATLAYER_HPP_
 
 #include <gmock/gmock.h>
+
 #include "compatibility_layer_interface.hpp"
 
 class MockCompatLayer : public CompatibilityLayerInterface {
