@@ -2,8 +2,6 @@
 #ifndef SRC_COMPATLAYER_HPP_
 #define SRC_COMPATLAYER_HPP_
 
-#include <string>
-#include <vector>
 #include "compatibility_layer_interface.hpp"
 
 /**

@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "compatibility_layer.hpp"
+#include "utilities.hpp"
 
 /*! \mainpage
  *
@@ -48,7 +49,7 @@ class File2Passwd {
   ///
   /// @param path_to_file Absolute Path to File
   ///
-  explicit File2Passwd(const std::string &path_to_file) : file_path(path_to_file), compat(std::make_unique<CompatibilityLayer>(path_to_file)) {}
+  explicit File2Passwd(const std::string &path_to_file) : file_path(path_to_file), compat(std::make_unique<CompatibilityLayer>(path_to_file)), utilities(std::make_unique<utilities::Utilities>()) {}
 
   auto inject_test_seam(std::unique_ptr<CompatibilityLayerInterface> compat_) -> void;
 
@@ -56,6 +57,7 @@ class File2Passwd {
   std::string md5_hash_of_file;
   std::string file_path;
   std::unique_ptr<CompatibilityLayerInterface> compat;
+  std::unique_ptr<utilities::UtilitiesInterface> utilities;
 
   static constexpr int MAXIMUM_FILE_LENGTH = 1000000;
 

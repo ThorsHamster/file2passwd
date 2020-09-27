@@ -18,7 +18,7 @@
 /// @brief This file contains a internal helper Class to be C++ compliant.
 
 auto CompatibilityLayer::get_md5_hash_from_file(void) -> std::string {
-  if (!file_exists(file_path)) {
+  if (!utilities_->file_exists(file_path)) {
     throw FileDoesNotExistException();
   }
 

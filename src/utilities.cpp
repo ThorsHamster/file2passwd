@@ -1,16 +1,13 @@
 #include "utilities.hpp"
 
-#include <string.h>
+namespace utilities {
 
-#include <fstream>
-#include <iostream>
-
-auto file_exists(std::string argv_file_path) -> bool {
+auto Utilities::file_exists(std::string argv_file_path) -> bool {
   std::ifstream f(argv_file_path);
   return (f.good()) ? true : false;
 }
 
-auto fibonacci(uint64_t number) -> uint64_t {
+auto Utilities::fibonacci(uint64_t number) -> uint64_t {
   if (number == 0 or number >= MAX_FIBONACCI_VALUE) {
     return 0;
   }
@@ -27,3 +24,9 @@ auto fibonacci(uint64_t number) -> uint64_t {
 
   return f_n;
 }
+
+auto Utilities::get_max_fibonacci_value(void) -> uint64_t {
+  return MAX_FIBONACCI_VALUE;
+}
+
+}  // namespace utilities

@@ -1,9 +1,7 @@
-
 #ifndef SRC_COMPATLAYER_INTERFACE_HPP_
 #define SRC_COMPATLAYER_INTERFACE_HPP_
 
-#include <string>
-#include <vector>
+#include "utilities.hpp"
 
 /**
 * @class CompatibilityLayer
@@ -18,7 +16,7 @@ class CompatibilityLayerInterface {
   ///
   /// @param path_to_file Absolute Path to File
   ///
-  explicit CompatibilityLayerInterface(const std::string &path_to_file) : file_path(path_to_file) {}
+  explicit CompatibilityLayerInterface(const std::string &path_to_file) : file_path(path_to_file), utilities_(std::make_unique<utilities::Utilities>()) {}
   virtual ~CompatibilityLayerInterface() = default;
 
   /// @brief Returns MD5 hash of file
@@ -30,6 +28,7 @@ class CompatibilityLayerInterface {
 
  protected:
   std::string file_path;
+  std::unique_ptr<utilities::UtilitiesInterface> utilities_;
 };
 
 #endif

@@ -18,7 +18,7 @@ auto File2Passwd::get_passwd(void) -> std::string {
 }
 
 void File2Passwd::check_for_prerequisites(void) {
-  if (!file_exists(file_path)) {
+  if (!utilities->file_exists(file_path)) {
     throw FileDoesNotExistException();
   }
 }
@@ -64,11 +64,11 @@ auto File2Passwd::get_fibonacci_string(void) -> std::string {
 }
 
 auto File2Passwd::get_fibonacci_vector_of_filelength(std::ifstream::pos_type length_of_file) -> std::vector<uint64_t> {
-  std::vector<uint64_t> fibonacci_numbers(MAX_FIBONACCI_VALUE);
+  std::vector<uint64_t> fibonacci_numbers(utilities->get_max_fibonacci_value());
 
   uint64_t fibonacci_number = 0;
   for (size_t i = 1; fibonacci_number <= length_of_file; i++) {
-    fibonacci_number = fibonacci(i);
+    fibonacci_number = utilities->fibonacci(i);
     fibonacci_numbers[i - 1] = fibonacci_number;
   }
 
@@ -91,7 +91,7 @@ auto File2Passwd::read_file_into_filebuffer(std::ifstream &ifs, std::ifstream::p
 auto File2Passwd::pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, std::vector<char> &file_buffer) -> std::string {
   std::string result;
 
-  for (size_t i = 0; i < MAX_FIBONACCI_VALUE; i++) {
+  for (size_t i = 0; i < utilities->get_max_fibonacci_value(); i++) {
     if (fibonacci_numbers[i] == 0) {
       break;
     }
