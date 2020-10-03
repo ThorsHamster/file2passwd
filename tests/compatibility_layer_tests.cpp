@@ -30,7 +30,7 @@ TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_trivial) {
   EXPECT_EQ(result, expected_string);
 }
 
-TEST_F(CompatibilityLayerTests, convert_uchar_ptr_to_hex_string_rivial) {
+TEST_F(CompatibilityLayerTests, convert_uchar_ptr_to_hex_string_trivial) {
   ConfigureUnitUnderTest();
   // see here for ascii table: https://www.torsten-horn.de/techdocs/ascii.htm
   // 1 equals 31.. a equals 61
