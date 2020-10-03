@@ -10,6 +10,7 @@ macro(package_add_test TESTNAME)
         ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_SOURCE_DIR}/tests/mock_libraries
         ${CMAKE_SOURCE_DIR}/tests/mock_libraries/openssl
+        ${CMAKE_SOURCE_DIR}/tests/mock_libraries/gsl
     )
     target_link_libraries(${TESTNAME} gtest gmock gtest_main)
     add_test(NAME ${TESTNAME} COMMAND ${TESTNAME} --gtest_output=xml:${TESTNAME}.xml)
@@ -24,6 +25,7 @@ package_add_test(utility_tests
 package_add_test(compatibility_layer_tests
     compatibility_layer_tests.cpp
     ${CMAKE_SOURCE_DIR}/src/compatibility_layer.cpp
+    ${CMAKE_SOURCE_DIR}/src/utilities.cpp
     ${CMAKE_SOURCE_DIR}/tests/mock_libraries/openssl/md5.c
 )
 
