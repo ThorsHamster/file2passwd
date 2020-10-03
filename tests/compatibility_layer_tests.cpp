@@ -5,24 +5,38 @@
 
 #include "compatibility_layer.hpp"
 #include "gtest/gtest.h"
+#include "mock_utilities.hpp"
+
+using ::testing::_;
+using ::testing::NiceMock;
+using ::testing::Return;
 
 namespace {
 
 class CompatibilityLayerTests : public ::testing::Test {
  protected:
   virtual void SetUp() {
-
+    ON_CALL(*mock_utilities_, file_exists(_))
+        .WillByDefault(Return(false));
+    ON_CALL(*mock_utilities_, fibonacci(_))
+        .WillByDefault(Return(0));
+    ON_CALL(*mock_utilities_, get_max_fibonacci_value())
+        .WillByDefault(Return(0));
   }
 
   virtual void ConfigureUnitUnderTest() {
     unit_under_test_ = std::make_unique<CompatibilityLayer>("LICENSE");
-    //unit_under_test_->inject_test_seam(std::move(mock_compat_));
+    unit_under_test_->inject_test_seam(std::move(mock_utilities_));
   }
 
+  std::unique_ptr<MockUtilities> mock_utilities_ = std::make_unique<NiceMock<MockUtilities>>();
   std::unique_ptr<CompatibilityLayer> unit_under_test_;
 };
 
-TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_trivial) { 
+TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_trivial) {
+  ON_CALL(*mock_utilities_, file_exists(_))
+      .WillByDefault(Return(true));
+
   ConfigureUnitUnderTest();
 
   const std::string expected_string = "5cbe034c343ead03a139a598a5d27d55";
