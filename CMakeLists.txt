@@ -9,8 +9,6 @@ project(file2passwd VERSION 1.0
                     LANGUAGES CXX
 )
 
-find_package(OpenSSL REQUIRED)
-
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 option(GOOGLE_TESTS "Build the tests" ON)
@@ -25,29 +23,34 @@ message(STATUS "Test with clang-tidy: ${CLANG_TIDY_TESTS}")
 message(STATUS "Generate documentation: ${BUILD_DOC}")
 message(STATUS "Coverage reporting: ${CODE_COVERAGE}")
 
-# Guideline support library, gsl
-include(gsl)
 
-if(CODE_COVERAGE)
-  include(CodeCoverage)
-  APPEND_COVERAGE_COMPILER_FLAGS()
-endif(CODE_COVERAGE)
+if(NOT GOOGLE_TESTS)
 
-add_subdirectory(src)
+    find_package(OpenSSL REQUIRED)
 
-if(GOOGLE_TESTS)
+    # Guideline support library, gsl
+    include(gsl)
+
+    add_subdirectory(src)
+
+    if(CLANG_TIDY_TESTS)
+        include(clang_tidy)
+    endif()
+
+    if(BUILD_PYTHON)
+        add_subdirectory(python)
+    endif()
+
+    if(BUILD_DOC)
+        include(doxygen)
+    endif()
+
+else()
+    if(CODE_COVERAGE)
+      include(CodeCoverage)
+      APPEND_COVERAGE_COMPILER_FLAGS()
+    endif(CODE_COVERAGE)
+
     enable_testing()
     add_subdirectory(tests)
-endif()
-
-if(CLANG_TIDY_TESTS)
-    include(clang_tidy)
-endif()
-
-if(BUILD_PYTHON)
-    add_subdirectory(python)
-endif()
-
-if(BUILD_DOC)
-    include(doxygen)
 endif()

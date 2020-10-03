@@ -2,6 +2,6 @@
 
 set -euo pipefail
 
-cd build || exit
+cd build_unittests || exit
 
 make all_tests
