@@ -26,8 +26,8 @@ class CompatibilityLayerTests : public ::testing::Test {
   }
 
   virtual void ConfigureUnitUnderTest() {
-    unit_under_test_ = std::make_unique<compatlayer::CompatibilityLayer>("<<File>>");
-    unit_under_test_->inject_test_seam(std::move(mock_utilities_));
+    unit_under_test_ = std::make_unique<compatlayer::CompatibilityLayer>();
+    unit_under_test_->init("<<File>>", std::move(mock_utilities_));
   }
 
   std::unique_ptr<utilities::MockUtilities> mock_utilities_ = std::make_unique<NiceMock<utilities::MockUtilities>>();
