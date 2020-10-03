@@ -5,6 +5,8 @@
 #include "exception.hpp"
 #include "utilities.hpp"
 
+namespace file2passwd {
+
 /// @file
 /// @brief This file contains the file2passwd main class
 
@@ -105,3 +107,5 @@ auto File2Passwd::pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, 
 auto File2Passwd::inject_test_seam(std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_) -> void {
   compat = std::move(compat_);
 }
+
+}  // namespace file2passwd

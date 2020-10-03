@@ -20,7 +20,7 @@ int main(int argc, const char *argv[]) {
 
   std::string file_path = args[1];
 
-  File2Passwd fpo(file_path);
+  file2passwd::File2Passwd fpo(file_path);
 
   std::string passwd = fpo.get_passwd();
   std::cout << "file: " << file_path << '\n';

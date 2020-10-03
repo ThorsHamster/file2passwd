@@ -9,6 +9,8 @@
 #include "compatibility_layer.hpp"
 #include "utilities.hpp"
 
+namespace file2passwd {
+
 /*! \mainpage
  *
  * \section intro_sec Introduction
@@ -72,5 +74,7 @@ class File2Passwd {
   auto read_file_into_filebuffer(std::ifstream &ifs, std::ifstream::pos_type length_of_file) -> std::vector<char>;
   auto pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, std::vector<char> &file_buffer) -> std::string;
 };
+
+}  // namespace file2passwd
 
 #endif /* SRC_FILE2PASSWD_HPP_ */
