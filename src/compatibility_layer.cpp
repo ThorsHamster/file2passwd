@@ -10,6 +10,7 @@
 #include <gsl/gsl>
 #include <iomanip>
 #include <iostream>
+#include <limits>
 
 #include "exception.hpp"
 #include "utilities.hpp"

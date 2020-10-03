@@ -6,7 +6,7 @@ endif()
 
 project(file2passwd VERSION 1.0
                     DESCRIPTION "Converts files to passwords."
-                    LANGUAGES CXX
+                    LANGUAGES CXX C
 )
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)

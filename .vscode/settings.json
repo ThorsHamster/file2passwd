@@ -79,6 +79,7 @@
     "streambuf": "cpp",
     "cinttypes": "cpp",
     "typeinfo": "cpp",
-    "pointers": "cpp"
+    "pointers": "cpp",
+    "gsl": "cpp"
   },
 }
