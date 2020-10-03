@@ -7,9 +7,6 @@
 
 namespace file2passwd {
 
-/// @file
-/// @brief This file contains the file2passwd main class
-
 File2PasswdInternal::File2PasswdInternal(const std::string &path_to_file) {
   file_path = path_to_file;
   utilities = std::make_unique<utilities::Utilities>();
