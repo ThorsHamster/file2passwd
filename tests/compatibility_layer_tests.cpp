@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "compatibility_layer.hpp"
+#include "exception.hpp"
 #include "gtest/gtest.h"
 #include "mock_utilities.hpp"
 
@@ -42,6 +43,15 @@ TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_trivial) {
   const std::string expected_string = "5cbe034c343ead03a139a598a5d27d55";
   const std::string result = unit_under_test_->get_md5_hash_from_file();
   EXPECT_EQ(result, expected_string);
+}
+
+TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_file_does_not_exist) {
+  ON_CALL(*mock_utilities_, file_exists(_))
+      .WillByDefault(Return(false));
+
+  ConfigureUnitUnderTest();
+
+  EXPECT_THROW(unit_under_test_->get_md5_hash_from_file(), FileDoesNotExistException);
 }
 
 TEST_F(CompatibilityLayerTests, convert_uchar_ptr_to_hex_string_trivial) {
