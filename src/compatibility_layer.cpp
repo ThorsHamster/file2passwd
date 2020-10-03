@@ -143,3 +143,7 @@ auto CompatibilityLayer::string_to_unsigned_char(std::string const &str) -> std:
   auto vector_uchar = std::vector<unsigned char>(str.data(), str.data() + str.length());
   return std::move(vector_uchar);
 }
+
+auto CompatibilityLayer::inject_test_seam(std::unique_ptr<utilities::UtilitiesInterface> utilities) -> void {
+  utilities_ = std::move(utilities);
+}
