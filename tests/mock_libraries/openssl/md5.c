@@ -1,7 +1,23 @@
 #include "md5.h"
 
 unsigned char *MD5(const unsigned char *d, size_t n, unsigned char *md) {
-  return "";
+  md[0] = 'a'; 
+  md[1] = 'b'; 
+  md[2] = 'c'; 
+  md[3] = 'b'; 
+  md[4] = 'b'; 
+  md[5] = 'b'; 
+  md[6] = 'b'; 
+  md[7] = 'b'; 
+  md[8] = 'b'; 
+  md[9] = 'b'; 
+  md[10] = 'b'; 
+  md[11] = 'b'; 
+  md[12] = 'b'; 
+  md[13] = 'b'; 
+  md[14] = 'b'; 
+  md[15] = 'b'; 
+  md[16] = 'b';
 }
 
 void ERR_print_errors_fp(FILE *fp) {

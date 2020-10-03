@@ -23,6 +23,8 @@ class CompatibilityLayerTests : public ::testing::Test {
         .WillByDefault(Return(0));
     ON_CALL(*mock_utilities_, get_max_fibonacci_value())
         .WillByDefault(Return(0));
+    ON_CALL(*mock_utilities_, get_file_size(_))
+        .WillByDefault(Return(0));
   }
 
   virtual void ConfigureUnitUnderTest() {
@@ -40,7 +42,8 @@ TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_trivial) {
 
   ConfigureUnitUnderTest();
 
-  const std::string expected_string = "5cbe034c343ead03a139a598a5d27d55";
+  // for test data, see stub of md5.c
+  const std::string expected_string = "61626362626262626262626262626262";
   const std::string result = unit_under_test_->get_md5_hash_from_file();
   EXPECT_EQ(result, expected_string);
 }
