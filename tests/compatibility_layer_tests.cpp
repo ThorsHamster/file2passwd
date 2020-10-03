@@ -26,7 +26,7 @@ class CompatibilityLayerTests : public ::testing::Test {
   }
 
   virtual void ConfigureUnitUnderTest() {
-    unit_under_test_ = std::make_unique<compatlayer::CompatibilityLayer>("LICENSE");
+    unit_under_test_ = std::make_unique<compatlayer::CompatibilityLayer>("<<File>>");
     unit_under_test_->inject_test_seam(std::move(mock_utilities_));
   }
 
