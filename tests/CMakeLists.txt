@@ -28,10 +28,10 @@ package_add_test(compatibility_layer_tests
     ${CMAKE_SOURCE_DIR}/tests/mock_libraries/openssl/md5.c
 )
 
-#package_add_test(file2passwd_tests
-#    file2passwd_tests.cpp
-#    ${CMAKE_SOURCE_DIR}/src/file2passwd.cpp
-#)
+package_add_test(file2passwd_tests
+    file2passwd_tests.cpp
+    ${CMAKE_SOURCE_DIR}/src/file2passwd.cpp
+)
 
 #package_add_test(system_tests
 #    system_tests.cpp
@@ -45,7 +45,7 @@ SETUP_ALLTESTS_TARGET(
     EXECUTABLE GTEST_COLOR=1 GTEST_REPEAT=3 GTEST_SHUFFLE=1 ctest --verbose -j ${n_cores}
     DEPENDENCIES
         utility_tests
-        #file2passwd_tests
+        file2passwd_tests
         compatibility_layer_tests
         #system_tests
 )
