@@ -45,6 +45,9 @@ class UtilitiesInterface {
 
   virtual auto get_max_fibonacci_value(void) -> uint64_t = 0;
 
+  virtual auto get_file_size(std::string file_path_) -> std::streamsize = 0;
+  virtual auto get_file_buffer(std::string file_path_, std::streamsize file_size, char *file_buffer) -> void = 0;
+
  protected:
   /// @brief Maximum allowed value for the fibonacci function used here.
   static constexpr int MAX_FIBONACCI_VALUE = 51;

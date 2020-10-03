@@ -11,7 +11,6 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
-#include <limits>
 
 #include "compatibility_layer_interface.hpp"
 #include "exception.hpp"
@@ -36,11 +35,6 @@ class CompatibilityLayer : public CompatibilityLayerInterface {
 
  private:
   std::string md5_from_file;
-
-  static constexpr int MAXIMUM_FILE_LENGTH = 1000000;
-
-  auto get_file_size(void) -> std::streamsize;
-  void get_file_buffer(std::streamsize file_size, char *file_buffer);
 
   void handleErrors(void);
   auto openssl_encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,

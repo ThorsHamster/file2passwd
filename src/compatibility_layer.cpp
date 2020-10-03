@@ -19,9 +19,9 @@ auto CompatibilityLayer::get_md5_hash_from_file(void) -> std::string {
 
   auto result = std::make_unique<unsigned char[]>(MD5_DIGEST_LENGTH);
 
-  std::streamsize file_size = get_file_size();
-  char file_buffer[file_size];              //NOLINT(cppcoreguidelines-avoid-c-arrays)
-  get_file_buffer(file_size, file_buffer);  //NOLINT(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
+  std::streamsize file_size = utilities_->get_file_size(file_path_);
+  char file_buffer[file_size];                          //NOLINT(cppcoreguidelines-avoid-c-arrays)
+  utilities_->get_file_buffer(file_path_, file_size, file_buffer);  //NOLINT(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
 
   MD5((unsigned char *)file_buffer, file_size, result.get());  //NOLINT(cppcoreguidelines-pro-type-cstyle-cast)
   munmap((char *)file_buffer, file_size);
@@ -29,26 +29,6 @@ auto CompatibilityLayer::get_md5_hash_from_file(void) -> std::string {
   md5_from_file = convert_uchar_ptr_to_hex_string(result.get());
 
   return md5_from_file;
-}
-
-auto CompatibilityLayer::get_file_size(void) -> std::streamsize {
-  std::ifstream file;
-  file.open(file_path_, std::ios_base::in);
-  file.ignore(std::numeric_limits<std::streamsize>::max());
-  std::streamsize file_size = file.gcount();
-  file.close();
-
-  return file_size;
-}
-
-void CompatibilityLayer::get_file_buffer(std::streamsize file_size, char *file_buffer) {
-  if (file_size > 0 or file_size <= MAXIMUM_FILE_LENGTH) {
-    std::ifstream file;
-    file.open(file_path_, std::ios_base::in | std::ios_base::binary);
-    file.seekg(0, std::ios_base::beg);
-    file.read(file_buffer, file_size);
-    file.close();
-  }
 }
 
 auto CompatibilityLayer::convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::string {
