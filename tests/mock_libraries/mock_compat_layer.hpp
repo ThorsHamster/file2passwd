@@ -5,6 +5,8 @@
 
 #include "compatibility_layer_interface.hpp"
 
+namespace compatlayer {
+
 class MockCompatLayer : public CompatibilityLayerInterface {
  public:
   MockCompatLayer() : CompatibilityLayerInterface("") {}
@@ -12,5 +14,7 @@ class MockCompatLayer : public CompatibilityLayerInterface {
   MOCK_METHOD(std::string, convert_uchar_ptr_to_hex_string, (unsigned char *result), (override));
   MOCK_METHOD(std::string, encrypt, (const std::string &key, const std::string &iv, const std::string &plaintext), (override));
 };
+
+}  // namespace compatlayer
 
 #endif

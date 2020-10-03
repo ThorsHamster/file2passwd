@@ -15,6 +15,8 @@
 #include "exception.hpp"
 #include "utilities.hpp"
 
+namespace compatlayer {
+
 /// @file
 /// @brief This file contains a internal helper Class to be C++ compliant.
 
@@ -148,3 +150,5 @@ auto CompatibilityLayer::string_to_unsigned_char(std::string const &str) -> std:
 auto CompatibilityLayer::inject_test_seam(std::unique_ptr<utilities::UtilitiesInterface> utilities) -> void {
   utilities_ = std::move(utilities);
 }
+
+}  // namespace compatlayer

@@ -26,12 +26,12 @@ class CompatibilityLayerTests : public ::testing::Test {
   }
 
   virtual void ConfigureUnitUnderTest() {
-    unit_under_test_ = std::make_unique<CompatibilityLayer>("LICENSE");
+    unit_under_test_ = std::make_unique<compatlayer::CompatibilityLayer>("LICENSE");
     unit_under_test_->inject_test_seam(std::move(mock_utilities_));
   }
 
   std::unique_ptr<utilities::MockUtilities> mock_utilities_ = std::make_unique<NiceMock<utilities::MockUtilities>>();
-  std::unique_ptr<CompatibilityLayer> unit_under_test_;
+  std::unique_ptr<compatlayer::CompatibilityLayer> unit_under_test_;
 };
 
 TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_trivial) {

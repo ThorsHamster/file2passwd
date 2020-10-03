@@ -4,6 +4,8 @@
 
 #include "compatibility_layer_interface.hpp"
 
+namespace compatlayer {
+
 /**
 * @class CompatibilityLayer
 *
@@ -32,5 +34,7 @@ class CompatibilityLayer : public CompatibilityLayerInterface {
                        unsigned char *iv, unsigned char *ciphertext) -> int;
   auto string_to_unsigned_char(std::string const &str) -> std::vector<unsigned char>;
 };
+
+}  // namespace compatlayer
 
 #endif /* SRC_COMPATLAYER_HPP_ */

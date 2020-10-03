@@ -3,6 +3,8 @@
 
 #include "utilities.hpp"
 
+namespace compatlayer {
+
 /**
 * @class CompatibilityLayer
 *
@@ -30,5 +32,7 @@ class CompatibilityLayerInterface {
   std::string file_path;
   std::unique_ptr<utilities::UtilitiesInterface> utilities_;
 };
+
+}  // namespace compatlayer
 
 #endif

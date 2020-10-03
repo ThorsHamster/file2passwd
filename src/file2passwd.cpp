@@ -102,6 +102,6 @@ auto File2Passwd::pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, 
   return result;
 }
 
-auto File2Passwd::inject_test_seam(std::unique_ptr<CompatibilityLayerInterface> compat_) -> void {
+auto File2Passwd::inject_test_seam(std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_) -> void {
   compat = std::move(compat_);
 }

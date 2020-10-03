@@ -30,7 +30,7 @@ class File2PasswdTests : public ::testing::Test {
     unit_under_test_->inject_test_seam(std::move(mock_compat_));
   }
 
-  std::unique_ptr<MockCompatLayer> mock_compat_ = std::make_unique<NiceMock<MockCompatLayer>>();
+  std::unique_ptr<compatlayer::MockCompatLayer> mock_compat_ = std::make_unique<NiceMock<compatlayer::MockCompatLayer>>();
   std::unique_ptr<File2Passwd> unit_under_test_;
 };
 
