@@ -9,7 +9,8 @@ namespace compatlayer {
 
 class MockCompatLayer : public CompatibilityLayerInterface {
  public:
-  MockCompatLayer() : CompatibilityLayerInterface("") {}
+  MockCompatLayer() : CompatibilityLayerInterface() {}
+  MOCK_METHOD(void, init, (std::string file_path, std::unique_ptr<utilities::UtilitiesInterface> utilities), (override));
   MOCK_METHOD(std::string, get_md5_hash_from_file, (), (override));
   MOCK_METHOD(std::string, convert_uchar_ptr_to_hex_string, (unsigned char *result), (override));
   MOCK_METHOD(std::string, encrypt, (const std::string &key, const std::string &iv, const std::string &plaintext), (override));
