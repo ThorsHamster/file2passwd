@@ -10,14 +10,14 @@ namespace file2passwd {
 /// @file
 /// @brief This file contains the file2passwd main class
 
-File2Passwd::File2Passwd(const std::string &path_to_file) {
+File2PasswdInternal::File2PasswdInternal(const std::string &path_to_file) {
   file_path = path_to_file;
   utilities = std::make_unique<utilities::Utilities>();
   compat = std::make_unique<compatlayer::CompatibilityLayer>();
   compat->init(path_to_file, std::make_unique<utilities::Utilities>());
 }
 
-auto File2Passwd::get_passwd(void) -> std::string {
+auto File2PasswdInternal::get_passwd(void) -> std::string {
   check_for_prerequisites();
 
   std::string key = get_key();
@@ -26,26 +26,26 @@ auto File2Passwd::get_passwd(void) -> std::string {
   return compat->encrypt(key, iv, plaintext);
 }
 
-void File2Passwd::check_for_prerequisites(void) {
+void File2PasswdInternal::check_for_prerequisites(void) {
   if (!utilities->file_exists(file_path)) {
     throw FileDoesNotExistException();
   }
 }
 
-auto File2Passwd::get_key(void) -> std::string {
+auto File2PasswdInternal::get_key(void) -> std::string {
   //return a 256 Bit representation of md5 hash
   std::string key = get_md5_hash();
   return key.substr(0, 32);
 }
 
-auto File2Passwd::get_iv(void) -> std::string {
+auto File2PasswdInternal::get_iv(void) -> std::string {
   //return a 128 Bit representation of md5 hash
   std::string iv = get_md5_hash();
   iv = iv.substr(0, 16);
   return iv;
 }
 
-auto File2Passwd::get_md5_hash(void) -> std::string {
+auto File2PasswdInternal::get_md5_hash(void) -> std::string {
   check_for_prerequisites();
 
   if (md5_hash_of_file != "")
@@ -55,7 +55,7 @@ auto File2Passwd::get_md5_hash(void) -> std::string {
   return md5_hash_of_file;
 }
 
-auto File2Passwd::get_fibonacci_string(void) -> std::string {
+auto File2PasswdInternal::get_fibonacci_string(void) -> std::string {
   /*
    * Opens the specified file and generates a vector with Fibonacci elements
    * as long as the Fibonacci element is smaller than the total size of the file.
@@ -72,7 +72,7 @@ auto File2Passwd::get_fibonacci_string(void) -> std::string {
   return fibonacci_string;
 }
 
-auto File2Passwd::get_fibonacci_vector_of_filelength(std::ifstream::pos_type length_of_file) -> std::vector<uint64_t> {
+auto File2PasswdInternal::get_fibonacci_vector_of_filelength(std::ifstream::pos_type length_of_file) -> std::vector<uint64_t> {
   std::vector<uint64_t> fibonacci_numbers(utilities->get_max_fibonacci_value());
 
   uint64_t fibonacci_number = 0;
@@ -84,7 +84,7 @@ auto File2Passwd::get_fibonacci_vector_of_filelength(std::ifstream::pos_type len
   return fibonacci_numbers;
 }
 
-auto File2Passwd::read_file_into_filebuffer(std::ifstream &ifs, std::ifstream::pos_type length_of_file) -> std::vector<char> {
+auto File2PasswdInternal::read_file_into_filebuffer(std::ifstream &ifs, std::ifstream::pos_type length_of_file) -> std::vector<char> {
   if (length_of_file <= 0 or length_of_file >= MAXIMUM_FILE_LENGTH) {
     return std::vector<char>{};
   }
@@ -97,7 +97,7 @@ auto File2Passwd::read_file_into_filebuffer(std::ifstream &ifs, std::ifstream::p
   return std::move(file_buffer);
 }
 
-auto File2Passwd::pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, std::vector<char> &file_buffer) -> std::string {
+auto File2PasswdInternal::pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, std::vector<char> &file_buffer) -> std::string {
   std::string result;
 
   for (size_t i = 0; i < utilities->get_max_fibonacci_value(); i++) {
@@ -111,7 +111,7 @@ auto File2Passwd::pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, 
   return result;
 }
 
-auto File2Passwd::inject_test_seam(std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_) -> void {
+auto File2PasswdInternal::inject_test_seam(std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_) -> void {
   compat = std::move(compat_);
 }
 

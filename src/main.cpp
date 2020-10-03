@@ -7,7 +7,7 @@
 #include <gsl/gsl>
 #include <iostream>
 
-#include "file2passwd.hpp"
+#include "file2passwd_interface.hpp"
 #include "utilities.hpp"
 
 int main(int argc, const char *argv[]) {

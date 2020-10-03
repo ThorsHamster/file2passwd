@@ -26,12 +26,12 @@ class File2PasswdTests : public ::testing::Test {
   }
 
   virtual void ConfigureUnitUnderTest() {
-    unit_under_test_ = std::make_unique<file2passwd::File2Passwd>("LICENSE");
+    unit_under_test_ = std::make_unique<file2passwd::File2PasswdInternal>("LICENSE");
     unit_under_test_->inject_test_seam(std::move(mock_compat_));
   }
 
   std::unique_ptr<compatlayer::MockCompatLayer> mock_compat_ = std::make_unique<NiceMock<compatlayer::MockCompatLayer>>();
-  std::unique_ptr<file2passwd::File2Passwd> unit_under_test_;
+  std::unique_ptr<file2passwd::File2PasswdInternal> unit_under_test_;
 };
 
 TEST_F(File2PasswdTests, get_md5_hash) {
