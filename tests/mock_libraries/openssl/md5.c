@@ -30,4 +30,5 @@ int EVP_EncryptFinal_ex(EVP_CIPHER_CTX *ctx, unsigned char *out,
   return 0;
 }
 
-void EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *c) {}
+void EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *c) {
+}
