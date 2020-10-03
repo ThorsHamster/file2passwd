@@ -51,7 +51,7 @@ class File2Passwd {
   ///
   /// @param path_to_file Absolute Path to File
   ///
-  explicit File2Passwd(const std::string &path_to_file) : file_path(path_to_file), compat(std::make_unique<compatlayer::CompatibilityLayer>(path_to_file)), utilities(std::make_unique<utilities::Utilities>()) {}
+  explicit File2Passwd(const std::string &path_to_file);
 
   auto inject_test_seam(std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_) -> void;
 

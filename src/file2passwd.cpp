@@ -10,6 +10,13 @@ namespace file2passwd {
 /// @file
 /// @brief This file contains the file2passwd main class
 
+File2Passwd::File2Passwd(const std::string &path_to_file) {
+  file_path = path_to_file;
+  utilities = std::make_unique<utilities::Utilities>();
+  compat = std::make_unique<compatlayer::CompatibilityLayer>();
+  compat->init(path_to_file, std::make_unique<utilities::Utilities>());
+}
+
 auto File2Passwd::get_passwd(void) -> std::string {
   check_for_prerequisites();
 

@@ -26,13 +26,13 @@ namespace compatlayer {
 */
 class CompatibilityLayer : public CompatibilityLayerInterface {
  public:
-  explicit CompatibilityLayer(const std::string &path_to_file) : CompatibilityLayerInterface(path_to_file) {}
+  explicit CompatibilityLayer() {}
 
   auto get_md5_hash_from_file(void) -> std::string override;
   auto convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::string override;
   auto encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string override;
 
-  auto inject_test_seam(std::unique_ptr<utilities::UtilitiesInterface> utilities) -> void;
+  auto init(std::string file_path, std::unique_ptr<utilities::UtilitiesInterface> utilities) -> void override;
 
  private:
   std::string md5_from_file;

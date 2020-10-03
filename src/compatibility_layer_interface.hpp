@@ -18,8 +18,10 @@ class CompatibilityLayerInterface {
   ///
   /// @param path_to_file Absolute Path to File
   ///
-  explicit CompatibilityLayerInterface(const std::string &path_to_file) : file_path(path_to_file), utilities_(std::make_unique<utilities::Utilities>()) {}
+  explicit CompatibilityLayerInterface() {}
   virtual ~CompatibilityLayerInterface() = default;
+
+  virtual auto init(std::string file_path, std::unique_ptr<utilities::UtilitiesInterface> utilities) -> void = 0;
 
   /// @brief Returns MD5 hash of file
   virtual auto get_md5_hash_from_file(void) -> std::string = 0;
@@ -29,7 +31,7 @@ class CompatibilityLayerInterface {
   virtual auto encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string = 0;
 
  protected:
-  std::string file_path;
+  std::string file_path_;
   std::unique_ptr<utilities::UtilitiesInterface> utilities_;
 };
 

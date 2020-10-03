@@ -7,8 +7,13 @@ namespace compatlayer {
 /// @file
 /// @brief This file contains a internal helper Class to be C++ compliant.
 
+auto CompatibilityLayer::init(std::string file_path, std::unique_ptr<utilities::UtilitiesInterface> utilities) -> void {
+  file_path_ = file_path;
+  utilities_ = std::move(utilities);
+}
+
 auto CompatibilityLayer::get_md5_hash_from_file(void) -> std::string {
-  if (!utilities_->file_exists(file_path)) {
+  if (!utilities_->file_exists(file_path_)) {
     throw FileDoesNotExistException();
   }
 
@@ -28,7 +33,7 @@ auto CompatibilityLayer::get_md5_hash_from_file(void) -> std::string {
 
 auto CompatibilityLayer::get_file_size(void) -> std::streamsize {
   std::ifstream file;
-  file.open(file_path, std::ios_base::in);
+  file.open(file_path_, std::ios_base::in);
   file.ignore(std::numeric_limits<std::streamsize>::max());
   std::streamsize file_size = file.gcount();
   file.close();
@@ -39,7 +44,7 @@ auto CompatibilityLayer::get_file_size(void) -> std::streamsize {
 void CompatibilityLayer::get_file_buffer(std::streamsize file_size, char *file_buffer) {
   if (file_size > 0 or file_size <= MAXIMUM_FILE_LENGTH) {
     std::ifstream file;
-    file.open(file_path, std::ios_base::in | std::ios_base::binary);
+    file.open(file_path_, std::ios_base::in | std::ios_base::binary);
     file.seekg(0, std::ios_base::beg);
     file.read(file_buffer, file_size);
     file.close();
@@ -132,10 +137,6 @@ void CompatibilityLayer::handleErrors(void) {
 auto CompatibilityLayer::string_to_unsigned_char(std::string const &str) -> std::vector<unsigned char> {
   auto vector_uchar = std::vector<unsigned char>(str.data(), str.data() + str.length());
   return std::move(vector_uchar);
-}
-
-auto CompatibilityLayer::inject_test_seam(std::unique_ptr<utilities::UtilitiesInterface> utilities) -> void {
-  utilities_ = std::move(utilities);
 }
 
 }  // namespace compatlayer
