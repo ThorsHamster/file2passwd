@@ -25,7 +25,6 @@ package_add_test(utility_tests
 package_add_test(compatibility_layer_tests
     compatibility_layer_tests.cpp
     ${CMAKE_SOURCE_DIR}/src/compatibility_layer.cpp
-    ${CMAKE_SOURCE_DIR}/src/utilities.cpp
     ${CMAKE_SOURCE_DIR}/tests/mock_libraries/openssl/md5.c
 )
 
