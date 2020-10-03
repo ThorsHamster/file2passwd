@@ -30,7 +30,7 @@ class CompatibilityLayerTests : public ::testing::Test {
     unit_under_test_->inject_test_seam(std::move(mock_utilities_));
   }
 
-  std::unique_ptr<MockUtilities> mock_utilities_ = std::make_unique<NiceMock<MockUtilities>>();
+  std::unique_ptr<utilities::MockUtilities> mock_utilities_ = std::make_unique<NiceMock<utilities::MockUtilities>>();
   std::unique_ptr<CompatibilityLayer> unit_under_test_;
 };
 
