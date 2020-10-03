@@ -2,7 +2,20 @@
 #ifndef SRC_COMPATLAYER_HPP_
 #define SRC_COMPATLAYER_HPP_
 
+#include <openssl/conf.h>
+#include <openssl/err.h>
+#include <openssl/evp.h>
+#include <openssl/md5.h>
+#include <sys/mman.h>
+
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <limits>
+
 #include "compatibility_layer_interface.hpp"
+#include "exception.hpp"
+#include "utilities.hpp"
 
 namespace compatlayer {
 

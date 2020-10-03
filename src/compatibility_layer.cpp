@@ -1,19 +1,6 @@
 #include "compatibility_layer.hpp"
 
-#include <openssl/conf.h>
-#include <openssl/err.h>
-#include <openssl/evp.h>
-#include <openssl/md5.h>
-#include <sys/mman.h>
-
-#include <fstream>
 #include <gsl/gsl>
-#include <iomanip>
-#include <iostream>
-#include <limits>
-
-#include "exception.hpp"
-#include "utilities.hpp"
 
 namespace compatlayer {
 
