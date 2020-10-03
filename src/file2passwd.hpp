@@ -16,9 +16,11 @@ class File2PasswdInternal {
   auto get_md5_hash(void) -> std::string;
   auto get_passwd(void) -> std::string;
 
-  explicit File2PasswdInternal(const std::string &path_to_file);
+  explicit File2PasswdInternal(){};
 
-  auto inject_test_seam(std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_) -> void;
+  auto init(const std::string path_to_file,
+            std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_,
+            std::unique_ptr<utilities::UtilitiesInterface> utilities_) -> void;
 
  private:
   std::string md5_hash_of_file;

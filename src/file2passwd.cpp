@@ -7,11 +7,12 @@
 
 namespace file2passwd {
 
-File2PasswdInternal::File2PasswdInternal(const std::string &path_to_file) {
+auto File2PasswdInternal::init(const std::string path_to_file,
+                               std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_,
+                               std::unique_ptr<utilities::UtilitiesInterface> utilities_) -> void {
   file_path = path_to_file;
-  utilities = std::make_unique<utilities::Utilities>();
-  compat = std::make_unique<compatlayer::CompatibilityLayer>();
-  compat->init(path_to_file, std::make_unique<utilities::Utilities>());
+  utilities = std::move(utilities_);
+  compat = std::move(compat_);
 }
 
 auto File2PasswdInternal::get_passwd(void) -> std::string {
@@ -106,10 +107,6 @@ auto File2PasswdInternal::pick_chars_from_file(std::vector<uint64_t> fibonacci_n
   }
 
   return result;
-}
-
-auto File2PasswdInternal::inject_test_seam(std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_) -> void {
-  compat = std::move(compat_);
 }
 
 }  // namespace file2passwd
