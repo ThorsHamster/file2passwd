@@ -21,5 +21,7 @@ SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fPIC" CACHE INTERNAL "C++ flags")  # n
 add_executable(${PROJECT_NAME} main.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE f2p_lib gsl)
 
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../LICENSE
+     DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../tests/system_test.py
      DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
