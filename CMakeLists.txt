@@ -35,23 +35,19 @@ endif(CODE_COVERAGE)
 
 add_subdirectory(src)
 
-# google tests
 if(GOOGLE_TESTS)
     enable_testing()
     add_subdirectory(tests)
 endif()
 
-# clang tidy
 if(CLANG_TIDY_TESTS)
     include(clang_tidy)
 endif()
 
-# build python binding
 if(BUILD_PYTHON)
     add_subdirectory(python)
 endif()
 
-# generate documentation
 if(BUILD_DOC)
     include(doxygen)
 endif()
