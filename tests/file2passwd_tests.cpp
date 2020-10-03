@@ -30,7 +30,6 @@ class File2PasswdTests : public ::testing::Test {
     unit_under_test_->inject_test_seam(std::move(mock_compat_));
   }
 
-  uint8_t i2c_address_ = 0x68;
   std::unique_ptr<MockCompatLayer> mock_compat_ = std::make_unique<NiceMock<MockCompatLayer>>();
   std::unique_ptr<File2Passwd> unit_under_test_;
 };
