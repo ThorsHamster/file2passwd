@@ -9,10 +9,12 @@ namespace file2passwd {
 
 auto File2PasswdInternal::init(const std::string path_to_file,
                                std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_,
-                               std::unique_ptr<utilities::UtilitiesInterface> utilities_) -> void {
+                               std::unique_ptr<utilities::UtilitiesInterface> utilities_,
+                               std::unique_ptr<filereader::FileReader> file_reader_) -> void {
   file_path = path_to_file;
   utilities = std::move(utilities_);
   compat = std::move(compat_);
+  file_reader = std::move(file_reader_);
 }
 
 auto File2PasswdInternal::get_passwd(void) -> std::string {
@@ -25,7 +27,7 @@ auto File2PasswdInternal::get_passwd(void) -> std::string {
 }
 
 void File2PasswdInternal::check_for_prerequisites(void) {
-  if (!utilities->file_exists(file_path)) {
+  if (!file_reader->file_exists(file_path)) {
     throw FileDoesNotExistException();
   }
 }

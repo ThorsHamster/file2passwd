@@ -7,21 +7,24 @@ namespace compatlayer {
 /// @file
 /// @brief This file contains a internal helper Class to be C++ compliant.
 
-auto CompatibilityLayer::init(std::string file_path, std::unique_ptr<utilities::UtilitiesInterface> utilities) -> void {
+auto CompatibilityLayer::init(std::string file_path,
+                              std::unique_ptr<utilities::UtilitiesInterface> utilities,
+                              std::unique_ptr<filereader::FileReader> file_reader) -> void {
   file_path_ = file_path;
   utilities_ = std::move(utilities);
+  file_reader_ = std::move(file_reader);
 }
 
 auto CompatibilityLayer::get_md5_hash_from_file(void) -> std::string {
-  if (!utilities_->file_exists(file_path_)) {
+  if (!file_reader_->file_exists(file_path_)) {
     throw FileDoesNotExistException();
   }
 
   auto result = std::make_unique<unsigned char[]>(MD5_DIGEST_LENGTH);
 
-  std::streamsize file_size = utilities_->get_file_size(file_path_);
+  std::streamsize file_size = file_reader_->get_file_size(file_path_);
   char file_buffer[file_size];                                      //NOLINT(cppcoreguidelines-avoid-c-arrays)
-  utilities_->get_file_buffer(file_path_, file_size, file_buffer);  //NOLINT(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
+  file_reader_->get_file_buffer(file_path_, file_size, file_buffer);  //NOLINT(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
 
   MD5((unsigned char *)file_buffer, file_size, result.get());  //NOLINT(cppcoreguidelines-pro-type-cstyle-cast)
   munmap((char *)file_buffer, file_size);

@@ -2,6 +2,7 @@
 #define SRC_COMPATLAYER_INTERFACE_HPP_
 
 #include "utilities.hpp"
+#include "file_reader.hpp"
 
 namespace compatlayer {
 
@@ -21,7 +22,9 @@ class CompatibilityLayerInterface {
   explicit CompatibilityLayerInterface() {}
   virtual ~CompatibilityLayerInterface() = default;
 
-  virtual auto init(std::string file_path, std::unique_ptr<utilities::UtilitiesInterface> utilities) -> void = 0;
+  virtual auto init(std::string file_path,
+                    std::unique_ptr<utilities::UtilitiesInterface> utilities,
+                    std::unique_ptr<filereader::FileReader> file_reader) -> void = 0;
 
   /// @brief Returns MD5 hash of file
   virtual auto get_md5_hash_from_file(void) -> std::string = 0;
@@ -33,6 +36,7 @@ class CompatibilityLayerInterface {
  protected:
   std::string file_path_;
   std::unique_ptr<utilities::UtilitiesInterface> utilities_;
+  std::unique_ptr<filereader::FileReader> file_reader_;
 };
 
 }  // namespace compatlayer

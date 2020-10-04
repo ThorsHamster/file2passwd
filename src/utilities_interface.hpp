@@ -15,13 +15,6 @@ class UtilitiesInterface {
   explicit UtilitiesInterface(){};
   virtual ~UtilitiesInterface() = default;
 
-  /**  @brief Checks if a file exists
-
-     @param[in]      argv_file_path      Absolute path to File
-     @return         True if file exists, False if not.
-  */
-  virtual auto file_exists(std::string argv_file_path) -> bool = 0;
-
   /**  @brief Calculates fibonacci numbers
 
      @param[in]      number      Position in Fibonacci Series
@@ -44,9 +37,6 @@ class UtilitiesInterface {
   virtual auto fibonacci(uint64_t number) -> uint64_t = 0;
 
   virtual auto get_max_fibonacci_value(void) -> uint64_t = 0;
-
-  virtual auto get_file_size(std::string file_path_) -> std::streamsize = 0;
-  virtual auto get_file_buffer(std::string file_path_, std::streamsize file_size, char *file_buffer) -> void = 0;
 
  protected:
   /// @brief Maximum allowed value for the fibonacci function used here.
