@@ -24,8 +24,6 @@ class CompatibilityLayerTests : public ::testing::Test {
         .WillByDefault(Return(0));
     ON_CALL(*mock_file_reader_, file_exists())
         .WillByDefault(Return(false));
-    ON_CALL(*mock_file_reader_, get_file_size())
-        .WillByDefault(Return(0));
   }
 
   virtual void ConfigureUnitUnderTest() {

@@ -21,8 +21,7 @@ class FileReaderInterface {
      @return         True if file exists, False if not.
   */
   virtual auto file_exists(void) -> bool = 0;
-  virtual auto get_file_size(void) -> std::streamsize = 0;
-  virtual auto get_file_buffer(std::streamsize file_size) -> std::vector<char> = 0;
+  virtual auto get_file_buffer(void) -> std::vector<char> = 0;
 
  protected:
   static constexpr int MAXIMUM_FILE_LENGTH = 1000000;

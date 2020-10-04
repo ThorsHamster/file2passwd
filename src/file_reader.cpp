@@ -19,7 +19,9 @@ auto FileReader::get_file_size(void) -> std::streamsize {
   return file_size;
 }
 
-auto FileReader::get_file_buffer(std::streamsize file_size) -> std::vector<char> {
+auto FileReader::get_file_buffer(void) -> std::vector<char> {
+  std::streamsize file_size = get_file_size();
+
   if (file_size > 0 or file_size <= MAXIMUM_FILE_LENGTH) {
     std::ifstream file(file_path_, std::ios::binary);
 

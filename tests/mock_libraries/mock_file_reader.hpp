@@ -11,8 +11,7 @@ class MockFileReader : public FileReaderInterface {
  public:
   MockFileReader(std::string file_path) : FileReaderInterface("") {}
   MOCK_METHOD(bool, file_exists, (), (override));
-  MOCK_METHOD(std::streamsize, get_file_size, (), (override));
-  MOCK_METHOD(std::vector<char>, get_file_buffer, (std::streamsize file_size), (override));
+  MOCK_METHOD(std::vector<char>, get_file_buffer, (), (override));
 };
 
 }  // namespace filereader

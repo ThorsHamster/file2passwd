@@ -22,9 +22,8 @@ auto CompatibilityLayer::get_md5_hash_from_file(void) -> std::string {
 
   auto result = std::make_unique<unsigned char[]>(MD5_DIGEST_LENGTH);
 
-  std::streamsize file_size = file_reader_->get_file_size();
-  std::vector<char> file_buffer(file_size);                //NOLINT(cppcoreguidelines-avoid-c-arrays)
-  file_buffer = file_reader_->get_file_buffer(file_size);  //NOLINT(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
+  std::vector<char> file_buffer;
+  file_buffer = file_reader_->get_file_buffer();  //NOLINT(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
 
   MD5((unsigned char *)file_buffer.data(), file_buffer.size(), result.get());  //NOLINT(cppcoreguidelines-pro-type-cstyle-cast)
 

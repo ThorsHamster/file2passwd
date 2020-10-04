@@ -11,8 +11,10 @@ class FileReader : public FileReaderInterface {
   ~FileReader() = default;
 
   auto file_exists(void) -> bool override;
-  auto get_file_size(void) -> std::streamsize override;
-  auto get_file_buffer(std::streamsize file_size) -> std::vector<char> override;
+  auto get_file_buffer(void) -> std::vector<char> override;
+
+ private:
+  auto get_file_size(void) -> std::streamsize;
 };
 
 }  // namespace filereader
