@@ -75,6 +75,9 @@ auto File2PasswdInternal::get_fibonacci_vector_of_filelength(std::ifstream::pos_
   for (size_t i = 1; fibonacci_number <= length_of_file; i++) {
     fibonacci_number = utilities->fibonacci(i);
     fibonacci_numbers[i - 1] = fibonacci_number;
+
+    if (i >= utilities->get_max_fibonacci_value())
+      break;
   }
 
   return fibonacci_numbers;
