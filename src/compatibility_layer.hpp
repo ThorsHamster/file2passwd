@@ -31,8 +31,7 @@ class CompatibilityLayer : public CompatibilityLayerInterface {
   auto convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::string override;
   auto encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string override;
 
-  auto init(std::string file_path,
-            std::unique_ptr<utilities::UtilitiesInterface> utilities,
+  auto init(std::unique_ptr<utilities::UtilitiesInterface> utilities,
             std::unique_ptr<filereader::FileReaderInterface> file_reader) -> void override;
 
  private:
