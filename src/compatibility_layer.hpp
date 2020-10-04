@@ -33,7 +33,7 @@ class CompatibilityLayer : public CompatibilityLayerInterface {
 
   auto init(std::string file_path,
             std::unique_ptr<utilities::UtilitiesInterface> utilities,
-            std::unique_ptr<filereader::FileReader> file_reader) -> void override;
+            std::unique_ptr<filereader::FileReaderInterface> file_reader) -> void override;
 
  private:
   std::string md5_from_file;

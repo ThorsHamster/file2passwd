@@ -9,7 +9,7 @@ namespace compatlayer {
 
 auto CompatibilityLayer::init(std::string file_path,
                               std::unique_ptr<utilities::UtilitiesInterface> utilities,
-                              std::unique_ptr<filereader::FileReader> file_reader) -> void {
+                              std::unique_ptr<filereader::FileReaderInterface> file_reader) -> void {
   file_path_ = file_path;
   utilities_ = std::move(utilities);
   file_reader_ = std::move(file_reader);

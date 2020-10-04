@@ -17,14 +17,6 @@ class UtilityTests : public ::testing::Test {
   std::unique_ptr<utilities::Utilities> unit_under_test_;
 };
 
-TEST_F(UtilityTests, file_exists_Exists) {
-  EXPECT_EQ(unit_under_test_->file_exists("LICENSE"), true);
-}
-
-TEST_F(UtilityTests, file_exists_Doesnt_Exists) {
-  EXPECT_EQ(unit_under_test_->file_exists("LICENSE_notexistent"), false);
-}
-
 TEST_F(UtilityTests, fibonacci_Trivial_0) {
   EXPECT_EQ(unit_under_test_->fibonacci(0), 0);
 }

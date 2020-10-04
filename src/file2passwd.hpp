@@ -22,14 +22,14 @@ class File2PasswdInternal {
   auto init(const std::string path_to_file,
             std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_,
             std::unique_ptr<utilities::UtilitiesInterface> utilities_,
-            std::unique_ptr<filereader::FileReader> file_reader_) -> void;
+            std::unique_ptr<filereader::FileReaderInterface> file_reader_) -> void;
 
  private:
   std::string md5_hash_of_file;
   std::string file_path;
   std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat;
   std::unique_ptr<utilities::UtilitiesInterface> utilities;
-  std::unique_ptr<filereader::FileReader> file_reader;
+  std::unique_ptr<filereader::FileReaderInterface> file_reader;
 
   static constexpr int MAXIMUM_FILE_LENGTH = 1000000;
 

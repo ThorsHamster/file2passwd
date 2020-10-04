@@ -22,6 +22,11 @@ package_add_test(utility_tests
     ${CMAKE_SOURCE_DIR}/src/utilities.cpp
 )
 
+package_add_test(file_reader_tests
+    file_reader_tests.cpp
+    ${CMAKE_SOURCE_DIR}/src/file_reader.cpp
+)
+
 package_add_test(compatibility_layer_tests
     compatibility_layer_tests.cpp
     ${CMAKE_SOURCE_DIR}/src/compatibility_layer.cpp
@@ -37,6 +42,7 @@ SETUP_ALLTESTS_TARGET(
     NAME all_tests                 
     EXECUTABLE GTEST_COLOR=1 GTEST_REPEAT=3 GTEST_SHUFFLE=1 ctest --verbose -j ${n_cores}
     DEPENDENCIES
+        file_reader_tests
         utility_tests
         file2passwd_tests
         compatibility_layer_tests
