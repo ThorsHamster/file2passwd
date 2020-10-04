@@ -1,5 +1,7 @@
 #include "file_reader.hpp"
 
+#include <iterator>
+
 namespace filereader {
 
 auto FileReader::file_exists(void) -> bool {
@@ -17,13 +19,14 @@ auto FileReader::get_file_size(void) -> std::streamsize {
   return file_size;
 }
 
-void FileReader::get_file_buffer(std::streamsize file_size, char *file_buffer) {
+auto FileReader::get_file_buffer(std::streamsize file_size) -> std::vector<char> {
   if (file_size > 0 or file_size <= MAXIMUM_FILE_LENGTH) {
-    std::ifstream file;
-    file.open(file_path_, std::ios_base::in | std::ios_base::binary);
-    file.seekg(0, std::ios_base::beg);
-    file.read(file_buffer, file_size);
-    file.close();
+    std::ifstream file(file_path_, std::ios::binary);
+
+    return std::vector<char>((std::istreambuf_iterator<char>(file)),
+                             std::istreambuf_iterator<char>());
+  } else {
+    return std::vector<char>();
   }
 }
 
