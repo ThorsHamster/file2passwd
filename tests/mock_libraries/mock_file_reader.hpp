@@ -1,5 +1,5 @@
-#ifndef MOCK_UTILITIES_HPP_
-#define MOCK_UTILITIES_HPP_
+#ifndef MOCK_FILE_READER_HPP_
+#define MOCK_FILE_READER_HPP_
 
 #include <gmock/gmock.h>
 
