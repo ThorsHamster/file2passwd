@@ -10,7 +10,7 @@ File2Passwd::File2Passwd(const std::string &path_to_file) {
   std::unique_ptr<filereader::FileReader> file_reader_ = std::make_unique<filereader::FileReader>(path_to_file);
 
   compat_->init(std::make_unique<utilities::Utilities>(), std::make_unique<filereader::FileReader>(path_to_file));
-  file2passwd_->init(path_to_file, std::move(compat_), std::move(utilities_), std::move(file_reader_));
+  file2passwd_->init(std::move(compat_), std::move(utilities_), std::move(file_reader_));
 }
 
 auto File2Passwd::get_passwd(void) -> std::string {

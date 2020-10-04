@@ -7,11 +7,9 @@
 
 namespace file2passwd {
 
-auto File2PasswdInternal::init(const std::string path_to_file,
-                               std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_,
+auto File2PasswdInternal::init(std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_,
                                std::unique_ptr<utilities::UtilitiesInterface> utilities_,
                                std::unique_ptr<filereader::FileReaderInterface> file_reader_) -> void {
-  file_path = path_to_file;
   utilities = std::move(utilities_);
   compat = std::move(compat_);
   file_reader = std::move(file_reader_);
@@ -62,11 +60,9 @@ auto File2PasswdInternal::get_fibonacci_string(void) -> std::string {
    *
    * Then the bytes are taken from the file at the respective positions (fibonacci(i)) and joined together.
    */
-  std::ifstream ifs(file_path, std::ios::binary | std::ios::ate);
-  std::ifstream::pos_type length_of_file = ifs.tellg();
+  std::vector<char> file_buffer = file_reader->get_file_buffer();
 
-  auto fibonacci_numbers = get_fibonacci_vector_of_filelength(length_of_file);
-  auto file_buffer = read_file_into_filebuffer(ifs, length_of_file);
+  auto fibonacci_numbers = get_fibonacci_vector_of_filelength(file_buffer.size());
   auto fibonacci_string = pick_chars_from_file(fibonacci_numbers, file_buffer);
 
   return fibonacci_string;
@@ -82,19 +78,6 @@ auto File2PasswdInternal::get_fibonacci_vector_of_filelength(std::ifstream::pos_
   }
 
   return fibonacci_numbers;
-}
-
-auto File2PasswdInternal::read_file_into_filebuffer(std::ifstream &ifs, std::ifstream::pos_type length_of_file) -> std::vector<char> {
-  if (length_of_file <= 0 or length_of_file >= MAXIMUM_FILE_LENGTH) {
-    return std::vector<char>{};
-  }
-
-  std::vector<char> file_buffer(length_of_file);
-
-  ifs.seekg(0, std::ios::beg);
-  ifs.read(&file_buffer[0], length_of_file);
-
-  return std::move(file_buffer);
 }
 
 auto File2PasswdInternal::pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, std::vector<char> &file_buffer) -> std::string {

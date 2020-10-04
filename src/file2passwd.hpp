@@ -19,14 +19,12 @@ class File2PasswdInternal {
 
   explicit File2PasswdInternal(){};
 
-  auto init(const std::string path_to_file,
-            std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_,
+  auto init(std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_,
             std::unique_ptr<utilities::UtilitiesInterface> utilities_,
             std::unique_ptr<filereader::FileReaderInterface> file_reader_) -> void;
 
  private:
   std::string md5_hash_of_file;
-  std::string file_path;
   std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat;
   std::unique_ptr<utilities::UtilitiesInterface> utilities;
   std::unique_ptr<filereader::FileReaderInterface> file_reader;
@@ -41,7 +39,6 @@ class File2PasswdInternal {
   auto get_iv(void) -> std::string;
   auto get_fibonacci_string(void) -> std::string;
   auto get_fibonacci_vector_of_filelength(std::ifstream::pos_type length_of_file) -> std::vector<uint64_t>;
-  auto read_file_into_filebuffer(std::ifstream &ifs, std::ifstream::pos_type length_of_file) -> std::vector<char>;
   auto pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, std::vector<char> &file_buffer) -> std::string;
 };
 
