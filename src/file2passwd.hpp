@@ -7,8 +7,8 @@
 #include <vector>
 
 #include "compatibility_layer.hpp"
-#include "utilities.hpp"
 #include "file_reader.hpp"
+#include "utilities.hpp"
 
 namespace file2passwd {
 

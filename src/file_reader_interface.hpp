@@ -12,7 +12,7 @@ namespace filereader {
 
 class FileReaderInterface {
  public:
-  explicit FileReaderInterface(std::string file_path): file_path_(file_path){};
+  explicit FileReaderInterface(std::string file_path) : file_path_(file_path){};
   virtual ~FileReaderInterface() = default;
 
   /**  @brief Checks if a file exists

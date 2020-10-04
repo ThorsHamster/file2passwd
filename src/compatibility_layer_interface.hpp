@@ -1,8 +1,8 @@
 #ifndef SRC_COMPATLAYER_INTERFACE_HPP_
 #define SRC_COMPATLAYER_INTERFACE_HPP_
 
-#include "utilities.hpp"
 #include "file_reader.hpp"
+#include "utilities.hpp"
 
 namespace compatlayer {
 
