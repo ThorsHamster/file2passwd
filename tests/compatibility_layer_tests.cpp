@@ -22,9 +22,9 @@ class CompatibilityLayerTests : public ::testing::Test {
         .WillByDefault(Return(0));
     ON_CALL(*mock_utilities_, get_max_fibonacci_value())
         .WillByDefault(Return(0));
-    ON_CALL(*mock_file_reader_, file_exists(_))
+    ON_CALL(*mock_file_reader_, file_exists())
         .WillByDefault(Return(false));
-    ON_CALL(*mock_file_reader_, get_file_size(_))
+    ON_CALL(*mock_file_reader_, get_file_size())
         .WillByDefault(Return(0));
   }
 
@@ -34,12 +34,12 @@ class CompatibilityLayerTests : public ::testing::Test {
   }
 
   std::unique_ptr<utilities::MockUtilities> mock_utilities_ = std::make_unique<NiceMock<utilities::MockUtilities>>();
-  std::unique_ptr<filereader::MockFileReader> mock_file_reader_ = std::make_unique<NiceMock<filereader::MockFileReader>>();
+  std::unique_ptr<filereader::MockFileReader> mock_file_reader_ = std::make_unique<NiceMock<filereader::MockFileReader>>("<File>");
   std::unique_ptr<compatlayer::CompatibilityLayer> unit_under_test_;
 };
 
 TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_trivial) {
-  ON_CALL(*mock_file_reader_, file_exists(_))
+  ON_CALL(*mock_file_reader_, file_exists())
       .WillByDefault(Return(true));
 
   ConfigureUnitUnderTest();
@@ -51,7 +51,7 @@ TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_trivial) {
 }
 
 TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_file_does_not_exist) {
-  ON_CALL(*mock_file_reader_, file_exists(_))
+  ON_CALL(*mock_file_reader_, file_exists())
       .WillByDefault(Return(false));
 
   ConfigureUnitUnderTest();

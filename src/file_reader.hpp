@@ -7,12 +7,12 @@ namespace filereader {
 
 class FileReader : public FileReaderInterface {
  public:
-  explicit FileReader() : FileReaderInterface(){};
+  explicit FileReader(std::string file_path) : FileReaderInterface(file_path){};
   ~FileReader() = default;
 
-  auto file_exists(std::string argv_file_path) -> bool override;
-  auto get_file_size(std::string file_path_) -> std::streamsize override;
-  auto get_file_buffer(std::string file_path_, std::streamsize file_size, char *file_buffer) -> void override;
+  auto file_exists(void) -> bool override;
+  auto get_file_size(void) -> std::streamsize override;
+  auto get_file_buffer(std::streamsize file_size, char *file_buffer) -> void override;
 };
 
 }  // namespace filereader

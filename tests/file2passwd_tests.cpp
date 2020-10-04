@@ -25,7 +25,7 @@ class File2PasswdTests : public ::testing::Test {
         .WillByDefault(Return(""));
     ON_CALL(*mock_compat_, encrypt(_, _, _))
         .WillByDefault(Return(""));
-    ON_CALL(*mock_file_reader_, file_exists(_))
+    ON_CALL(*mock_file_reader_, file_exists())
         .WillByDefault(Return(false));
   }
 
@@ -36,12 +36,12 @@ class File2PasswdTests : public ::testing::Test {
 
   std::unique_ptr<compatlayer::MockCompatLayer> mock_compat_ = std::make_unique<NiceMock<compatlayer::MockCompatLayer>>();
   std::unique_ptr<utilities::MockUtilities> mock_utilities_ = std::make_unique<NiceMock<utilities::MockUtilities>>();
-  std::unique_ptr<filereader::MockFileReader> mock_file_reader_ = std::make_unique<NiceMock<filereader::MockFileReader>>();
+  std::unique_ptr<filereader::MockFileReader> mock_file_reader_ = std::make_unique<NiceMock<filereader::MockFileReader>>("<File>");
   std::unique_ptr<file2passwd::File2PasswdInternal> unit_under_test_;
 };
 
 TEST_F(File2PasswdTests, get_md5_hash_file_does_not_exist) {
-  ON_CALL(*mock_file_reader_, file_exists(_))
+  ON_CALL(*mock_file_reader_, file_exists())
       .WillByDefault(Return(false));
 
   ConfigureUnitUnderTest();
@@ -52,7 +52,7 @@ TEST_F(File2PasswdTests, get_md5_hash_file_does_not_exist) {
 TEST_F(File2PasswdTests, get_md5_hash_complete) {
   ON_CALL(*mock_compat_, get_md5_hash_from_file())
       .WillByDefault(Return("md5_hash"));
-  ON_CALL(*mock_file_reader_, file_exists(_))
+  ON_CALL(*mock_file_reader_, file_exists())
       .WillByDefault(Return(true));
 
   ConfigureUnitUnderTest();
@@ -64,7 +64,7 @@ TEST_F(File2PasswdTests, get_md5_hash_complete) {
 }
 
 TEST_F(File2PasswdTests, get_passwd_file_does_not_exist) {
-  ON_CALL(*mock_file_reader_, file_exists(_))
+  ON_CALL(*mock_file_reader_, file_exists())
       .WillByDefault(Return(false));
 
   ConfigureUnitUnderTest();

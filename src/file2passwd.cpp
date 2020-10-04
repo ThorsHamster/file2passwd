@@ -27,7 +27,7 @@ auto File2PasswdInternal::get_passwd(void) -> std::string {
 }
 
 void File2PasswdInternal::check_for_prerequisites(void) {
-  if (!file_reader->file_exists(file_path)) {
+  if (!file_reader->file_exists()) {
     throw FileDoesNotExistException();
   }
 }

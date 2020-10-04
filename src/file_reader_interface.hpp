@@ -11,7 +11,7 @@ namespace filereader {
 
 class FileReaderInterface {
  public:
-  explicit FileReaderInterface(){};
+  explicit FileReaderInterface(std::string file_path): file_path_(file_path){};
   virtual ~FileReaderInterface() = default;
 
   /**  @brief Checks if a file exists
@@ -19,12 +19,13 @@ class FileReaderInterface {
      @param[in]      argv_file_path      Absolute path to File
      @return         True if file exists, False if not.
   */
-  virtual auto file_exists(std::string argv_file_path) -> bool = 0;
-  virtual auto get_file_size(std::string file_path_) -> std::streamsize = 0;
-  virtual auto get_file_buffer(std::string file_path_, std::streamsize file_size, char *file_buffer) -> void = 0;
+  virtual auto file_exists(void) -> bool = 0;
+  virtual auto get_file_size(void) -> std::streamsize = 0;
+  virtual auto get_file_buffer(std::streamsize file_size, char *file_buffer) -> void = 0;
 
  protected:
   static constexpr int MAXIMUM_FILE_LENGTH = 1000000;
+  std::string file_path_;
 };
 
 }  // namespace filereader
