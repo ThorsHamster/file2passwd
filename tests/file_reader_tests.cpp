@@ -26,6 +26,15 @@ TEST_F(FileReaderTests, file_exists_Doesnt_Exists) {
   EXPECT_EQ(unit_under_test_->file_exists(), false);
 }
 
+TEST_F(FileReaderTests, get_file_buffer_check_that_elements_are_in_valid_range) {
+  ASSERT_THAT(unit_under_test_->get_file_buffer(), testing::Each(testing::AllOf(testing::Gt(0), testing::Lt(127))));
+}
+
+TEST_F(FileReaderTests, get_file_buffer_not_existing_file_empty_vector) {
+  unit_under_test_ = std::make_unique<filereader::FileReader>("File_does_not_exist");
+  ASSERT_THAT(unit_under_test_->get_file_buffer(), testing::ElementsAre());
+}
+
 }  // namespace
 
 int main(int argc, char **argv) {
