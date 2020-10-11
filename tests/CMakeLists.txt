@@ -30,6 +30,11 @@ package_add_test(file_reader_tests
 package_add_test(compatibility_layer_tests
     compatibility_layer_tests.cpp
     ${CMAKE_SOURCE_DIR}/src/compatibility_layer.cpp
+)
+
+package_add_test(openssl_tests
+    openssl_tests.cpp
+    ${CMAKE_SOURCE_DIR}/src/openssl.cpp
     ${CMAKE_SOURCE_DIR}/tests/mock_libraries/openssl/md5.c
 )
 
@@ -45,6 +50,7 @@ SETUP_ALLTESTS_TARGET(
         file_reader_tests
         utility_tests
         file2passwd_tests
+        openssl_tests
         compatibility_layer_tests
 )
 

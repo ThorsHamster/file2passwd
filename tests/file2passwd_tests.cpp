@@ -21,8 +21,6 @@ class File2PasswdTests : public ::testing::Test {
   virtual void SetUp() {
     ON_CALL(*mock_compat_, get_md5_hash_from_file())
         .WillByDefault(Return(""));
-    ON_CALL(*mock_compat_, convert_uchar_ptr_to_hex_string(_))
-        .WillByDefault(Return(""));
     ON_CALL(*mock_compat_, encrypt(_, _, _))
         .WillByDefault(Return(""));
     ON_CALL(*mock_file_reader_, file_exists())

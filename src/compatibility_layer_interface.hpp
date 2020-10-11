@@ -29,8 +29,6 @@ class CompatibilityLayerInterface {
 
   /// @brief Returns MD5 hash of file
   virtual auto get_md5_hash_from_file(void) -> std::string = 0;
-  /// @brief Converts a unsigned char pointer to a hexidecimal std::string
-  virtual auto convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::string = 0;
   /// @brief Encrypts plaintext with OpenSSL. Needs key value and initialization vector iv
   virtual auto encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string = 0;
 

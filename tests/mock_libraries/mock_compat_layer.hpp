@@ -12,7 +12,6 @@ class MockCompatLayer : public CompatibilityLayerInterface {
   MockCompatLayer() : CompatibilityLayerInterface() {}
   MOCK_METHOD(void, init, (std::unique_ptr<utilities::UtilitiesInterface> utilities, std::unique_ptr<filereader::FileReaderInterface> file_reader, std::unique_ptr<openssl::OpenSSLInterface> open_ssl), (override));
   MOCK_METHOD(std::string, get_md5_hash_from_file, (), (override));
-  MOCK_METHOD(std::string, convert_uchar_ptr_to_hex_string, (unsigned char *result), (override));
   MOCK_METHOD(std::string, encrypt, (const std::string &key, const std::string &iv, const std::string &plaintext), (override));
 };
 

@@ -25,19 +25,9 @@ auto CompatibilityLayer::get_md5_hash_from_file(void) -> std::string {
   std::vector<char> file_buffer;
   file_buffer = file_reader_->get_file_buffer();
 
-  MD5((unsigned char *)file_buffer.data(), file_buffer.size(), result.get());
-  md5_from_file = convert_uchar_ptr_to_hex_string(result.get());
+  md5_from_file = open_ssl_->get_md5_hash_from_file(file_buffer);
 
   return md5_from_file;
-}
-
-auto CompatibilityLayer::convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::string {
-  std::stringstream ss;
-  ss << std::hex << std::setfill('0');
-  for (int i = 0; i < MD5_DIGEST_LENGTH; i++) {
-    ss << std::setw(2) << static_cast<unsigned>(result[i]);  //NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-  }
-  return ss.str();
 }
 
 auto CompatibilityLayer::encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string {
@@ -60,9 +50,7 @@ auto CompatibilityLayer::encrypt(const std::string &key, const std::string &iv, 
   unsigned char ciphertext_[128];
 
   /* Encrypt the plaintext */
-  open_ssl_->encrypt(plaintext_, strlen((char *)plaintext_), key_, iv_, ciphertext_);
-
-  return convert_uchar_ptr_to_hex_string(ciphertext_);
+  return open_ssl_->encrypt(plaintext_, strlen((char *)plaintext_), key_, iv_, ciphertext_);
 }
 
 auto CompatibilityLayer::string_to_unsigned_char(std::string const &str) -> std::vector<unsigned char> {

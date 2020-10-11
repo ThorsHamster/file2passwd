@@ -28,7 +28,6 @@ class CompatibilityLayer : public CompatibilityLayerInterface {
   explicit CompatibilityLayer() {}
 
   auto get_md5_hash_from_file(void) -> std::string override;
-  auto convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::string override;
   auto encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string override;
 
   auto init(std::unique_ptr<utilities::UtilitiesInterface> utilities,
