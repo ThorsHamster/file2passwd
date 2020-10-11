@@ -23,8 +23,13 @@ class OpenSSLTests : public ::testing::Test {
   std::unique_ptr<openssl::OpenSSL> unit_under_test_;
 };
 
-TEST_F(OpenSSLTests, empty) {
+TEST_F(OpenSSLTests, get_md5_hash_from_file) {
   ConfigureUnitUnderTest();
+
+  std::vector<char> file_buffer;
+
+  //for testdata see md5.c
+  EXPECT_EQ(unit_under_test_->get_md5_hash_from_file(file_buffer), "61626362626262626262626262626262");
 }
 }  // namespace
 
