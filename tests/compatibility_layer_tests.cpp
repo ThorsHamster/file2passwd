@@ -7,6 +7,7 @@
 #include "exception.hpp"
 #include "gtest/gtest.h"
 #include "mock_file_reader.hpp"
+#include "mock_openssl.hpp"
 #include "mock_utilities.hpp"
 
 using ::testing::_;
@@ -28,11 +29,12 @@ class CompatibilityLayerTests : public ::testing::Test {
 
   virtual void ConfigureUnitUnderTest() {
     unit_under_test_ = std::make_unique<compatlayer::CompatibilityLayer>();
-    unit_under_test_->init(std::move(mock_utilities_), std::move(mock_file_reader_));
+    unit_under_test_->init(std::move(mock_utilities_), std::move(mock_file_reader_), std::move(mock_open_ssl_));
   }
 
   std::unique_ptr<utilities::MockUtilities> mock_utilities_ = std::make_unique<NiceMock<utilities::MockUtilities>>();
   std::unique_ptr<filereader::MockFileReader> mock_file_reader_ = std::make_unique<NiceMock<filereader::MockFileReader>>("<File>");
+  std::unique_ptr<openssl::MockOpenSSL> mock_open_ssl_ = std::make_unique<NiceMock<openssl::MockOpenSSL>>();
   std::unique_ptr<compatlayer::CompatibilityLayer> unit_under_test_;
 };
 

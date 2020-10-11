@@ -30,7 +30,7 @@ class OpenSSL : public OpenSSLInterface {
                unsigned char *iv, unsigned char *ciphertext) -> int override;
 
  private:
-  auto convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::string override;
+  auto convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::string;
   void handleErrors(void);
 };
 
