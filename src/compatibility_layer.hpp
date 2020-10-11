@@ -32,7 +32,8 @@ class CompatibilityLayer : public CompatibilityLayerInterface {
   auto encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string override;
 
   auto init(std::unique_ptr<utilities::UtilitiesInterface> utilities,
-            std::unique_ptr<filereader::FileReaderInterface> file_reader) -> void override;
+            std::unique_ptr<filereader::FileReaderInterface> file_reader,
+            std::unique_ptr<openssl::OpenSSLInterface> open_ssl) -> void override;
 
  private:
   std::string md5_from_file;

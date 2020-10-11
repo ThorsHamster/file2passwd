@@ -8,6 +8,7 @@
 
 #include "compatibility_layer.hpp"
 #include "file_reader.hpp"
+#include "openssl.hpp"
 #include "utilities.hpp"
 
 namespace file2passwd {

@@ -8,9 +8,11 @@ namespace compatlayer {
 /// @brief This file contains a internal helper Class to be C++ compliant.
 
 auto CompatibilityLayer::init(std::unique_ptr<utilities::UtilitiesInterface> utilities,
-                              std::unique_ptr<filereader::FileReaderInterface> file_reader) -> void {
+                              std::unique_ptr<filereader::FileReaderInterface> file_reader,
+                              std::unique_ptr<openssl::OpenSSLInterface> open_ssl) -> void {
   utilities_ = std::move(utilities);
   file_reader_ = std::move(file_reader);
+  open_ssl_ = std::move(open_ssl);
 }
 
 auto CompatibilityLayer::get_md5_hash_from_file(void) -> std::string {
