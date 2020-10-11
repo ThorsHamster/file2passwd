@@ -15,8 +15,8 @@ class ExceptionTests : public ::testing::Test {
   }
 };
 
-TEST_F(ExceptionTests, just_throw) {
-  EXPECT_THROW(throw FileDoesNotExistException(), FileDoesNotExistException);
+TEST_F(ExceptionTests, get_Exception_Message) {
+  EXPECT_EQ(FileDoesNotExistException().what(), "File does not exist.");
 }
 }  // namespace
 
