@@ -62,6 +62,22 @@ TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_file_does_not_exist) {
 
   EXPECT_THROW(unit_under_test_->get_md5_hash_from_file(), FileDoesNotExistException);
 }
+
+TEST_F(CompatibilityLayerTests, encrypt_trivial) {
+  ON_CALL(*mock_file_reader_, file_exists())
+      .WillByDefault(Return(true));
+  ON_CALL(*mock_open_ssl_, encrypt(_, _, _, _, _))
+      .WillByDefault(Return("password"));
+
+  ConfigureUnitUnderTest();
+
+  std::string key = "key";
+  std::string iv = "iv";
+  std::string plaintext = "plaintext";
+
+  EXPECT_EQ(unit_under_test_->encrypt(key, iv, plaintext), "password");
+}
+
 }  // namespace
 
 int main(int argc, char **argv) {
