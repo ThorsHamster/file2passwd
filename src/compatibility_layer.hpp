@@ -37,10 +37,6 @@ class CompatibilityLayer : public CompatibilityLayerInterface {
 
  private:
   std::string md5_from_file;
-
-  void handleErrors(void);
-  auto openssl_encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
-                       unsigned char *iv, unsigned char *ciphertext) -> int;
   auto string_to_unsigned_char(std::string const &str) -> std::vector<unsigned char>;
 };
 
