@@ -44,6 +44,10 @@ TEST_F(UtilityTests, fibonacci_Trivial_50) {
 TEST_F(UtilityTests, fibonacci_Trivial_51) {
   EXPECT_EQ(unit_under_test_->fibonacci(51), 0);
 }
+
+TEST_F(UtilityTests, get_fibonacci_max_value) {
+  EXPECT_EQ(unit_under_test_->get_max_fibonacci_value(), 51);
+}
 }  // namespace
 
 int main(int argc, char **argv) {
