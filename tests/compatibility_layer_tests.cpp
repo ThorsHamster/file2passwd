@@ -25,6 +25,8 @@ class CompatibilityLayerTests : public ::testing::Test {
         .WillByDefault(Return(0));
     ON_CALL(*mock_file_reader_, file_exists())
         .WillByDefault(Return(false));
+    ON_CALL(*mock_open_ssl_, get_md5_hash_from_file(_))
+        .WillByDefault(Return(""));
   }
 
   virtual void ConfigureUnitUnderTest() {
@@ -41,6 +43,8 @@ class CompatibilityLayerTests : public ::testing::Test {
 TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_trivial) {
   ON_CALL(*mock_file_reader_, file_exists())
       .WillByDefault(Return(true));
+  ON_CALL(*mock_open_ssl_, get_md5_hash_from_file(_))
+      .WillByDefault(Return("61626362626262626262626262626262"));
 
   ConfigureUnitUnderTest();
 
