@@ -7,7 +7,7 @@ namespace filereader {
 
 class FileReader : public FileReaderInterface {
  public:
-  explicit FileReader(const std::string file_path) : FileReaderInterface(file_path){};
+  explicit FileReader(const std::string &file_path) : FileReaderInterface(file_path){};
   ~FileReader() = default;
 
   auto file_exists(void) -> bool override;
