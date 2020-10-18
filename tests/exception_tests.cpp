@@ -15,8 +15,12 @@ class ExceptionTests : public ::testing::Test {
   }
 };
 
-TEST_F(ExceptionTests, get_Exception_Message) {
+TEST_F(ExceptionTests, FileDoesNotExistException_get_Exception_Message) {
   EXPECT_EQ(FileDoesNotExistException().what(), "File does not exist.");
+}
+
+TEST_F(ExceptionTests, OpenSSLException_get_Exception_Message) {
+  EXPECT_EQ(OpenSSLException().what(), "Failure with OpenSSL occured.");
 }
 }  // namespace
 
