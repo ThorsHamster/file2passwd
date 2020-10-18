@@ -13,6 +13,7 @@
 #include <iostream>
 
 #include "openssl_interface.hpp"
+#include "exception.hpp"
 
 namespace openssl {
 

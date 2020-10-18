@@ -66,7 +66,7 @@ auto OpenSSL::encrypt(unsigned char *plaintext, int plaintext_len, unsigned char
 
 void OpenSSL::handleErrors(void) {
   ERR_print_errors_fp(stderr);
-  abort();
+  throw OpenSSLException();
 }
 
 }  // namespace openssl
