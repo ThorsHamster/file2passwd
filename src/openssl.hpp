@@ -12,8 +12,8 @@
 #include <iomanip>
 #include <iostream>
 
-#include "openssl_interface.hpp"
 #include "exception.hpp"
+#include "openssl_interface.hpp"
 
 namespace openssl {
 
