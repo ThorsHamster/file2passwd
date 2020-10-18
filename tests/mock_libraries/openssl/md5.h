@@ -1,11 +1,6 @@
 #ifndef MOCK_OPENSSL_MD5_H_
 #define MOCK_OPENSSL_MD5_H_
 
-extern int EVP_CIPHER_CTX_new_return;
-extern int EVP_EncryptInit_ex_return;
-extern int EVP_EncryptUpdate_return;
-extern int EVP_EncryptFinal_ex_return;
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -25,6 +20,11 @@ typedef struct _IO_FILE FILE;
 typedef struct _EVP_CIPHER_CTX EVP_CIPHER_CTX;
 typedef struct _EVP_CIPHER EVP_CIPHER;
 typedef struct _ENGINE ENGINE;
+
+extern EVP_CIPHER_CTX* EVP_CIPHER_CTX_new_return;
+extern int EVP_EncryptInit_ex_return;
+extern int EVP_EncryptUpdate_return;
+extern int EVP_EncryptFinal_ex_return;
 
 void ERR_print_errors_fp(FILE *fp);
 

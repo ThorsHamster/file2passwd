@@ -9,7 +9,7 @@ using ::testing::_;
 using ::testing::NiceMock;
 using ::testing::Return;
 
-int EVP_CIPHER_CTX_new_return;
+EVP_CIPHER_CTX* EVP_CIPHER_CTX_new_return;
 int EVP_EncryptInit_ex_return;
 int EVP_EncryptUpdate_return;
 int EVP_EncryptFinal_ex_return;
@@ -45,7 +45,8 @@ TEST_F(OpenSSLTests, encrypt_complete) {
   unsigned char iv[] = {'v'};
   unsigned char ciphertext[] = {'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c'};
 
-  EVP_CIPHER_CTX_new_return = 1;
+  EVP_CIPHER_CTX* some_pointer;
+  EVP_CIPHER_CTX_new_return = some_pointer;
   EVP_EncryptInit_ex_return = 1;
   EVP_EncryptUpdate_return = 1;
   EVP_EncryptFinal_ex_return = 1;
@@ -62,7 +63,7 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_CIPHER_CTX_new) {
   unsigned char iv[] = {'v'};
   unsigned char ciphertext[] = {'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c'};
 
-  EVP_CIPHER_CTX_new_return = 0;
+  EVP_CIPHER_CTX_new_return = NULL;
   EVP_EncryptInit_ex_return = 1;
   EVP_EncryptUpdate_return = 1;
   EVP_EncryptFinal_ex_return = 1;
@@ -79,7 +80,8 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptInit_ex) {
   unsigned char iv[] = {'v'};
   unsigned char ciphertext[] = {'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c'};
 
-  EVP_CIPHER_CTX_new_return = 1;
+  EVP_CIPHER_CTX* some_pointer;
+  EVP_CIPHER_CTX_new_return = some_pointer;
   EVP_EncryptInit_ex_return = 0;
   EVP_EncryptUpdate_return = 1;
   EVP_EncryptFinal_ex_return = 1;
@@ -96,7 +98,8 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptUpdate) {
   unsigned char iv[] = {'v'};
   unsigned char ciphertext[] = {'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c'};
 
-  EVP_CIPHER_CTX_new_return = 1;
+  EVP_CIPHER_CTX* some_pointer;
+  EVP_CIPHER_CTX_new_return = some_pointer;
   EVP_EncryptInit_ex_return = 1;
   EVP_EncryptUpdate_return = 0;
   EVP_EncryptFinal_ex_return = 1;
@@ -113,7 +116,8 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptFinal_ex) {
   unsigned char iv[] = {'v'};
   unsigned char ciphertext[] = {'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c'};
 
-  EVP_CIPHER_CTX_new_return = 1;
+  EVP_CIPHER_CTX* some_pointer;
+  EVP_CIPHER_CTX_new_return = some_pointer;
   EVP_EncryptInit_ex_return = 1;
   EVP_EncryptUpdate_return = 1;
   EVP_EncryptFinal_ex_return = 0;
@@ -122,7 +126,7 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptFinal_ex) {
 }
 }  // namespace
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

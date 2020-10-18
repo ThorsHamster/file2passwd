@@ -24,7 +24,7 @@ void ERR_print_errors_fp(FILE *fp) {
 }
 
 EVP_CIPHER_CTX *EVP_CIPHER_CTX_new(void) {
-  return EVP_CIPHER_CTX_new_return;
+  return EVP_CIPHER_CTX_new_return;  //NOLINT only needed for unittests
 }
 
 const EVP_CIPHER *EVP_aes_256_cbc(void) {
