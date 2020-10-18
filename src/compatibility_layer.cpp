@@ -20,8 +20,6 @@ auto CompatibilityLayer::get_md5_hash_from_file(void) -> std::string {
     throw FileDoesNotExistException();
   }
 
-  auto result = std::make_unique<unsigned char[]>(MD5_DIGEST_LENGTH);
-
   std::vector<char> file_buffer;
   file_buffer = file_reader_->get_file_buffer();
 
