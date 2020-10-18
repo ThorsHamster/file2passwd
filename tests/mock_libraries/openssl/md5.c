@@ -24,6 +24,7 @@ void ERR_print_errors_fp(FILE *fp) {
 }
 
 EVP_CIPHER_CTX *EVP_CIPHER_CTX_new(void) {
+  return EVP_CIPHER_CTX_new_return;
 }
 
 const EVP_CIPHER *EVP_aes_256_cbc(void) {
@@ -33,17 +34,17 @@ int EVP_EncryptInit_ex(EVP_CIPHER_CTX *ctx,
                        const EVP_CIPHER *cipher, ENGINE *impl,
                        const unsigned char *key,
                        const unsigned char *iv) {
-  return 0;
+  return EVP_EncryptInit_ex_return;
 }
 
 int EVP_EncryptUpdate(EVP_CIPHER_CTX *ctx, unsigned char *out,
                       int *outl, const unsigned char *in, int inl) {
-  return 0;
+  return EVP_EncryptUpdate_return;
 }
 
 int EVP_EncryptFinal_ex(EVP_CIPHER_CTX *ctx, unsigned char *out,
                         int *outl) {
-  return 0;
+  return EVP_EncryptFinal_ex_return;
 }
 
 void EVP_CIPHER_CTX_free(EVP_CIPHER_CTX *c) {
