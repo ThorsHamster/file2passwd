@@ -35,7 +35,6 @@ class CompatibilityLayer : public CompatibilityLayerInterface {
   auto encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string override;
 
  private:
-  std::string md5_from_file;
   auto string_to_unsigned_char(std::string const &str) -> std::vector<unsigned char>;
 
   std::unique_ptr<utilities::UtilitiesInterface> utilities_;
