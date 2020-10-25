@@ -111,6 +111,17 @@ TEST_F(File2PasswdTests, get_passwd_file_does_not_exist) {
   EXPECT_THROW(unit_under_test_->get_passwd(), FileDoesNotExistException);
 }
 
+TEST_F(File2PasswdTests, get_passwd_file_is_empty) {
+  ON_CALL(*mock_file_reader_, file_exists())
+      .WillByDefault(Return(true));
+  ON_CALL(*mock_file_reader_, get_file_size())
+      .WillByDefault(Return(0));
+
+  ConfigureUnitUnderTest();
+
+  EXPECT_THROW(unit_under_test_->get_passwd(), FileIsEmpty);
+}
+
 TEST_F(File2PasswdTests, get_passwd_fibonacci_numbers_zero) {
   ON_CALL(*mock_file_reader_, file_exists())
       .WillByDefault(Return(true));
