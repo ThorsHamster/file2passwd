@@ -18,17 +18,17 @@ class File2PasswdInternal {
   auto get_md5_hash(void) -> std::string;
   auto get_passwd(void) -> std::string;
 
-  explicit File2PasswdInternal(){};
-
-  auto init(std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_,
-            std::unique_ptr<utilities::UtilitiesInterface> utilities_,
-            std::unique_ptr<filereader::FileReaderInterface> file_reader_) -> void;
+  explicit File2PasswdInternal(std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat,
+                               std::unique_ptr<utilities::UtilitiesInterface> utilities,
+                               std::unique_ptr<filereader::FileReaderInterface> file_reader) : compat_(std::move(compat)),
+                                                                                               utilities_(std::move(utilities)),
+                                                                                               file_reader_(std::move(file_reader)){};
 
  private:
   std::string md5_hash_of_file;
-  std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat;
-  std::unique_ptr<utilities::UtilitiesInterface> utilities;
-  std::unique_ptr<filereader::FileReaderInterface> file_reader;
+  std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_;
+  std::unique_ptr<utilities::UtilitiesInterface> utilities_;
+  std::unique_ptr<filereader::FileReaderInterface> file_reader_;
 
   static constexpr int MAXIMUM_FILE_LENGTH = 1000000;
 
