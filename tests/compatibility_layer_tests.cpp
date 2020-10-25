@@ -40,7 +40,7 @@ class CompatibilityLayerTests : public ::testing::Test {
   std::unique_ptr<compatlayer::CompatibilityLayer> unit_under_test_;
 };
 
-TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_trivial) {
+TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_happy_path) {
   ON_CALL(*mock_file_reader_, file_exists())
       .WillByDefault(Return(true));
   ON_CALL(*mock_open_ssl_, get_md5_hash_from_file(_))
@@ -63,7 +63,7 @@ TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_file_does_not_exist) {
   EXPECT_THROW(unit_under_test_->get_md5_hash_from_file(), FileDoesNotExistException);
 }
 
-TEST_F(CompatibilityLayerTests, encrypt_trivial) {
+TEST_F(CompatibilityLayerTests, encrypt_happy_path) {
   ON_CALL(*mock_file_reader_, file_exists())
       .WillByDefault(Return(true));
   ON_CALL(*mock_open_ssl_, encrypt(_, _, _, _, _))

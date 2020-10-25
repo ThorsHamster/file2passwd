@@ -36,7 +36,7 @@ TEST_F(OpenSSLTests, get_md5_hash_from_file) {
   EXPECT_EQ(unit_under_test_->get_md5_hash_from_file(file_buffer), "61626362626262626262626262626262");
 }
 
-TEST_F(OpenSSLTests, encrypt_complete) {
+TEST_F(OpenSSLTests, encrypt_happy_path) {
   ConfigureUnitUnderTest();
 
   unsigned char plaintext[] = {'p'};

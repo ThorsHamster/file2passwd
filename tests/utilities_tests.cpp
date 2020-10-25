@@ -17,31 +17,31 @@ class UtilityTests : public ::testing::Test {
   std::unique_ptr<utilities::Utilities> unit_under_test_;
 };
 
-TEST_F(UtilityTests, fibonacci_Trivial_0) {
+TEST_F(UtilityTests, fibonacci_0) {
   EXPECT_EQ(unit_under_test_->fibonacci(0), 0);
 }
 
-TEST_F(UtilityTests, fibonacci_Trivial_1) {
+TEST_F(UtilityTests, fibonacci_1) {
   EXPECT_EQ(unit_under_test_->fibonacci(1), 1);
 }
 
-TEST_F(UtilityTests, fibonacci_Trivial_2) {
+TEST_F(UtilityTests, fibonacci_2) {
   EXPECT_EQ(unit_under_test_->fibonacci(2), 1);
 }
 
-TEST_F(UtilityTests, fibonacci_Trivial_3) {
+TEST_F(UtilityTests, fibonacci_3) {
   EXPECT_EQ(unit_under_test_->fibonacci(3), 2);
 }
 
-TEST_F(UtilityTests, fibonacci_Trivial_4) {
+TEST_F(UtilityTests, fibonacci_4) {
   EXPECT_EQ(unit_under_test_->fibonacci(4), 3);
 }
 
-TEST_F(UtilityTests, fibonacci_Trivial_50) {
+TEST_F(UtilityTests, fibonacci_50) {
   EXPECT_EQ(unit_under_test_->fibonacci(50), 12586269025);
 }
 
-TEST_F(UtilityTests, fibonacci_Trivial_51) {
+TEST_F(UtilityTests, fibonacci_51) {
   EXPECT_EQ(unit_under_test_->fibonacci(51), 0);
 }
 
