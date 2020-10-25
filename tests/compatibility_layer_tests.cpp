@@ -41,8 +41,6 @@ class CompatibilityLayerTests : public ::testing::Test {
 };
 
 TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_happy_path) {
-  ON_CALL(*mock_file_reader_, file_exists())
-      .WillByDefault(Return(true));
   ON_CALL(*mock_open_ssl_, get_md5_hash_from_file(_))
       .WillByDefault(Return("61626362626262626262626262626262"));
 
@@ -55,8 +53,6 @@ TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_happy_path) {
 }
 
 TEST_F(CompatibilityLayerTests, encrypt_happy_path) {
-  ON_CALL(*mock_file_reader_, file_exists())
-      .WillByDefault(Return(true));
   ON_CALL(*mock_open_ssl_, encrypt(_, _, _, _, _))
       .WillByDefault(Return("password"));
 
