@@ -38,6 +38,22 @@ class File2PasswdTests : public ::testing::Test {
   std::unique_ptr<file2passwd::File2PasswdInternal> unit_under_test_;
 };
 
+TEST_F(File2PasswdTests, get_md5_hash_happy_path) {
+  ON_CALL(*mock_compat_, get_md5_hash_from_file())
+      .WillByDefault(Return("md5_hash"));
+  ON_CALL(*mock_file_reader_, file_exists())
+      .WillByDefault(Return(true));
+  ON_CALL(*mock_file_reader_, get_file_size())
+      .WillByDefault(Return(10));
+
+  ConfigureUnitUnderTest();
+
+  auto result = unit_under_test_->get_md5_hash();
+  const std::string expected_string = "md5_hash";
+
+  EXPECT_EQ(result, expected_string);
+}
+
 TEST_F(File2PasswdTests, get_md5_hash_file_does_not_exist) {
   ON_CALL(*mock_file_reader_, file_exists())
       .WillByDefault(Return(false));
@@ -56,31 +72,6 @@ TEST_F(File2PasswdTests, get_md5_hash_file_is_empty) {
   ConfigureUnitUnderTest();
 
   EXPECT_THROW(unit_under_test_->get_md5_hash(), FileIsEmpty);
-}
-
-TEST_F(File2PasswdTests, get_md5_hash_happy_path) {
-  ON_CALL(*mock_compat_, get_md5_hash_from_file())
-      .WillByDefault(Return("md5_hash"));
-  ON_CALL(*mock_file_reader_, file_exists())
-      .WillByDefault(Return(true));
-  ON_CALL(*mock_file_reader_, get_file_size())
-      .WillByDefault(Return(10));
-
-  ConfigureUnitUnderTest();
-
-  auto result = unit_under_test_->get_md5_hash();
-  const std::string expected_string = "md5_hash";
-
-  EXPECT_EQ(result, expected_string);
-}
-
-TEST_F(File2PasswdTests, get_passwd_file_does_not_exist) {
-  ON_CALL(*mock_file_reader_, file_exists())
-      .WillByDefault(Return(false));
-
-  ConfigureUnitUnderTest();
-
-  EXPECT_THROW(unit_under_test_->get_passwd(), FileDoesNotExistException);
 }
 
 TEST_F(File2PasswdTests, get_passwd_happy_path) {
@@ -109,6 +100,15 @@ TEST_F(File2PasswdTests, get_passwd_happy_path) {
   const std::string expected_string = "password";
 
   EXPECT_EQ(result, expected_string);
+}
+
+TEST_F(File2PasswdTests, get_passwd_file_does_not_exist) {
+  ON_CALL(*mock_file_reader_, file_exists())
+      .WillByDefault(Return(false));
+
+  ConfigureUnitUnderTest();
+
+  EXPECT_THROW(unit_under_test_->get_passwd(), FileDoesNotExistException);
 }
 
 TEST_F(File2PasswdTests, get_passwd_fibonacci_numbers_zero) {
