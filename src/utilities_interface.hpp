@@ -34,9 +34,9 @@ class UtilitiesInterface {
  * <TR><TD>51</TD><TD>invalid, returns 0</TD></TR>
  * </TABLE>
  */
-  virtual auto fibonacci(uint64_t number) -> uint64_t = 0;
+  virtual auto fibonacci(std::uint64_t number) -> std::uint64_t = 0;
 
-  virtual auto get_max_fibonacci_value(void) -> uint64_t = 0;
+  virtual auto get_max_fibonacci_value(void) -> std::uint64_t = 0;
 
  protected:
   /// @brief Maximum allowed value for the fibonacci function used here.

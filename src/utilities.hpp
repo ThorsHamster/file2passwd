@@ -16,8 +16,8 @@ class Utilities : public UtilitiesInterface {
   explicit Utilities() : UtilitiesInterface(){};
   ~Utilities() = default;
 
-  auto fibonacci(uint64_t number) -> uint64_t override;
-  auto get_max_fibonacci_value(void) -> uint64_t override;
+  auto fibonacci(std::uint64_t number) -> std::uint64_t override;
+  auto get_max_fibonacci_value(void) -> std::uint64_t override;
 };
 
 }  // namespace utilities
