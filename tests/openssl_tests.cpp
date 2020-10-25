@@ -43,7 +43,6 @@ TEST_F(OpenSSLTests, encrypt_happy_path) {
   int plaintext_len = 3;
   unsigned char key[] = {'k'};
   unsigned char iv[] = {'v'};
-  unsigned char ciphertext[] = {'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c'};
 
   EVP_CIPHER_CTX* some_pointer;
   EVP_CIPHER_CTX_new_return = some_pointer;
@@ -51,7 +50,7 @@ TEST_F(OpenSSLTests, encrypt_happy_path) {
   EVP_EncryptUpdate_return = 1;
   EVP_EncryptFinal_ex_return = 1;
 
-  EXPECT_EQ(unit_under_test_->encrypt(plaintext, plaintext_len, key, iv, ciphertext), "63636363636363636363636363636363");
+  EXPECT_EQ(unit_under_test_->encrypt(plaintext, plaintext_len, key, iv), "63636363636363636363636363636363");
 }
 
 TEST_F(OpenSSLTests, encrypt_false_return_EVP_CIPHER_CTX_new) {
@@ -61,14 +60,13 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_CIPHER_CTX_new) {
   int plaintext_len = 3;
   unsigned char key[] = {'k'};
   unsigned char iv[] = {'v'};
-  unsigned char ciphertext[] = {'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c'};
 
   EVP_CIPHER_CTX_new_return = NULL;
   EVP_EncryptInit_ex_return = 1;
   EVP_EncryptUpdate_return = 1;
   EVP_EncryptFinal_ex_return = 1;
 
-  EXPECT_THROW(unit_under_test_->encrypt(plaintext, plaintext_len, key, iv, ciphertext), OpenSSLException);
+  EXPECT_THROW(unit_under_test_->encrypt(plaintext, plaintext_len, key, iv), OpenSSLException);
 }
 
 TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptInit_ex) {
@@ -78,7 +76,6 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptInit_ex) {
   int plaintext_len = 3;
   unsigned char key[] = {'k'};
   unsigned char iv[] = {'v'};
-  unsigned char ciphertext[] = {'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c'};
 
   EVP_CIPHER_CTX* some_pointer;
   EVP_CIPHER_CTX_new_return = some_pointer;
@@ -86,7 +83,7 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptInit_ex) {
   EVP_EncryptUpdate_return = 1;
   EVP_EncryptFinal_ex_return = 1;
 
-  EXPECT_THROW(unit_under_test_->encrypt(plaintext, plaintext_len, key, iv, ciphertext), OpenSSLException);
+  EXPECT_THROW(unit_under_test_->encrypt(plaintext, plaintext_len, key, iv), OpenSSLException);
 }
 
 TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptUpdate) {
@@ -96,7 +93,6 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptUpdate) {
   int plaintext_len = 3;
   unsigned char key[] = {'k'};
   unsigned char iv[] = {'v'};
-  unsigned char ciphertext[] = {'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c'};
 
   EVP_CIPHER_CTX* some_pointer;
   EVP_CIPHER_CTX_new_return = some_pointer;
@@ -104,7 +100,7 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptUpdate) {
   EVP_EncryptUpdate_return = 0;
   EVP_EncryptFinal_ex_return = 1;
 
-  EXPECT_THROW(unit_under_test_->encrypt(plaintext, plaintext_len, key, iv, ciphertext), OpenSSLException);
+  EXPECT_THROW(unit_under_test_->encrypt(plaintext, plaintext_len, key, iv), OpenSSLException);
 }
 
 TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptFinal_ex) {
@@ -114,7 +110,6 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptFinal_ex) {
   int plaintext_len = 3;
   unsigned char key[] = {'k'};
   unsigned char iv[] = {'v'};
-  unsigned char ciphertext[] = {'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c'};
 
   EVP_CIPHER_CTX* some_pointer;
   EVP_CIPHER_CTX_new_return = some_pointer;
@@ -122,7 +117,7 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptFinal_ex) {
   EVP_EncryptUpdate_return = 1;
   EVP_EncryptFinal_ex_return = 0;
 
-  EXPECT_THROW(unit_under_test_->encrypt(plaintext, plaintext_len, key, iv, ciphertext), OpenSSLException);
+  EXPECT_THROW(unit_under_test_->encrypt(plaintext, plaintext_len, key, iv), OpenSSLException);
 }
 }  // namespace
 

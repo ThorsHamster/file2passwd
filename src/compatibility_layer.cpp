@@ -25,15 +25,9 @@ auto CompatibilityLayer::encrypt(const std::string &key, const std::string &iv, 
   /* Message to be encrypted */
   std::vector<unsigned char> msg_uchar = string_to_unsigned_char(plaintext);
   unsigned char *plaintext_ = msg_uchar.data();
-  /*
-   * Buffer for ciphertext. Ensure the buffer is long enough for the
-   * ciphertext which may be longer than the plaintext, depending on the
-   * algorithm and mode.
-   */
-  unsigned char ciphertext_[128];
 
   /* Encrypt the plaintext */
-  return open_ssl_->encrypt(plaintext_, strlen((char *)plaintext_), key_, iv_, ciphertext_);
+  return open_ssl_->encrypt(plaintext_, strlen((char *)plaintext_), key_, iv_);
 }
 
 auto CompatibilityLayer::string_to_unsigned_char(std::string const &str) -> std::vector<unsigned char> {
