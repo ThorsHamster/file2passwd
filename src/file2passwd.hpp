@@ -30,11 +30,7 @@ class File2PasswdInternal {
   std::unique_ptr<utilities::UtilitiesInterface> utilities_;
   std::unique_ptr<filereader::FileReaderInterface> file_reader_;
 
-  static constexpr int MAXIMUM_FILE_LENGTH = 1000000;
-
   void check_for_prerequisites(void);
-  auto get_fibonacci_char_vector(void) -> std::string;
-  auto generate_passwd_from_file(int passwd_length) -> std::string;
 
   auto get_key(void) -> std::string;
   auto get_iv(void) -> std::string;
