@@ -82,9 +82,8 @@ auto File2PasswdInternal::pick_chars_from_file(std::vector<uint64_t> fibonacci_n
   std::string result;
 
   for (size_t i = 0; i < utilities_->get_max_fibonacci_value(); i++) {
-    if (fibonacci_numbers[i] == 0) {
+    if (fibonacci_numbers[i] == 0)
       break;
-    }
 
     result.append(sizeof(char), file_buffer[fibonacci_numbers[i]]);
   }
