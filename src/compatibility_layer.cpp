@@ -22,9 +22,9 @@ auto CompatibilityLayer::encrypt(const std::string &key, const std::string &iv, 
   std::vector<unsigned char> uv_uchar = string_to_unsigned_char(iv);
   unsigned char *iv_ = uv_uchar.data();
 
-  /* Message to be encrypted */
-  std::vector<unsigned char> msg_uchar = string_to_unsigned_char(plaintext);
-  unsigned char *plaintext_ = msg_uchar.data();
+  /* Plaintext to be encrypted */
+  std::vector<unsigned char> plaintext_uchar = string_to_unsigned_char(plaintext);
+  unsigned char *plaintext_ = plaintext_uchar.data();
 
   /* Encrypt the plaintext */
   return open_ssl_->encrypt(plaintext_, key_, iv_);
