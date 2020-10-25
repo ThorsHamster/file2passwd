@@ -23,19 +23,10 @@ class CompatibilityLayerInterface {
   explicit CompatibilityLayerInterface() {}
   virtual ~CompatibilityLayerInterface() = default;
 
-  virtual auto init(std::unique_ptr<utilities::UtilitiesInterface> utilities,
-                    std::unique_ptr<filereader::FileReaderInterface> file_reader,
-                    std::unique_ptr<openssl::OpenSSLInterface> open_ssl) -> void = 0;
-
   /// @brief Returns MD5 hash of file
   virtual auto get_md5_hash_from_file(void) -> std::string = 0;
   /// @brief Encrypts plaintext with OpenSSL. Needs key value and initialization vector iv
   virtual auto encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string = 0;
-
- protected:
-  std::unique_ptr<utilities::UtilitiesInterface> utilities_;
-  std::unique_ptr<filereader::FileReaderInterface> file_reader_;
-  std::unique_ptr<openssl::OpenSSLInterface> open_ssl_;
 };
 
 }  // namespace compatlayer

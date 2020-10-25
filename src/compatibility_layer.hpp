@@ -25,18 +25,22 @@ namespace compatlayer {
 */
 class CompatibilityLayer : public CompatibilityLayerInterface {
  public:
-  explicit CompatibilityLayer() {}
+  explicit CompatibilityLayer(std::unique_ptr<utilities::UtilitiesInterface> utilities,
+                              std::unique_ptr<filereader::FileReaderInterface> file_reader,
+                              std::unique_ptr<openssl::OpenSSLInterface> open_ssl) : utilities_(std::move(utilities)),
+                                                                                     file_reader_(std::move(file_reader)),
+                                                                                     open_ssl_(std::move(open_ssl)) {}
 
   auto get_md5_hash_from_file(void) -> std::string override;
   auto encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string override;
 
-  auto init(std::unique_ptr<utilities::UtilitiesInterface> utilities,
-            std::unique_ptr<filereader::FileReaderInterface> file_reader,
-            std::unique_ptr<openssl::OpenSSLInterface> open_ssl) -> void override;
-
  private:
   std::string md5_from_file;
   auto string_to_unsigned_char(std::string const &str) -> std::vector<unsigned char>;
+
+  std::unique_ptr<utilities::UtilitiesInterface> utilities_;
+  std::unique_ptr<filereader::FileReaderInterface> file_reader_;
+  std::unique_ptr<openssl::OpenSSLInterface> open_ssl_;
 };
 
 }  // namespace compatlayer
