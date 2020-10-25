@@ -50,14 +50,13 @@ TEST_F(OpenSSLTests, encrypt_happy_path) {
   EVP_EncryptUpdate_return = 1;
   EVP_EncryptFinal_ex_return = 1;
 
-  EXPECT_EQ(unit_under_test_->encrypt(plaintext, plaintext_len, key, iv), "63636363636363636363636363636363");
+  EXPECT_EQ(unit_under_test_->encrypt(plaintext, key, iv), "63636363636363636363636363636363");
 }
 
 TEST_F(OpenSSLTests, encrypt_false_return_EVP_CIPHER_CTX_new) {
   ConfigureUnitUnderTest();
 
   unsigned char plaintext[] = {'p'};
-  int plaintext_len = 3;
   unsigned char key[] = {'k'};
   unsigned char iv[] = {'v'};
 
@@ -66,14 +65,13 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_CIPHER_CTX_new) {
   EVP_EncryptUpdate_return = 1;
   EVP_EncryptFinal_ex_return = 1;
 
-  EXPECT_THROW(unit_under_test_->encrypt(plaintext, plaintext_len, key, iv), OpenSSLException);
+  EXPECT_THROW(unit_under_test_->encrypt(plaintext, key, iv), OpenSSLException);
 }
 
 TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptInit_ex) {
   ConfigureUnitUnderTest();
 
   unsigned char plaintext[] = {'p'};
-  int plaintext_len = 3;
   unsigned char key[] = {'k'};
   unsigned char iv[] = {'v'};
 
@@ -83,14 +81,13 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptInit_ex) {
   EVP_EncryptUpdate_return = 1;
   EVP_EncryptFinal_ex_return = 1;
 
-  EXPECT_THROW(unit_under_test_->encrypt(plaintext, plaintext_len, key, iv), OpenSSLException);
+  EXPECT_THROW(unit_under_test_->encrypt(plaintext, key, iv), OpenSSLException);
 }
 
 TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptUpdate) {
   ConfigureUnitUnderTest();
 
   unsigned char plaintext[] = {'p'};
-  int plaintext_len = 3;
   unsigned char key[] = {'k'};
   unsigned char iv[] = {'v'};
 
@@ -100,14 +97,13 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptUpdate) {
   EVP_EncryptUpdate_return = 0;
   EVP_EncryptFinal_ex_return = 1;
 
-  EXPECT_THROW(unit_under_test_->encrypt(plaintext, plaintext_len, key, iv), OpenSSLException);
+  EXPECT_THROW(unit_under_test_->encrypt(plaintext, key, iv), OpenSSLException);
 }
 
 TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptFinal_ex) {
   ConfigureUnitUnderTest();
 
   unsigned char plaintext[] = {'p'};
-  int plaintext_len = 3;
   unsigned char key[] = {'k'};
   unsigned char iv[] = {'v'};
 
@@ -117,7 +113,7 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptFinal_ex) {
   EVP_EncryptUpdate_return = 1;
   EVP_EncryptFinal_ex_return = 0;
 
-  EXPECT_THROW(unit_under_test_->encrypt(plaintext, plaintext_len, key, iv), OpenSSLException);
+  EXPECT_THROW(unit_under_test_->encrypt(plaintext, key, iv), OpenSSLException);
 }
 }  // namespace
 

@@ -27,8 +27,7 @@ class OpenSSL : public OpenSSLInterface {
   explicit OpenSSL() {}
 
   auto get_md5_hash_from_file(std::vector<char> file_buffer) -> std::string override;
-  auto encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
-               unsigned char *iv) -> std::string override;
+  auto encrypt(unsigned char *plaintext, unsigned char *key, unsigned char *iv) -> std::string override;
 
  private:
   auto convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::string;

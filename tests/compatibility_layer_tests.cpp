@@ -54,7 +54,7 @@ TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_happy_path) {
 }
 
 TEST_F(CompatibilityLayerTests, encrypt_happy_path) {
-  ON_CALL(*mock_open_ssl_, encrypt(_, _, _, _))
+  ON_CALL(*mock_open_ssl_, encrypt(_, _, _))
       .WillByDefault(Return("password"));
 
   ConfigureUnitUnderTest();

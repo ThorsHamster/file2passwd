@@ -20,12 +20,13 @@ auto OpenSSL::convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::str
   return ss.str();
 }
 
-auto OpenSSL::encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
+auto OpenSSL::encrypt(unsigned char *plaintext, unsigned char *key,
                       unsigned char *iv) -> std::string {
   EVP_CIPHER_CTX *ctx;
 
   int len;
   unsigned char ciphertext[128];
+  int plaintext_len = strlen((char *)plaintext);
 
   /* Create and initialise the context */
   if (!(ctx = EVP_CIPHER_CTX_new()))
