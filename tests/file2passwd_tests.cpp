@@ -47,6 +47,17 @@ TEST_F(File2PasswdTests, get_md5_hash_file_does_not_exist) {
   EXPECT_THROW(unit_under_test_->get_md5_hash(), FileDoesNotExistException);
 }
 
+TEST_F(File2PasswdTests, get_md5_hash_file_is_empty) {
+  ON_CALL(*mock_file_reader_, file_exists())
+      .WillByDefault(Return(true));
+  ON_CALL(*mock_file_reader_, get_file_size())
+      .WillByDefault(Return(0));
+
+  ConfigureUnitUnderTest();
+
+  EXPECT_THROW(unit_under_test_->get_md5_hash(), FileIsEmpty);
+}
+
 TEST_F(File2PasswdTests, get_md5_hash_happy_path) {
   ON_CALL(*mock_compat_, get_md5_hash_from_file())
       .WillByDefault(Return("md5_hash"));
