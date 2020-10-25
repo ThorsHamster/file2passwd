@@ -28,7 +28,9 @@ class File2PasswdTests : public ::testing::Test {
   }
 
   virtual void ConfigureUnitUnderTest() {
-    unit_under_test_ = std::make_unique<file2passwd::File2PasswdInternal>(std::move(mock_compat_), std::move(mock_utilities_), std::move(mock_file_reader_));
+    unit_under_test_ = std::make_unique<file2passwd::File2PasswdInternal>(std::move(mock_compat_),
+                                                                          std::move(mock_utilities_),
+                                                                          std::move(mock_file_reader_));
   }
 
   std::unique_ptr<compatlayer::MockCompatLayer> mock_compat_ = std::make_unique<NiceMock<compatlayer::MockCompatLayer>>();
