@@ -35,6 +35,15 @@ TEST_F(FileReaderTests, get_file_buffer_not_existing_file_empty_vector) {
   ASSERT_THAT(unit_under_test_->get_file_buffer(), testing::ElementsAre());
 }
 
+TEST_F(FileReaderTests, get_file_size_not_empty) {
+  EXPECT_GT(unit_under_test_->get_file_size(), 0);
+}
+
+TEST_F(FileReaderTests, get_file_size_empty) {
+  unit_under_test_ = std::make_unique<filereader::FileReader>("File_does_not_exist");
+  EXPECT_EQ(unit_under_test_->get_file_size(), 0);
+}
+
 }  // namespace
 
 int main(int argc, char **argv) {

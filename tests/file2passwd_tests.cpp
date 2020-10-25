@@ -52,6 +52,8 @@ TEST_F(File2PasswdTests, get_md5_hash_happy_path) {
       .WillByDefault(Return("md5_hash"));
   ON_CALL(*mock_file_reader_, file_exists())
       .WillByDefault(Return(true));
+  ON_CALL(*mock_file_reader_, get_file_size())
+      .WillByDefault(Return(10));
 
   ConfigureUnitUnderTest();
 
@@ -78,6 +80,8 @@ TEST_F(File2PasswdTests, get_passwd_happy_path) {
   std::vector<char> file_buffer = {'a', 'b', 'c', 'd', 'e'};
   ON_CALL(*mock_file_reader_, get_file_buffer())
       .WillByDefault(Return(file_buffer));
+  ON_CALL(*mock_file_reader_, get_file_size())
+      .WillByDefault(Return(10));
   ON_CALL(*mock_utilities_, get_max_fibonacci_value())
       .WillByDefault(Return(3));
   EXPECT_CALL(*mock_utilities_, fibonacci(_))
@@ -104,6 +108,8 @@ TEST_F(File2PasswdTests, get_passwd_fibonacci_numbers_zero) {
   std::vector<char> file_buffer = {'a', 'b', 'c', 'd', 'e'};
   ON_CALL(*mock_file_reader_, get_file_buffer())
       .WillByDefault(Return(file_buffer));
+  ON_CALL(*mock_file_reader_, get_file_size())
+      .WillByDefault(Return(10));
   ON_CALL(*mock_utilities_, get_max_fibonacci_value())
       .WillByDefault(Return(3));
   EXPECT_CALL(*mock_utilities_, fibonacci(_))

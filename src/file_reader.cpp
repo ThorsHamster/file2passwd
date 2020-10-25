@@ -9,18 +9,18 @@ auto FileReader::file_exists(void) -> bool {
   return (f.good()) ? true : false;
 }
 
-auto FileReader::get_file_size(void) -> std::streamsize {
+auto FileReader::get_file_size(void) -> std::int64_t {
   std::ifstream file;
   file.open(file_path_, std::ios_base::in);
   file.ignore(std::numeric_limits<std::streamsize>::max());
-  std::streamsize file_size = file.gcount();
+  std::int64_t file_size = file.gcount();
   file.close();
 
   return file_size;
 }
 
 auto FileReader::get_file_buffer(void) -> std::vector<char> {
-  std::streamsize file_size = get_file_size();
+  auto file_size = get_file_size();
 
   if (file_size > 0 && file_size <= MAXIMUM_FILE_LENGTH) {
     std::ifstream file(file_path_, std::ios::binary);

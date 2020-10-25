@@ -19,6 +19,10 @@ TEST_F(ExceptionTests, FileDoesNotExistException_get_Exception_Message) {
   EXPECT_EQ(FileDoesNotExistException().what(), "File does not exist.");
 }
 
+TEST_F(ExceptionTests, FileIsEmpty_get_Exception_Message) {
+  EXPECT_EQ(FileIsEmpty().what(), "File is empty.");
+}
+
 TEST_F(ExceptionTests, OpenSSLException_get_Exception_Message) {
   EXPECT_EQ(OpenSSLException().what(), "Failure with OpenSSL occured.");
 }

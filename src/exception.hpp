@@ -9,6 +9,12 @@ struct FileDoesNotExistException : public std::exception {
   }
 };
 
+struct FileIsEmpty : public std::exception {
+  const char* what() const throw() {
+    return "File is empty.";
+  }
+};
+
 struct OpenSSLException : public std::exception {
   const char* what() const throw() {
     return "Failure with OpenSSL occured.";

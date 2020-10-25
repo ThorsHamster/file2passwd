@@ -22,6 +22,7 @@ class FileReaderInterface {
   */
   virtual auto file_exists(void) -> bool = 0;
   virtual auto get_file_buffer(void) -> std::vector<char> = 0;
+  virtual auto get_file_size(void) -> std::int64_t = 0;
 
  protected:
   static constexpr int MAXIMUM_FILE_LENGTH = 1000000;

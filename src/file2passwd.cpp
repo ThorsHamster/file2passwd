@@ -28,6 +28,9 @@ void File2PasswdInternal::check_for_prerequisites(void) {
   if (!file_reader->file_exists()) {
     throw FileDoesNotExistException();
   }
+  if (file_reader->get_file_size() == 0) {
+    throw FileIsEmpty();
+  }
 }
 
 auto File2PasswdInternal::get_key(void) -> std::string {
