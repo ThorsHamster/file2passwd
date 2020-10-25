@@ -16,10 +16,6 @@ auto CompatibilityLayer::init(std::unique_ptr<utilities::UtilitiesInterface> uti
 }
 
 auto CompatibilityLayer::get_md5_hash_from_file(void) -> std::string {
-  if (!file_reader_->file_exists()) {
-    throw FileDoesNotExistException();
-  }
-
   std::vector<char> file_buffer;
   file_buffer = file_reader_->get_file_buffer();
 
