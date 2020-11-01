@@ -81,5 +81,5 @@
     "typeinfo": "cpp",
     "pointers": "cpp",
     "gsl": "cpp"
-  },
+  }
 }
