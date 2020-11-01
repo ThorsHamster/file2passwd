@@ -45,7 +45,9 @@ class File2Passwd {
   ///
   /// @param path_to_file Absolute Path to File
   ///
-  explicit File2Passwd(const std::string &path_to_file);
+  explicit File2Passwd(const std::string &path_to_file) : file2passwd_(std::make_unique<file2passwd::File2PasswdInternal>(std::make_unique<utilities::Utilities>(),
+                                                                                                                          std::make_unique<filereader::FileReader>(path_to_file),
+                                                                                                                          std::make_unique<openssl::OpenSSL>())){};
 
  private:
   std::unique_ptr<file2passwd::File2PasswdInternal> file2passwd_;
