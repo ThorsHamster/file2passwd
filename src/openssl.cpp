@@ -21,7 +21,6 @@ auto OpenSSL::convert_uchar_ptr_to_hex_string(unsigned char *result) -> std::str
 }
 
 auto OpenSSL::encrypt(std::string plaintext, std::string key, std::string iv) -> std::string {
-  
   EVP_CIPHER_CTX *ctx;
   int len;
   unsigned char ciphertext[128];
