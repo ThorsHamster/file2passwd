@@ -50,17 +50,17 @@ auto File2PasswdInternal::get_fibonacci_string(void) -> std::string {
    */
   std::vector<char> file_buffer = file_reader_->get_file_buffer();
 
-  auto fibonacci_numbers = get_fibonacci_vector_of_filelength(file_buffer.size());
+  auto fibonacci_numbers = get_fibonacci_vector_of_filelength();
   auto fibonacci_string = pick_chars_from_file(fibonacci_numbers, file_buffer);
 
   return fibonacci_string;
 }
 
-auto File2PasswdInternal::get_fibonacci_vector_of_filelength(std::ifstream::pos_type length_of_file) -> std::vector<uint64_t> {
+auto File2PasswdInternal::get_fibonacci_vector_of_filelength(void) -> std::vector<uint64_t> {
   std::vector<uint64_t> fibonacci_numbers(utilities_->get_max_fibonacci_value());
 
   uint64_t fibonacci_number = 0;
-  for (size_t i = 1; fibonacci_number <= length_of_file; i++) {
+  for (size_t i = 1; fibonacci_number <= file_reader_->get_file_size(); i++) {
     fibonacci_number = utilities_->fibonacci(i);
     fibonacci_numbers[i - 1] = fibonacci_number;
 

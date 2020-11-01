@@ -32,7 +32,7 @@ class File2PasswdInternal {
   auto get_key(void) -> std::string;
   auto get_iv(void) -> std::string;
   auto get_fibonacci_string(void) -> std::string;
-  auto get_fibonacci_vector_of_filelength(std::ifstream::pos_type length_of_file) -> std::vector<uint64_t>;
+  auto get_fibonacci_vector_of_filelength(void) -> std::vector<uint64_t>;
   auto pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, std::vector<char> &file_buffer) -> std::string;
 };
 
