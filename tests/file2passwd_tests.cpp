@@ -6,7 +6,6 @@
 #include "exception.hpp"
 #include "file2passwd.hpp"
 #include "gtest/gtest.h"
-#include "mock_compat_layer.hpp"
 #include "mock_file_reader.hpp"
 #include "mock_openssl.hpp"
 #include "mock_utilities.hpp"
@@ -20,20 +19,16 @@ namespace {
 class File2PasswdTests : public ::testing::Test {
  protected:
   virtual void SetUp() {
-    ON_CALL(*mock_compat_, encrypt(_, _, _))
-        .WillByDefault(Return(""));
     ON_CALL(*mock_file_reader_, file_exists())
         .WillByDefault(Return(false));
   }
 
   virtual void ConfigureUnitUnderTest() {
-    unit_under_test_ = std::make_unique<file2passwd::File2PasswdInternal>(std::move(mock_compat_),
-                                                                          std::move(mock_utilities_),
+    unit_under_test_ = std::make_unique<file2passwd::File2PasswdInternal>(std::move(mock_utilities_),
                                                                           std::move(mock_file_reader_),
                                                                           std::move(mock_open_ssl_));
   }
 
-  std::unique_ptr<compatlayer::MockCompatLayer> mock_compat_ = std::make_unique<NiceMock<compatlayer::MockCompatLayer>>();
   std::unique_ptr<utilities::MockUtilities> mock_utilities_ = std::make_unique<NiceMock<utilities::MockUtilities>>();
   std::unique_ptr<filereader::MockFileReader> mock_file_reader_ = std::make_unique<NiceMock<filereader::MockFileReader>>("<File>");
   std::unique_ptr<openssl::MockOpenSSL> mock_open_ssl_ = std::make_unique<NiceMock<openssl::MockOpenSSL>>();

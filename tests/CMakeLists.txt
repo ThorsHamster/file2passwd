@@ -27,11 +27,6 @@ package_add_test(file_reader_tests
     ${CMAKE_SOURCE_DIR}/src/file_reader.cpp
 )
 
-package_add_test(compatibility_layer_tests
-    compatibility_layer_tests.cpp
-    ${CMAKE_SOURCE_DIR}/src/compatibility_layer.cpp
-)
-
 package_add_test(openssl_tests
     openssl_tests.cpp
     ${CMAKE_SOURCE_DIR}/src/openssl.cpp
@@ -56,7 +51,6 @@ SETUP_ALLTESTS_TARGET(
         file2passwd_tests
         exception_tests
         openssl_tests
-        compatibility_layer_tests
 )
 
 # necessary for unit tests, to have a specific file for testing

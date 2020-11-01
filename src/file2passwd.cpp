@@ -1,7 +1,6 @@
 
 #include "file2passwd.hpp"
 
-#include "compatibility_layer.hpp"
 #include "exception.hpp"
 #include "utilities.hpp"
 
