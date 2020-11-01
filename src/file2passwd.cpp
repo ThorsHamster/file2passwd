@@ -37,13 +37,8 @@ auto File2PasswdInternal::get_iv(void) -> std::string {
 auto File2PasswdInternal::get_md5_hash(void) -> std::string {
   check_for_prerequisites();
 
-  if (md5_hash_of_file != "")
-    return md5_hash_of_file;
-
   std::vector<char> file_buffer = file_reader_->get_file_buffer();
-
-  md5_hash_of_file = open_ssl_->get_md5_hash_from_file(file_buffer);
-  return md5_hash_of_file;
+  return open_ssl_->get_md5_hash_from_file(file_buffer);
 }
 
 auto File2PasswdInternal::get_fibonacci_string(void) -> std::string {

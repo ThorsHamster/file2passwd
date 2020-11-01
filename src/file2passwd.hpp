@@ -24,13 +24,11 @@ class File2PasswdInternal {
                                                                                       open_ssl_(std::move(open_ssl)){};
 
  private:
-  std::string md5_hash_of_file;
   std::unique_ptr<utilities::UtilitiesInterface> utilities_;
   std::unique_ptr<filereader::FileReaderInterface> file_reader_;
   std::unique_ptr<openssl::OpenSSLInterface> open_ssl_;
 
   void check_for_prerequisites(void);
-
   auto get_key(void) -> std::string;
   auto get_iv(void) -> std::string;
   auto get_fibonacci_string(void) -> std::string;
