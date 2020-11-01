@@ -20,15 +20,18 @@ class File2PasswdInternal {
 
   explicit File2PasswdInternal(std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat,
                                std::unique_ptr<utilities::UtilitiesInterface> utilities,
-                               std::unique_ptr<filereader::FileReaderInterface> file_reader) : compat_(std::move(compat)),
-                                                                                               utilities_(std::move(utilities)),
-                                                                                               file_reader_(std::move(file_reader)){};
+                               std::unique_ptr<filereader::FileReaderInterface> file_reader,
+                               std::unique_ptr<openssl::OpenSSLInterface> open_ssl) : compat_(std::move(compat)),
+                                                                                      utilities_(std::move(utilities)),
+                                                                                      file_reader_(std::move(file_reader)),
+                                                                                      open_ssl_(std::move(open_ssl)){};
 
  private:
   std::string md5_hash_of_file;
   std::unique_ptr<compatlayer::CompatibilityLayerInterface> compat_;
   std::unique_ptr<utilities::UtilitiesInterface> utilities_;
   std::unique_ptr<filereader::FileReaderInterface> file_reader_;
+  std::unique_ptr<openssl::OpenSSLInterface> open_ssl_;
 
   void check_for_prerequisites(void);
 

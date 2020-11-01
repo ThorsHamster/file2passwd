@@ -9,7 +9,8 @@ File2Passwd::File2Passwd(const std::string &path_to_file) {
                                                                                                                         std::make_unique<openssl::OpenSSL>());
   file2passwd_ = std::make_unique<file2passwd::File2PasswdInternal>(std::move(compat_),
                                                                     std::make_unique<utilities::Utilities>(),
-                                                                    std::make_unique<filereader::FileReader>(path_to_file));
+                                                                    std::make_unique<filereader::FileReader>(path_to_file),
+                                                                    std::make_unique<openssl::OpenSSL>());
 }
 
 auto File2Passwd::get_passwd(void) -> std::string {
