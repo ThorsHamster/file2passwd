@@ -31,7 +31,6 @@ class File2PasswdInternal {
 
   void check_for_prerequisites(void);
 
-  auto string_to_unsigned_char(std::string const &str) -> std::vector<unsigned char>;
   auto get_key(void) -> std::string;
   auto get_iv(void) -> std::string;
   auto get_fibonacci_string(void) -> std::string;

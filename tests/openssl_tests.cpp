@@ -39,13 +39,11 @@ TEST_F(OpenSSLTests, get_md5_hash_from_file) {
 TEST_F(OpenSSLTests, encrypt_happy_path) {
   ConfigureUnitUnderTest();
 
-  unsigned char plaintext[] = {'p'};
-  int plaintext_len = 3;
-  unsigned char key[] = {'k'};
-  unsigned char iv[] = {'v'};
+  std::string plaintext = "plaintext123456";
+  std::string key = "plaintext123456plaintext123456";
+  std::string iv = "plaintext123456";
 
-  EVP_CIPHER_CTX* some_pointer;
-  EVP_CIPHER_CTX_new_return = some_pointer;
+  EVP_CIPHER_CTX_new_return = (EVP_CIPHER_CTX*)1;
   EVP_EncryptInit_ex_return = 1;
   EVP_EncryptUpdate_return = 1;
   EVP_EncryptFinal_ex_return = 1;
@@ -56,9 +54,9 @@ TEST_F(OpenSSLTests, encrypt_happy_path) {
 TEST_F(OpenSSLTests, encrypt_false_return_EVP_CIPHER_CTX_new) {
   ConfigureUnitUnderTest();
 
-  unsigned char plaintext[] = {'p'};
-  unsigned char key[] = {'k'};
-  unsigned char iv[] = {'v'};
+  std::string plaintext = "p";
+  std::string key = "k";
+  std::string iv = "v";
 
   EVP_CIPHER_CTX_new_return = NULL;
   EVP_EncryptInit_ex_return = 1;
@@ -71,12 +69,11 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_CIPHER_CTX_new) {
 TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptInit_ex) {
   ConfigureUnitUnderTest();
 
-  unsigned char plaintext[] = {'p'};
-  unsigned char key[] = {'k'};
-  unsigned char iv[] = {'v'};
+  std::string plaintext = "p";
+  std::string key = "k";
+  std::string iv = "v";
 
-  EVP_CIPHER_CTX* some_pointer;
-  EVP_CIPHER_CTX_new_return = some_pointer;
+  EVP_CIPHER_CTX_new_return = (EVP_CIPHER_CTX*)1;
   EVP_EncryptInit_ex_return = 0;
   EVP_EncryptUpdate_return = 1;
   EVP_EncryptFinal_ex_return = 1;
@@ -87,12 +84,11 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptInit_ex) {
 TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptUpdate) {
   ConfigureUnitUnderTest();
 
-  unsigned char plaintext[] = {'p'};
-  unsigned char key[] = {'k'};
-  unsigned char iv[] = {'v'};
+  std::string plaintext = "p";
+  std::string key = "k";
+  std::string iv = "v";
 
-  EVP_CIPHER_CTX* some_pointer;
-  EVP_CIPHER_CTX_new_return = some_pointer;
+  EVP_CIPHER_CTX_new_return = (EVP_CIPHER_CTX*)1;
   EVP_EncryptInit_ex_return = 1;
   EVP_EncryptUpdate_return = 0;
   EVP_EncryptFinal_ex_return = 1;
@@ -103,12 +99,11 @@ TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptUpdate) {
 TEST_F(OpenSSLTests, encrypt_false_return_EVP_EncryptFinal_ex) {
   ConfigureUnitUnderTest();
 
-  unsigned char plaintext[] = {'p'};
-  unsigned char key[] = {'k'};
-  unsigned char iv[] = {'v'};
+  std::string plaintext = "p";
+  std::string key = "k";
+  std::string iv = "v";
 
-  EVP_CIPHER_CTX* some_pointer;
-  EVP_CIPHER_CTX_new_return = some_pointer;
+  EVP_CIPHER_CTX_new_return = (EVP_CIPHER_CTX*)1;
   EVP_EncryptInit_ex_return = 1;
   EVP_EncryptUpdate_return = 1;
   EVP_EncryptFinal_ex_return = 0;

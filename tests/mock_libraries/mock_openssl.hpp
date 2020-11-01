@@ -11,7 +11,7 @@ class MockOpenSSL : public OpenSSLInterface {
  public:
   MockOpenSSL() : OpenSSLInterface() {}
   MOCK_METHOD(std::string, get_md5_hash_from_file, (std::vector<char> file_buffer), (override));
-  MOCK_METHOD(std::string, encrypt, (unsigned char *plaintext, unsigned char *key, unsigned char *iv), (override));
+  MOCK_METHOD(std::string, encrypt, (std::string plaintext, std::string key, std::string iv), (override));
 };
 
 }  // namespace openssl

@@ -13,7 +13,7 @@ class OpenSSLInterface {
   virtual ~OpenSSLInterface() = default;
 
   virtual auto get_md5_hash_from_file(std::vector<char> file_buffer) -> std::string = 0;
-  virtual auto encrypt(unsigned char *plaintext, unsigned char *key, unsigned char *iv) -> std::string = 0;
+  virtual auto encrypt(std::string plaintext, std::string key, std::string iv) -> std::string = 0;
 };
 
 }  // namespace openssl
