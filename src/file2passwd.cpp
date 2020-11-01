@@ -10,10 +10,24 @@ namespace file2passwd {
 auto File2PasswdInternal::get_passwd(void) -> std::string {
   check_for_prerequisites();
 
-  std::string key = get_key();
-  std::string iv = get_iv();
-  std::string plaintext = get_fibonacci_string();
-  return compat_->encrypt(key, iv, plaintext);
+  /* A 256 bit key */
+  std::vector<unsigned char> key_uchar = string_to_unsigned_char(get_key());
+  unsigned char *key_ = key_uchar.data();
+
+  /* A 128 bit IV */
+  std::vector<unsigned char> uv_uchar = string_to_unsigned_char(get_iv());
+  unsigned char *iv_ = uv_uchar.data();
+
+  /* Plaintext to be encrypted */
+  std::vector<unsigned char> plaintext_uchar = string_to_unsigned_char(get_fibonacci_string());
+  unsigned char *plaintext_ = plaintext_uchar.data();
+
+  return open_ssl_->encrypt(plaintext_, key_, iv_);
+}
+
+auto File2PasswdInternal::string_to_unsigned_char(std::string const &str) -> std::vector<unsigned char> {
+  auto vector_uchar = std::vector<unsigned char>(str.data(), str.data() + str.length());
+  return std::move(vector_uchar);
 }
 
 void File2PasswdInternal::check_for_prerequisites(void) {

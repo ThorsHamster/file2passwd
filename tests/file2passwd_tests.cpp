@@ -91,7 +91,7 @@ TEST_F(File2PasswdTests, get_passwd_happy_path) {
       .WillOnce(Return(2))
       .WillOnce(Return(3))
       .WillRepeatedly(Return(100));
-  ON_CALL(*mock_compat_, encrypt(_, _, _))
+  ON_CALL(*mock_open_ssl_, encrypt(_, _, _))
       .WillByDefault(Return("password"));
 
   ConfigureUnitUnderTest();
@@ -136,7 +136,7 @@ TEST_F(File2PasswdTests, get_passwd_fibonacci_numbers_zero) {
       .WillOnce(Return(1))
       .WillOnce(Return(200))
       .WillRepeatedly(Return(100));
-  ON_CALL(*mock_compat_, encrypt(_, _, _))
+  ON_CALL(*mock_open_ssl_, encrypt(_, _, _))
       .WillByDefault(Return("password"));
 
   ConfigureUnitUnderTest();
