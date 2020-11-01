@@ -41,21 +41,6 @@ auto File2PasswdInternal::get_md5_hash(void) -> std::string {
   return open_ssl_->get_md5_hash_from_file(file_buffer);
 }
 
-auto File2PasswdInternal::get_fibonacci_string(void) -> std::string {
-  /*
-   * Opens the specified file and generates a vector with Fibonacci elements
-   * as long as the Fibonacci element is smaller than the total size of the file.
-   *
-   * Then the bytes are taken from the file at the respective positions (fibonacci(i)) and joined together.
-   */
-  std::vector<char> file_buffer = file_reader_->get_file_buffer();
-
-  auto fibonacci_numbers = get_fibonacci_vector_of_filelength();
-  auto fibonacci_string = pick_chars_from_file(fibonacci_numbers, file_buffer);
-
-  return fibonacci_string;
-}
-
 auto File2PasswdInternal::get_fibonacci_vector_of_filelength(void) -> std::vector<uint64_t> {
   std::vector<uint64_t> fibonacci_numbers(utilities_->get_max_fibonacci_value());
 
@@ -71,8 +56,11 @@ auto File2PasswdInternal::get_fibonacci_vector_of_filelength(void) -> std::vecto
   return fibonacci_numbers;
 }
 
-auto File2PasswdInternal::pick_chars_from_file(std::vector<uint64_t> fibonacci_numbers, std::vector<char> &file_buffer) -> std::string {
+auto File2PasswdInternal::get_fibonacci_string(void) -> std::string {
   std::string result;
+
+  std::vector<char> file_buffer = file_reader_->get_file_buffer();
+  std::vector<uint64_t> fibonacci_numbers = get_fibonacci_vector_of_filelength();
 
   for (size_t i = 0; i < utilities_->get_max_fibonacci_value(); i++) {
     if (fibonacci_numbers[i] == 0)
