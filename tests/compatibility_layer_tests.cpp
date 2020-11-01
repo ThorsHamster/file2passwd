@@ -41,18 +41,6 @@ class CompatibilityLayerTests : public ::testing::Test {
   std::unique_ptr<compatlayer::CompatibilityLayer> unit_under_test_;
 };
 
-TEST_F(CompatibilityLayerTests, get_md5_hash_from_file_happy_path) {
-  ON_CALL(*mock_open_ssl_, get_md5_hash_from_file(_))
-      .WillByDefault(Return("61626362626262626262626262626262"));
-
-  ConfigureUnitUnderTest();
-
-  // for test data, see stub of md5.c
-  const std::string expected_string = "61626362626262626262626262626262";
-  const std::string result = unit_under_test_->get_md5_hash_from_file();
-  EXPECT_EQ(result, expected_string);
-}
-
 TEST_F(CompatibilityLayerTests, encrypt_happy_path) {
   ON_CALL(*mock_open_ssl_, encrypt(_, _, _))
       .WillByDefault(Return("password"));

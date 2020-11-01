@@ -31,7 +31,6 @@ class CompatibilityLayer : public CompatibilityLayerInterface {
                                                                                      file_reader_(std::move(file_reader)),
                                                                                      open_ssl_(std::move(open_ssl)) {}
 
-  auto get_md5_hash_from_file(void) -> std::string override;
   auto encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string override;
 
  private:

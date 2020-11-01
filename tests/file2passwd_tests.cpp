@@ -20,8 +20,6 @@ namespace {
 class File2PasswdTests : public ::testing::Test {
  protected:
   virtual void SetUp() {
-    ON_CALL(*mock_compat_, get_md5_hash_from_file())
-        .WillByDefault(Return(""));
     ON_CALL(*mock_compat_, encrypt(_, _, _))
         .WillByDefault(Return(""));
     ON_CALL(*mock_file_reader_, file_exists())
@@ -81,8 +79,6 @@ TEST_F(File2PasswdTests, get_md5_hash_file_is_empty) {
 TEST_F(File2PasswdTests, get_passwd_happy_path) {
   ON_CALL(*mock_file_reader_, file_exists())
       .WillByDefault(Return(true));
-  ON_CALL(*mock_compat_, get_md5_hash_from_file())
-      .WillByDefault(Return("abcdefghabcdefghabcdefghabcdefgh"));
   std::vector<char> file_buffer = {'a', 'b', 'c', 'd', 'e'};
   ON_CALL(*mock_file_reader_, get_file_buffer())
       .WillByDefault(Return(file_buffer));
@@ -129,8 +125,6 @@ TEST_F(File2PasswdTests, get_passwd_file_is_empty) {
 TEST_F(File2PasswdTests, get_passwd_fibonacci_numbers_zero) {
   ON_CALL(*mock_file_reader_, file_exists())
       .WillByDefault(Return(true));
-  ON_CALL(*mock_compat_, get_md5_hash_from_file())
-      .WillByDefault(Return("abcdefghabcdefghabcdefghabcdefgh"));
   std::vector<char> file_buffer = {'a', 'b', 'c', 'd', 'e'};
   ON_CALL(*mock_file_reader_, get_file_buffer())
       .WillByDefault(Return(file_buffer));

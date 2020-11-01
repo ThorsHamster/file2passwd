@@ -7,12 +7,6 @@ namespace compatlayer {
 /// @file
 /// @brief This file contains a internal helper Class to be C++ compliant.
 
-auto CompatibilityLayer::get_md5_hash_from_file(void) -> std::string {
-  std::vector<char> file_buffer = file_reader_->get_file_buffer();
-
-  return open_ssl_->get_md5_hash_from_file(file_buffer);
-}
-
 auto CompatibilityLayer::encrypt(const std::string &key, const std::string &iv, const std::string &plaintext) -> std::string {
   /* A 256 bit key */
   std::vector<unsigned char> key_uchar = string_to_unsigned_char(key);
