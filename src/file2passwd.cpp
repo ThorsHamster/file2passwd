@@ -21,6 +21,22 @@ void File2PasswdInternal::check_for_prerequisites(void) {
   }
 }
 
+auto File2PasswdInternal::get_fibonacci_string(void) -> std::string {
+  std::string result;
+
+  std::vector<char> file_buffer = file_reader_->get_file_buffer();
+  std::vector<uint64_t> fibonacci_numbers = get_fibonacci_vector_of_filelength();
+
+  for (size_t i = 0; i < utilities_->get_max_fibonacci_value(); i++) {
+    if (fibonacci_numbers[i] == 0)
+      break;
+
+    result.append(sizeof(char), file_buffer[fibonacci_numbers[i]]);
+  }
+
+  return result;
+}
+
 auto File2PasswdInternal::get_key(void) -> std::string {
   //return a 256 Bit representation of md5 hash
   std::string key = get_md5_hash();
@@ -32,13 +48,6 @@ auto File2PasswdInternal::get_iv(void) -> std::string {
   std::string iv = get_md5_hash();
   iv = iv.substr(0, 16);
   return iv;
-}
-
-auto File2PasswdInternal::get_md5_hash(void) -> std::string {
-  check_for_prerequisites();
-
-  std::vector<char> file_buffer = file_reader_->get_file_buffer();
-  return open_ssl_->get_md5_hash_from_file(file_buffer);
 }
 
 auto File2PasswdInternal::get_fibonacci_vector_of_filelength(void) -> std::vector<uint64_t> {
@@ -56,20 +65,10 @@ auto File2PasswdInternal::get_fibonacci_vector_of_filelength(void) -> std::vecto
   return fibonacci_numbers;
 }
 
-auto File2PasswdInternal::get_fibonacci_string(void) -> std::string {
-  std::string result;
+auto File2PasswdInternal::get_md5_hash(void) -> std::string {
+  check_for_prerequisites();
 
   std::vector<char> file_buffer = file_reader_->get_file_buffer();
-  std::vector<uint64_t> fibonacci_numbers = get_fibonacci_vector_of_filelength();
-
-  for (size_t i = 0; i < utilities_->get_max_fibonacci_value(); i++) {
-    if (fibonacci_numbers[i] == 0)
-      break;
-
-    result.append(sizeof(char), file_buffer[fibonacci_numbers[i]]);
-  }
-
-  return result;
+  return open_ssl_->get_md5_hash_from_file(file_buffer);
 }
-
 }  // namespace file2passwd
