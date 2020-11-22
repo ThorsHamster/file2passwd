@@ -21,6 +21,8 @@ jobs:
         GITHUB_HEAD_REF: ${{ env.GITHUB_HEAD_REF }}
         GITHUB_SHA: ${{ env.GITHUB_SHA }}
         GITHUB_RUN_ID: ${{ env.GITHUB_RUN_ID }}
+        GITHUB_ACTOR: ${{ env.GITHUB_ACTOR }}
+        GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}
         TRAVIS_BUILD_DIR: /usr/project/
 
     steps:
