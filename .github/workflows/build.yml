@@ -1,0 +1,34 @@
+name: build
+
+on: push
+
+jobs:
+  build:
+    name: build and test
+    runs-on: ubuntu-latest
+    container: thorshamster/file2passwd:latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: run styleguide checks
+        run: ./check_styleguide.sh -r
+
+      - name: build
+        run: ./build.sh
+        volumes:
+          - $(pwd):/usr/project
+
+      - name: build unittest
+        run: ./build_unittests.sh
+        volumes:
+          - $(pwd):/usr/project
+
+      - name: generate coverage
+        run: ./generate_coverage.sh
+        volumes:
+          - $(pwd):/usr/project
+
+      - name: upload to codecov
+        uses: codecov/codecov-action@v1
