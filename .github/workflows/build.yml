@@ -6,7 +6,10 @@ jobs:
   build:
     name: build and test
     runs-on: ubuntu-latest
-    container: thorshamster/file2passwd:latest
+    container: 
+      image: thorshamster/file2passwd:latest
+      volumes:
+        - $(pwd):/usr/project
 
     steps:
       - name: Checkout code
@@ -17,18 +20,12 @@ jobs:
 
       - name: build
         run: ./build.sh
-        volumes:
-          - $(pwd):/usr/project
 
       - name: build unittest
         run: ./build_unittests.sh
-        volumes:
-          - $(pwd):/usr/project
 
       - name: generate coverage
         run: ./generate_coverage.sh
-        volumes:
-          - $(pwd):/usr/project
 
       - name: upload to codecov
         uses: codecov/codecov-action@v1
