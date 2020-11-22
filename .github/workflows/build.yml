@@ -9,7 +9,7 @@ jobs:
     container: 
       image: thorshamster/file2passwd:latest
       volumes:
-        - $(pwd):/usr/project
+        - /home/runner/work:/usr/project
 
     steps:
       - name: Checkout code
