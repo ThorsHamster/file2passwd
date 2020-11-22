@@ -11,17 +11,17 @@ jobs:
       volumes:
         - /home/runner/work:/usr/project
       env:
-        - CI: ${{ env.CI }}
-        - CI_BUILD_URL: ${{ env.CI_BUILD_URL }}
-        - CI_BUILD_ID: ${{ env.CI_BUILD_ID }}
-        - CI_JOB_ID: ${{ env.CI_JOB_ID }}
-        - GITHUB_ACTION: ${{ env.GITHUB_ACTION }}
-        - GITHUB_REF: ${{ env.GITHUB_REF }}
-        - GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
-        - GITHUB_HEAD_REF: ${{ env.GITHUB_HEAD_REF }}
-        - GITHUB_SHA: ${{ env.GITHUB_SHA }}
-        - GITHUB_RUN_ID: ${{ env.GITHUB_RUN_ID }}
-        - TRAVIS_BUILD_DIR: /usr/project/
+        CI: ${{ env.CI }}
+        CI_BUILD_URL: ${{ env.CI_BUILD_URL }}
+        CI_BUILD_ID: ${{ env.CI_BUILD_ID }}
+        CI_JOB_ID: ${{ env.CI_JOB_ID }}
+        GITHUB_ACTION: ${{ env.GITHUB_ACTION }}
+        GITHUB_REF: ${{ env.GITHUB_REF }}
+        GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
+        GITHUB_HEAD_REF: ${{ env.GITHUB_HEAD_REF }}
+        GITHUB_SHA: ${{ env.GITHUB_SHA }}
+        GITHUB_RUN_ID: ${{ env.GITHUB_RUN_ID }}
+        TRAVIS_BUILD_DIR: /usr/project/
 
     steps:
       - name: Checkout code
