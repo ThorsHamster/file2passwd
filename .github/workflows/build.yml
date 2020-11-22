@@ -12,18 +12,23 @@ jobs:
         - /home/runner/work:/usr/project
       env:
         CI: ${{ env.CI }}
-        CI_BUILD_URL: ${{ env.CI_BUILD_URL }}
-        CI_BUILD_ID: ${{ env.CI_BUILD_ID }}
-        CI_JOB_ID: ${{ env.CI_JOB_ID }}
-        GITHUB_ACTION: ${{ env.GITHUB_ACTION }}
-        GITHUB_REF: ${{ env.GITHUB_REF }}
-        GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
-        GITHUB_HEAD_REF: ${{ env.GITHUB_HEAD_REF }}
-        GITHUB_SHA: ${{ env.GITHUB_SHA }}
+        GITHUB_WORKFLOW: ${{ env.GITHUB_WORKFLOW }}
         GITHUB_RUN_ID: ${{ env.GITHUB_RUN_ID }}
+        GITHUB_RUN_NUMBER: ${{ env.GITHUB_RUN_NUMBER }}
+        GITHUB_ACTION: ${{ env.GITHUB_ACTION }}
+        GITHUB_ACTIONS: ${{ env.GITHUB_ACTIONS }}
         GITHUB_ACTOR: ${{ env.GITHUB_ACTOR }}
+        GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
+        GITHUB_EVENT_NAME: ${{ env.GITHUB_EVENT_NAME }}
+        GITHUB_EVENT_PATH: ${{ env.GITHUB_EVENT_PATH }}
         GITHUB_WORKSPACE: ${{ env.GITHUB_WORKSPACE }}
-        TRAVIS_BUILD_DIR: /usr/project/
+        GITHUB_SHA: ${{ env.GITHUB_SHA }}
+        GITHUB_REF: ${{ env.GITHUB_REF }}
+        GITHUB_HEAD_REF: ${{ env.GITHUB_HEAD_REF }}
+        GITHUB_BASE_REF: ${{ env.GITHUB_BASE_REF }}
+        GITHUB_SERVER_URL: ${{ env.GITHUB_SERVER_URL }}
+        GITHUB_API_URL: ${{ env.GITHUB_API_URL }}
+        GITHUB_GRAPHQL_URL: ${{ env.GITHUB_GRAPHQL_URL }}
 
     steps:
       - name: Checkout code
