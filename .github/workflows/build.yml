@@ -47,4 +47,4 @@ jobs:
 
       - name: Upload to ReportCI
         run: ./upload_report_ci.sh
-        uses: ubuntu-latest
+        runs-on: ubuntu-latest
