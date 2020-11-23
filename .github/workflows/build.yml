@@ -1,11 +1,31 @@
-name: build
+name: Build and Test
 
-on: push
+on: [push, pull_request]
 
 jobs:
   build:
-    name: Build and Test
+    name: Build
     runs-on: ubuntu-latest
+    container: 
+      image: thorshamster/file2passwd:latest
+      volumes:
+      - /home/runner/work:/usr/project
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: ./build.sh
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    container: 
+      image: thorshamster/file2passwd:latest
+      volumes:
+      - /home/runner/work:/usr/project
 
     steps:
       - name: Checkout code
@@ -13,38 +33,15 @@ jobs:
 
       - name: Run Styleguide Checks
         run: ./check_styleguide.sh -r
-        container: 
-          image: thorshamster/file2passwd:latest
-          volumes:
-          - /home/runner/work:/usr/project
-
-      - name: Build
-        run: ./build.sh
-        container: 
-          image: thorshamster/file2passwd:latest
-          volumes:
-          - /home/runner/work:/usr/project
 
       - name: Build Unittest
         run: ./build_unittests.sh
-        container: 
-          image: thorshamster/file2passwd:latest
-          volumes:
-          - /home/runner/work:/usr/project
 
       - name: Run all Unittest
         run: ./run_all_unittests.sh
-        container: 
-          image: thorshamster/file2passwd:latest
-          volumes:
-          - /home/runner/work:/usr/project
 
       - name: Generate Coverage
         run: ./generate_coverage.sh
-        container: 
-          image: thorshamster/file2passwd:latest
-          volumes:
-          - /home/runner/work:/usr/project
 
       - name: Upload to CodeCov
         uses: codecov/codecov-action@v1
