@@ -47,4 +47,3 @@ jobs:
 
       - name: Upload to ReportCI
         run: ./upload_report_ci.sh
-        runs-on: ubuntu-latest
