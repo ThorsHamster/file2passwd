@@ -39,7 +39,7 @@ jobs:
       - name: Run all Unittest
         uses: docker://thorshamster/file2passwd:latest
         with:
-          args: ./run_all_unittests
+          args: ./run_all_unittests.sh
 
       - name: Generate Coverage
         uses: docker://thorshamster/file2passwd:latest
