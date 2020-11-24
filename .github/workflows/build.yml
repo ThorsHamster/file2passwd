@@ -34,7 +34,7 @@ jobs:
         run: ./check_styleguide.sh -r
 
       - name: Build Unittest
-        urun: ./build_unittests.sh
+        run: ./build_unittests.sh
 
       - name: Run all Unittest
         run: ./run_all_unittests.sh
