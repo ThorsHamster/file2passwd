@@ -21,26 +21,30 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    container: 
-      image: thorshamster/file2passwd:latest
-      volumes:
-      - /home/runner/work:/usr/project
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Run Styleguide Checks
-        run: ./check_styleguide.sh -r
+        uses: docker://thorshamster/file2passwd:latest
+        with:
+          args: -/home/runner/work:/usr/project ./check_styleguide.sh -r
 
       - name: Build Unittest
-        run: ./build_unittests.sh
+        uses: docker://thorshamster/file2passwd:latest
+        with:
+          args: -/home/runner/work:/usr/project ./build_unittests.sh
 
       - name: Run all Unittest
-        run: ./run_all_unittests.sh
+        uses: docker://thorshamster/file2passwd:latest
+        with:
+          args: -/home/runner/work:/usr/project ./run_all_unittests
 
       - name: Generate Coverage
-        run: ./generate_coverage.sh
+        uses: docker://thorshamster/file2passwd:latest
+        with:
+          args: -/home/runner/work:/usr/project ./generate_coverage.sh
 
       - name: Upload to CodeCov
         uses: codecov/codecov-action@v1
