@@ -350,6 +350,7 @@ elif env.get("GITHUB_ACTIONS") == "true":
   slug = env.get("GITHUB_REPOSITORY")
   account_name = env.get("GITHUB_ACTOR")
   root_dir = env.get("GITHUB_WORKSPACE")
+  branch = env.get("GITHUB_REPOSITORY")
 
 else:
     print(bcolors.HEADER + "    No CI detected." + bcolors.ENDC)
