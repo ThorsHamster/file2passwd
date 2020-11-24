@@ -29,22 +29,22 @@ jobs:
       - name: Run Styleguide Checks
         uses: docker://thorshamster/file2passwd:latest
         with:
-          args: -/home/runner/work:/usr/project ./check_styleguide.sh -r
+          args: -v /home/runner/work:/usr/project ./check_styleguide.sh -r
 
       - name: Build Unittest
         uses: docker://thorshamster/file2passwd:latest
         with:
-          args: -/home/runner/work:/usr/project ./build_unittests.sh
+          args: -v /home/runner/work:/usr/project ./build_unittests.sh
 
       - name: Run all Unittest
         uses: docker://thorshamster/file2passwd:latest
         with:
-          args: -/home/runner/work:/usr/project ./run_all_unittests
+          args: -v /home/runner/work:/usr/project ./run_all_unittests
 
       - name: Generate Coverage
         uses: docker://thorshamster/file2passwd:latest
         with:
-          args: -/home/runner/work:/usr/project ./generate_coverage.sh
+          args: -v /home/runner/work:/usr/project ./generate_coverage.sh
 
       - name: Upload to CodeCov
         uses: codecov/codecov-action@v1
