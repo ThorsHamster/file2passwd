@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: Build - ${{ GITHUB_EVENT_NAME }}
+    name: Build - ${{ github.event_name }}
     runs-on: ubuntu-latest
     container: 
       image: thorshamster/file2passwd:latest
@@ -32,7 +32,7 @@ jobs:
           CLEAN: true
 
   test:
-    name: Test - ${{ GITHUB_EVENT_NAME }}
+    name: Test - ${{ github.event_name }}
     runs-on: ubuntu-latest
     container: 
       image: thorshamster/file2passwd:latest
