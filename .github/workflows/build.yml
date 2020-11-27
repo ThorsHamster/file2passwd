@@ -2,12 +2,15 @@ name: Build and Test
 
 on: [push, pull_request]
 
+env:
+  DOCKER_CONTAINER: thorshamster/file2passwd:latest
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     container: 
-      image: thorshamster/file2passwd:latest
+      image: ${{ DOCKER_CONTAINER }}
       volumes:
       - /home/runner/work:/usr/project
 
@@ -35,7 +38,7 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     container: 
-      image: thorshamster/file2passwd:latest
+      image: ${{ DOCKER_CONTAINER }}
       volumes:
       - /home/runner/work:/usr/project
 
