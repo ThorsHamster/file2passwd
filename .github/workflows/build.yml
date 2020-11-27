@@ -18,6 +18,10 @@ jobs:
       - name: Build
         run: ./build.sh
 
+      - name: Install rsync. Necessary for Deployment.
+        run: apt-get update && apt-get install -y rsync
+        if: success() && github.ref == 'refs/heads/dev_github_actions'
+
       - name: Deploy
         if: success() && github.ref == 'refs/heads/dev_github_actions'
         uses: JamesIves/github-pages-deploy-action@3.7.1
