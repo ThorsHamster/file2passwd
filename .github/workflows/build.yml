@@ -60,3 +60,4 @@ jobs:
 
       - name: Upload to ReportCI
         run: ./upload_report_ci.sh
+        if: github.event_name == 'push'
