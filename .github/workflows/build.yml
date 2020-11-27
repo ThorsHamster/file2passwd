@@ -20,10 +20,10 @@ jobs:
 
       - name: Install rsync. Necessary for Deployment.
         run: apt-get update && apt-get install -y rsync
-        if: success() && github.ref == 'refs/heads/dev_github_actions'
+        if: success() && github.ref == 'refs/heads/master'
 
       - name: Deploy
-        if: success() && github.ref == 'refs/heads/dev_github_actions'
+        if: success() && github.ref == 'refs/heads/master'
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
