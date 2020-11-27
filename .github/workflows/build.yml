@@ -18,6 +18,15 @@ jobs:
       - name: Build
         run: ./build.sh
 
+      - name: Deploy
+        if: success() && github.ref == 'refs/heads/master'
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: ./build/doc_doxygen/html
+          CLEAN: true
+
   test:
     name: Test
     runs-on: ubuntu-latest
