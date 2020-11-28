@@ -6,25 +6,16 @@ import argparse
 import subprocess
 import re
 import fnmatch
-import urllib
 import json
+import urllib
 
-if sys.version_info >= (3, 0):
-    import urllib
-
-    from urllib.parse import urlencode
-    from urllib.request import Request, urlopen
-
-
-else:
-    from urllib import urlencode
-    import urllib2
-    from urllib2 import Request, urlopen
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
 env = os.environ
 
 
-class bcolors:
+class BColors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
@@ -57,10 +48,12 @@ parser.add_argument("-f", "--framework",
                              "tape", "qunit", "doctest", "nunit"],
                     help="The used unit test framework - if not provided the script will try to determine it")
 parser.add_argument("-r", "--root_dir",
-                    help="The root directory of the git-project, to be used for aligning paths properly. Default is the git-root.")
+                    help="The root directory of the git-project, to be used for aligning paths properly. "
+                         "Default is the git-root.")
 parser.add_argument("-s", "--ci_system", help="Set the CI System manually. Should not be needed")
 parser.add_argument("-b", "--build_id",
-                    help="The identifer The Identifer for the build. When used on a CI system this will be automatically generated.")
+                    help="The identifer The Identifer for the build. When used on a CI system this will be "
+                         "automatically generated.")
 parser.add_argument("-a", "--sha", help="Specify the commit sha - normally determined by invoking git")
 parser.add_argument("-c", "--check_run", help="The check-run id used by github, used to update reports.")
 parser.add_argument("-d", "--id_file", help="The file to hold the check id given by github.",
@@ -77,8 +70,6 @@ if not args.check_run:
     except:
         pass
 
-## Alright, now detect the CI - thanks to codecov for the content
-
 root_dir = None
 branch = None
 service = None
@@ -91,11 +82,10 @@ slug = None
 run_name = args.name
 build_id = None
 account_name = None
-root_dir = None
 os_name = None
 
 if env.get("GITHUB_ACTIONS") == "true":
-    print(bcolors.HEADER + "    Github actions CI detected." + bcolors.ENDC)
+    print(BColors.HEADER + "    Github actions CI detected." + BColors.ENDC)
     # https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables
     service = "github-actions"
 
@@ -109,7 +99,7 @@ if env.get("GITHUB_ACTIONS") == "true":
         branch = os.path.basename(branch)
 
 else:
-    print(bcolors.HEADER + "    No CI detected." + bcolors.ENDC)
+    print(BColors.HEADER + "    No CI detected." + BColors.ENDC)
 
 if args.root_dir:
     root_dir = args.root_dir
@@ -119,19 +109,19 @@ if args.sha:
 if not commit:
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().replace('\n', '')
 
-print(bcolors.OKBLUE + "    Commit hash: " + commit + bcolors.ENDC)
+print(BColors.OKBLUE + "    Commit hash: " + commit + BColors.ENDC)
 
 if not root_dir:
     root_dir = subprocess.check_output(["git", "rev-parse", "--show-toplevel"]).decode().replace('\n', '')
 
-print(bcolors.OKBLUE + "    Root dir: " + root_dir + bcolors.ENDC)
+print(BColors.OKBLUE + "    Root dir: " + root_dir + BColors.ENDC)
 
 owner, repo = None, None
 if slug:
     try:
         (owner, repo) = slug.split('/')
     except:
-        print(bcolors.WARNING + "Invalid Slug: '{0}'".format(slug) + bcolors.ENDC)
+        print(BColors.WARNING + "Invalid Slug: '{0}'".format(slug) + BColors.ENDC)
 
 if not owner or not repo:
     remote_v = subprocess.check_output(["git", "remote", "-v"]).decode()
@@ -145,10 +135,9 @@ if not owner or not repo:
         owner = match.group(1)
         repo = match.group(2)
 
-print(bcolors.OKBLUE + "    Project: " + owner + '/' + repo + bcolors.ENDC)
+print(BColors.OKBLUE + "    Project: " + owner + '/' + repo + BColors.ENDC)
 
 
-# find
 def match_file(file_abs):
     match = False
     file = os.path.relpath(file_abs)
@@ -203,7 +192,7 @@ else:
     for file in args.file_list:
         abs = os.path.abspath(file)
         if not os.path.isfile(abs):
-            print(bcolors.FAIL + "Could not find file '" + file + "'" + bcolors.ENDC)
+            print(BColors.FAIL + "Could not find file '" + file + "'" + BColors.ENDC)
             exit(1)
         else:
             file_list.append(abs)
@@ -224,7 +213,7 @@ for abs_file in file_list:
                     content = binary_content.decode('utf-16').encode("ascii", "ignore").decode('ascii')
                 except UnicodeDecodeError:
                     print(
-                        bcolors.FAIL + "Can't figure out encoding of file " + abs_file + ", ignoring it" + bcolors.ENDC)
+                        BColors.FAIL + "Can't figure out encoding of file " + abs_file + ", ignoring it" + BColors.ENDC)
                     continue
 
         complete_content.append(content)
@@ -250,13 +239,13 @@ for abs_file in file_list:
 
             if re.match(r"(<\?[^?]*\?>\s*)?(<testsuites>\s*)?<testsuite[^>]", content):  # xUnit thingy
                 if content.find('"java.version"') != -1 and (
-                        content.find('org.junit') != -1 or content.find('org/junit') != -1 or content.find(
-                        'org\\junit') != -1):
+                        content.find('org.junit') != -1 or content.find('org/junit') != -1 or
+                        content.find('org\\junit') != -1):
                     print("    Found " + abs_file + ", looks like JUnit")
                     junit_test.append(content)
                 elif content.find('"java.version"') != -1 and (
-                        content.find('org.testng') != -1 or content.find('org/testng') != -1 or content.find(
-                        'org\    estng') != -1):
+                        content.find('org.testng') != -1 or content.find('org/testng') != -1 or
+                        content.find('org\    estng') != -1):
                     print("    Found " + abs_file + ", looks like TestNG")
                     testng_test.append(content)
                 elif content.find('"java.version"') == -1 and content.find('<testsuite name="bandit" tests="') != -1:
@@ -299,7 +288,6 @@ for abs_file in file_list:
                 print("    Found " + abs_file + ", looks like doctest")
                 doctest.append(content)
                 continue
-
 
         elif ext == ".json" and re.match(r"\s*({|\[)", content):  # Might be JSON, let's see if it fits go
             try:
@@ -347,234 +335,105 @@ if not args.framework:
 
     if len(testng_test) > 0:
         framework = "testng"
-        print(bcolors.HEADER + "TestNG detected" + bcolors.ENDC)
+        print(BColors.HEADER + "TestNG detected" + BColors.ENDC)
 
     elif len(junit_test) > 0:
         framework = "junit"
-        print(bcolors.HEADER + "JUnit detected" + bcolors.ENDC)
+        print(BColors.HEADER + "JUnit detected" + BColors.ENDC)
 
     elif len(bandit) > 0:
         framework = "bandit"
-        print(bcolors.HEADER + "Bandit detected" + bcolors.ENDC)
+        print(BColors.HEADER + "Bandit detected" + BColors.ENDC)
 
     elif phpunit > 0:
         framework = "phpunit"
-        print(bcolors.HEADER + "PHPUnit detected" + bcolors.ENDC)
+        print(BColors.HEADER + "PHPUnit detected" + BColors.ENDC)
 
     elif pytest > 0:
         framework = "pytest"
-        print(bcolors.HEADER + "PyTest detected" + bcolors.ENDC)
+        print(BColors.HEADER + "PyTest detected" + BColors.ENDC)
 
     elif len(xunit_test) > 0:
         framework = "xunit"
-        print(bcolors.HEADER + "Unspecified xUnit detected" + bcolors.ENDC)
+        print(BColors.HEADER + "Unspecified xUnit detected" + BColors.ENDC)
 
     elif len(boost_test) > 0:
         framework = "boost"
-        print(bcolors.HEADER + "Boost.test detected" + bcolors.ENDC)
+        print(BColors.HEADER + "Boost.test detected" + BColors.ENDC)
 
     elif len(criterion_test) > 0:
         framework = "criterion"
-        print(bcolors.HEADER + "Criterion detected" + bcolors.ENDC)
+        print(BColors.HEADER + "Criterion detected" + BColors.ENDC)
 
     elif len(catch_test) > 0:
         framework = "catch"
-        print(bcolors.HEADER + "Catch detected" + bcolors.ENDC)
+        print(BColors.HEADER + "Catch detected" + BColors.ENDC)
 
     elif len(cxxtest) > 0:
         framework = "cxxtest"
-        print(bcolors.HEADER + "CxxTest detected" + bcolors.ENDC)
+        print(BColors.HEADER + "CxxTest detected" + BColors.ENDC)
 
     elif len(qtest) > 0:
         framework = "qtest"
-        print(bcolors.HEADER + "QTest detected" + bcolors.ENDC)
+        print(BColors.HEADER + "QTest detected" + BColors.ENDC)
 
     elif len(go_test) > 0:
         framework = "go-test"
-        print(bcolors.HEADER + "Go detected" + bcolors.ENDC)
+        print(BColors.HEADER + "Go detected" + BColors.ENDC)
 
     elif len(testunit) > 0:
         framework = "testunit"
-        print(bcolors.HEADER + "TestUnit detected" + bcolors.ENDC)
+        print(BColors.HEADER + "TestUnit detected" + BColors.ENDC)
 
     elif len(mstest) > 0:
         framework = "mstest"
-        print(bcolors.HEADER + "MSTest detected" + bcolors.ENDC)
+        print(BColors.HEADER + "MSTest detected" + BColors.ENDC)
 
     elif len(nunit) > 0:
         framework = "nunit"
-        print(bcolors.HEADER + "NUnit detected" + bcolors.ENDC)
+        print(BColors.HEADER + "NUnit detected" + BColors.ENDC)
 
     elif len(xunitnet) > 0:
         framework = "xunitnet"
-        print(bcolors.HEADER + "XUnit.net detected" + bcolors.ENDC)
+        print(BColors.HEADER + "XUnit.net detected" + BColors.ENDC)
 
     elif len(rspec) > 0:
         framework = "rspec"
-        print(bcolors.HEADER + "RSpec detected" + bcolors.ENDC)
+        print(BColors.HEADER + "RSpec detected" + BColors.ENDC)
 
     elif len(mocha) > 0:
         framework = "mocha"
-        print(bcolors.HEADER + "Mocha detected" + bcolors.ENDC)
+        print(BColors.HEADER + "Mocha detected" + BColors.ENDC)
 
     elif ava > 0:
         framework = "ava"
-        print(bcolors.HEADER + "AVA detected" + bcolors.ENDC)
+        print(BColors.HEADER + "AVA detected" + BColors.ENDC)
 
     elif len(tap_test) > 0:
         framework = "tap"
-        print(bcolors.HEADER + "Unspecificed TAP detected" + bcolors.ENDC)
+        print(BColors.HEADER + "Unspecificed TAP detected" + BColors.ENDC)
 
     elif len(doctest) > 0:
         framework = "doctest"
-        print(bcolors.HEADER + "Doctest detected" + bcolors.ENDC)
+        print(BColors.HEADER + "Doctest detected" + BColors.ENDC)
 
     else:
 
-        print(bcolors.FAIL + "No framework selected and not detected." + bcolors.ENDC)
+        print(BColors.FAIL + "No framework selected and not detected." + BColors.ENDC)
         exit(1)
 else:
     framework = args.framework
-    print(bcolors.HEADER + framework + " selected" + bcolors.ENDC)
+    print(BColors.HEADER + framework + " selected" + BColors.ENDC)
 
-if (framework == "testng"):
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(testng_test) + "</root>"
-    if not run_name: run_name = "TestNG";
-elif (framework == "junit"):
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(xunit_test) + "".join(junit_test) + "".join(
-        ["\n    <file>{0}</file>".format(file) for file in file_list]) + "</root>";
-    if not run_name: run_name = "JUnit"
-elif framework == "bandit":
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(bandit) + "</root>"
-    if not run_name: run_name = "Bandit"
-elif (framework == "xunit"):
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(xunit_test) + "".join(junit_test) + "".join(
-        ["\n    <file>{0}</file>".format(file) for file in file_list]) + "</root>";
-    if not run_name: run_name = "xUnit"
-elif (framework == "boost"):
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(boost_test) + "</root>"
-    if not run_name: run_name = "boost.test"
-elif (framework == "cmocka"):
+if framework == "gtest":
     content_type = "text/xml"
     upload_content = "<root>" + "".join(xunit_test) + "</root>"
-    if not run_name: run_name = "CMocka"
-elif (framework == "criterion"):
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(criterion_test) + "</root>"
-    if not run_name: run_name = "Criterion"
-elif (framework == "catch"):
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(catch_test) + "</root>"
-    if not run_name: run_name = "Catch"
-elif (framework == "unity"):
-    content_type = "text/plain"
-    upload_content = "\n".join(complete_content)
-    if not run_name: run_name = "Unity"
-elif (framework == "cpputest"):
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(xunit_test) + "</root>"
-    if not run_name: run_name = "CppUTest"
-elif (framework == "minitest"):
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(xunit_test) + "</root>"
-    if not run_name: run_name = "Minitest"
-elif (framework == "cute"):
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(xunit_test) + "</root>"
-    if not run_name: run_name = "Cute"
-elif (framework == "doctest"):
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(doctest) + "</root>"
-    if not run_name: run_name = "Doctest"
-elif framework == "cxxtest":
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(cxxtest) + "".join(xunit_test) + "</root>"
-    if not run_name: run_name = "CxxTest"
-elif framework == "gtest":
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(xunit_test) + "</root>"
-    if not run_name: run_name = "GoogleTest"
-elif framework == "qtest":
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(qtest) + "</root>"
-    if not run_name: run_name = "QTest"
-elif framework == "testunit":
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(testunit) + "</root>"
-    if not run_name: run_name = "TestUnit"
-elif framework == "rspec":
-    content_type = "application/json"
-    upload_content = json.dumps(rspec)
-    if not run_name: run_name = "RSpec"
-elif framework == "mocha":
-    content_type = "application/json"
-    upload_content = json.dumps(mocha)
-    if not run_name: run_name = "Mocha"
-elif framework == "xunitnet":
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(xunitnet) + "</root>"
-    if not run_name: run_name = "XUnit.Net"
-elif framework == "nunit":
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(nunit) + "</root>"
-    if not run_name: run_name = "NUnit"
-elif framework == "phpunit":
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(xunit_test) + "</root>"
-    if not run_name: run_name = "PHPUnit"
-elif framework == "pytest":
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(xunit_test) + "</root>"
-    if not run_name: run_name = "PyTest"
-elif framework == "pyunit":
-    content_type = "text/xml"
-    upload_content = "<root>" + "".join(xunit_test) + "</root>"
-    if not run_name: run_name = "PyUnit"
-elif (framework == "ava"):
-    content_type = "text/plain"
-    upload_content = "\n".join(tap_test)
-    if not run_name: run_name = "Ava"
-elif (framework == "qunit"):
-    content_type = "text/plain"
-    upload_content = "\n".join(tap_test)
-    if not run_name: run_name = "QUnit"
-elif (framework == "tap"):
-    content_type = "text/plain"
-    upload_content = "\n".join(tap_test)
-    if not run_name: run_name = "Tap"
-elif (framework == "tape"):
-    content_type = "text/plain"
-    upload_content = "\n".join(tap_test)
-    if not run_name: run_name = "Tape"
-
-elif framework == "mstest":
-    content_type = "text/xml"
-
-    filename = "",
-    time = None
-    for (fn, content) in mstest:
-        time_ = os.path.getmtime(fn)
-        if time == None or time_ > time:
-            filename = fn
-            upload_content = content
-            time_ = time
-
-    print(bcolors.HEADER + "MSTest picked " + filename + bcolors.ENDC)
-    if not run_name: run_name = "MSTest";
-
-elif framework == "go-test":
-    content_type = "application/json"
-    upload_content = json.dumps({'files': file_list, 'test_data': go_test})
-    if not run_name: run_name = "Go";
+    if not run_name:
+        run_name = "GoogleTest"
 
 upload_content = upload_content.strip()
 if len(upload_content) == 0:
-    print(bcolors.FAIL + " No test data to upload.")
+    print(BColors.FAIL + " No test data to upload.")
     exit(1)
 
 if service and not args.name and run_name:
@@ -595,11 +454,16 @@ query = {
     'account-name': account_name,
 }
 
-if run_name: query['run-name'] = run_name
-if args.check_run: query['check-run-id'] = args.check_run
-if args.preset: query['preset'] = args.preset
-if args.define: query['define'] = args.define
-if args.merge: query["merge"] = args.merge
+if run_name:
+    query['run-name'] = run_name
+if args.check_run:
+    query['check-run-id'] = args.check_run
+if args.preset:
+    query['preset'] = args.preset
+if args.define:
+    query['define'] = args.define
+if args.merge:
+    query["merge"] = args.merge
 
 url = "https://api.report.ci/publish/"
 
@@ -608,7 +472,7 @@ if sys.version_info >= (3, 0):
 else:
     url = urllib.urlopen(url).geturl()
 
-if service and service in ["travis-ci", "appveyor", "circle-ci", "github-actions"] and args.token == None:
+if service and service in ["travis-ci", "appveyor", "circle-ci", "github-actions"] and args.token is None:
     query["build-id"] = build_id
     url += service + "/"
 
@@ -627,7 +491,7 @@ if args.check_run:
 
 try:
     response = urlopen(request).read().decode()
-    print(bcolors.OKGREEN + "Published: '{0}".format(response) + bcolors.ENDC)
+    print(BColors.OKGREEN + "Published: '{0}".format(response) + BColors.ENDC)
     res = json.loads(response)
     ch_id = str(res["id"])
     print('Uploaded check_run https://report.ci/reports/gh/{}/{}/rep/{}'.format(owner, repo, ch_id))
@@ -635,9 +499,9 @@ try:
     exit(0)
 
 except Exception as e:
-    print(bcolors.FAIL + 'Publishing failed: {0}'.format(e) + bcolors.ENDC)
+    print(BColors.FAIL + 'Publishing failed: {0}'.format(e) + BColors.ENDC)
     try:
-        print(e.read())
+        print(e)
     except:
         exit(1)
     exit(1)
