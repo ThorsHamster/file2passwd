@@ -107,12 +107,12 @@ if args.root_dir:
 if args.sha:
     commit = args.sha
 if not commit:
-    commit = subprocess.check_output(["/bin/git", "rev-parse", "HEAD"]).decode().replace('\n', '')
+    commit = subprocess.check_output(["/bin/git", "rev-parse", "HEAD"]).decode().replace('\n', '')  # nosec
 
 print(BColors.OKBLUE + "    Commit hash: " + commit + BColors.ENDC)
 
 if not root_dir:
-    root_dir = subprocess.check_output(["/bin/git", "rev-parse", "--show-toplevel"]).decode().replace('\n', '')
+    root_dir = subprocess.check_output(["/bin/git", "rev-parse", "--show-toplevel"]).decode().replace('\n', '')  # nosec
 
 print(BColors.OKBLUE + "    Root dir: " + root_dir + BColors.ENDC)
 
@@ -124,7 +124,7 @@ if slug:
         print(BColors.WARNING + "Invalid Slug: '{0}'".format(slug) + BColors.ENDC)
 
 if not owner or not repo:
-    remote_v = subprocess.check_output(["/bin/git", "remote", "-v"]).decode()
+    remote_v = subprocess.check_output(["/bin/git", "remote", "-v"]).decode()  # nosec
     match = re.search(r"(?:https://|ssh://git@)github.com/([-_A-Za-z0-9]+)/((?:(?!\.git(?:\s|$))[-._A-Za-z0-9])+)",
                       remote_v)
     if match:
