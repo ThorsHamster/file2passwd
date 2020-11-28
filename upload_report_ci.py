@@ -124,7 +124,7 @@ if slug:
         print(BColors.WARNING + "Invalid Slug: '{0}'".format(slug) + BColors.ENDC)
 
 if not owner or not repo:
-    remote_v = subprocess.check_output(["git", "remote", "-v"]).decode()
+    remote_v = subprocess.check_output(["/bin/git", "remote", "-v"]).decode()
     match = re.search(r"(?:https://|ssh://git@)github.com/([-_A-Za-z0-9]+)/((?:(?!\.git(?:\s|$))[-._A-Za-z0-9])+)",
                       remote_v)
     if match:
@@ -483,8 +483,10 @@ if args.check_run and not args.name and 'run-name' in query:
     del query['run-name']
 
 request = Request(url + "?" + urlencode(query), upload_content, headers)
-if args.token:   request.add_header("Authorization", "Bearer " + args.token)
-if content_type: request.add_header("Content-Type", content_type)
+if args.token:
+    request.add_header("Authorization", "Bearer " + args.token)
+if content_type:
+    request.add_header("Content-Type", content_type)
 
 if args.check_run:
     request.get_method = lambda: 'PATCH'
