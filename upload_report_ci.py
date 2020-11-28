@@ -190,12 +190,12 @@ if not args.file_list:
             file_list.append(abs_file)
 else:
     for file in args.file_list:
-        abs = os.path.abspath(file)
-        if not os.path.isfile(abs):
+        abs_ = os.path.abspath(file)
+        if not os.path.isfile(abs_):
             print(BColors.FAIL + "Could not find file '" + file + "'" + BColors.ENDC)
             exit(1)
         else:
-            file_list.append(abs)
+            file_list.append(abs_)
 
 for abs_file in file_list:
     if match_file(abs_file):
