@@ -18,6 +18,14 @@ jobs:
       - name: Build
         run: ./build.sh
 
+      - name: Upload Artifact
+        if: success()
+        uses: actions/upload-artifact@v2
+        with:
+          name: file2passwd
+          path: /_install/bin/
+          retention-days: 5
+
       - name: Install rsync. Necessary for Deployment.
         run: apt-get update && apt-get install -y rsync
         if: success() && github.ref == 'refs/heads/master'
