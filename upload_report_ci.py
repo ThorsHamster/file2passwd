@@ -467,10 +467,7 @@ if args.merge:
 
 url = "https://api.report.ci/publish/"
 
-if sys.version_info >= (3, 0):
-    url = urllib.request.urlopen(url).geturl()
-else:
-    url = urllib.urlopen(url).geturl()
+url = urllib.request.urlopen(url).geturl()  # nosec
 
 if service and service in ["travis-ci", "appveyor", "circle-ci", "github-actions"] and args.token is None:
     query["build-id"] = build_id
@@ -492,7 +489,7 @@ if args.check_run:
     request.get_method = lambda: 'PATCH'
 
 try:
-    response = urlopen(request).read().decode()
+    response = urlopen(request).read().decode()  # nosec
     print(BColors.OKGREEN + "Published: '{0}".format(response) + BColors.ENDC)
     res = json.loads(response)
     ch_id = str(res["id"])
