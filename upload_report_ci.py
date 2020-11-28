@@ -3,7 +3,7 @@
 import os
 import sys
 import argparse
-import subprocess
+import subprocess  # nosec
 import re
 import fnmatch
 import json
