@@ -23,7 +23,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: file2passwd
-          path: /_install/bin/
+          path: ${{ github.workspace }}/_install/bin/
           retention-days: 5
 
       - name: Install rsync. Necessary for Deployment.
