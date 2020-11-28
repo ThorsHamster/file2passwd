@@ -502,8 +502,5 @@ try:
 
 except Exception as e:
     print(BColors.FAIL + 'Publishing failed: {0}'.format(e) + BColors.ENDC)
-    try:
-        print(e)
-    except:
-        exit(1)
+    print(e)
     exit(1)
