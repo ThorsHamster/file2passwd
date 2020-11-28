@@ -67,8 +67,8 @@ args = parser.parse_args()
 if not args.check_run:
     try:
         args.check_run = json.loads(open(args.id_file, "r").read())["github"]
-    except:
-        pass
+    except Exception as e:
+        print(e)
 
 root_dir = None
 branch = None
@@ -120,7 +120,7 @@ owner, repo = None, None
 if slug:
     try:
         (owner, repo) = slug.split('/')
-    except:
+    except Exception as e:
         print(BColors.WARNING + "Invalid Slug: '{0}'".format(slug) + BColors.ENDC)
 
 if not owner or not repo:
@@ -297,8 +297,8 @@ for abs_file in file_list:
                     print("Found " + abs_file + ", looks like GoTest")
                     go_test = go_test + [json.loads(ln) for ln in lines]
                     continue
-            except:
-                pass
+            except Exception as e:
+                print(e)
             try:
                 data = json.loads(content)
 
@@ -311,8 +311,8 @@ for abs_file in file_list:
                     mocha.append(data)
                     continue
 
-            except:
-                pass
+            except Exception as e:
+                print(e)
 
             # data = loadJson(content)
         elif ext == ".trx" and re.match(r"(<\?[^?]*\?>\s*)?<TestRun", content):

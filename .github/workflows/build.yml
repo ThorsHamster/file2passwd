@@ -6,7 +6,7 @@ jobs:
   build:
     name: Build - ${{ github.event_name }}
     runs-on: ubuntu-latest
-    container: 
+    container:
       image: thorshamster/file2passwd:latest
       volumes:
       - /home/runner/work:/usr/project
@@ -42,7 +42,7 @@ jobs:
   test:
     name: Test - ${{ github.event_name }}
     runs-on: ubuntu-latest
-    container: 
+    container:
       image: thorshamster/file2passwd:latest
       volumes:
       - /home/runner/work:/usr/project
